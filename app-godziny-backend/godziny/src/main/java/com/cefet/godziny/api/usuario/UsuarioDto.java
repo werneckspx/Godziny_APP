@@ -3,6 +3,7 @@ package com.cefet.godziny.api.usuario;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.lang.Nullable;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Builder
@@ -24,6 +25,7 @@ public class UsuarioDto{
     private String email;
 
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     @NotNull
