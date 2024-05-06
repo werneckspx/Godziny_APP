@@ -53,7 +53,7 @@ public class UsuarioControle implements IUsuarioApi{
 
     @Override
     public ResponseEntity<Integer> criarUsuario(@Valid UsuarioDto dto) throws Exception{
-        CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto);
+        CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
         UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.pesquisarPorId(dto.getCursoId()));
@@ -62,7 +62,7 @@ public class UsuarioControle implements IUsuarioApi{
 
     @Override
     public ResponseEntity<Integer> atualizarUsuario(@Valid UsuarioDto dto) throws Exception {
-        CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto);
+        CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
         UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.pesquisarPorId(dto.getCursoId()));

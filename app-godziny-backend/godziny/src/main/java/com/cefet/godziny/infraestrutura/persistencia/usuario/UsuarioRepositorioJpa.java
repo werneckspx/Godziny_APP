@@ -1,6 +1,7 @@
 package com.cefet.godziny.infraestrutura.persistencia.usuario;
 
 import java.util.Optional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,17 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     public UsuarioEntidade pesquisarPorId(Integer matricula) throws Exception{
         Optional<UsuarioEntidade> entidade = repositorio.findById(matricula);
         return UsuarioRestConverter.OptionalToUsuarioEntidade(entidade);
+    }
+
+    @Override
+    public UsuarioEntidade pesquisarPorEmail(String email) throws Exception {
+        Optional<UsuarioEntidade> entidade = repositorio.findByEmail(email);
+        if(!entidade.isPresent()){
+            return null;
+        }
+        var usuarioEntidade = new UsuarioEntidade();
+        BeanUtils.copyProperties(entidade.get(), usuarioEntidade);
+        return usuarioEntidade;
     }
 
     @Override

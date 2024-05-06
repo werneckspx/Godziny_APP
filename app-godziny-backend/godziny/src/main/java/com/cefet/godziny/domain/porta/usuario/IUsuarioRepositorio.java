@@ -10,6 +10,8 @@ public interface IUsuarioRepositorio{
 
     UsuarioEntidade pesquisarPorId(Integer matricula) throws Exception;
 
+    UsuarioEntidade pesquisarPorEmail(String email) throws Exception;
+
     Page<UsuarioEntidade> listarUsuario(Pageable pageable);
 
     Page<UsuarioEntidade>listarUsuarioPorCurso(Pageable pageable, CursoEntidade curso);

@@ -10,6 +10,8 @@ import com.cefet.godziny.domain.casouso.usuario.CriarUsuarioCasoUso;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.UsuarioNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
+
 import lombok.AccessLevel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -45,11 +47,12 @@ public class UsuarioRestConverter {
         .build();
     }
 
-    public static CriarUsuarioCasoUso DtoToCriarUsuarioCasoUso(UsuarioDto dto){
+    public static CriarUsuarioCasoUso DtoToCriarUsuarioCasoUso(UsuarioDto dto, UsuarioRepositorioJpa repositorio){
         return CriarUsuarioCasoUso.builder()
         .nome(dto.getNome())
         .email(dto.getEmail())
         .senha(dto.getSenha())
+        .usuarioRepositorioJpa(repositorio)
         .build();
     }
 }
