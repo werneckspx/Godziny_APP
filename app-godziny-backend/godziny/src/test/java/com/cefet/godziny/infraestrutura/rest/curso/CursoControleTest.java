@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,7 +21,6 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -38,9 +36,6 @@ public class CursoControleTest {
 
     private CursoEntidade entidade;
     private CursoDto dto;
-
-    @Autowired
-    EntityManager entityManager;
 
     @InjectMocks
     CursoControle controler;
@@ -63,9 +58,6 @@ public class CursoControleTest {
     void limparDados() {
         this.entidade = null;
         this.dto = null;
-
-        this.entityManager.flush();
-        this.entityManager.clear();
 
         cursoRepositorioJpa.deleteAll();
         usuarioRepositorioJpa.deleteAll();
@@ -146,12 +138,14 @@ public class CursoControleTest {
 
     private CursoEntidade createCursoEntidade(){
         CursoEntidade curso = new CursoEntidade(SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
-        this.entityManager.persist(curso);
         return curso;
     }
 
     private CursoDto createCursoDto(){
-        CursoDto curso = new CursoDto(SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
+        CursoDto curso = new CursoDto();
+        curso.setSigla(SIGLA);
+        curso.setNome(NOME);
+        curso.setCarga_horaria_complementar(CARGA_HORARIA_COMPLEMENTAR);
         return curso;
     }
 }
