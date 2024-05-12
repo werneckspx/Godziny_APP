@@ -24,7 +24,6 @@ import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJ
 import jakarta.transaction.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-
 import java.util.List;
 
 @DataJpaTest
