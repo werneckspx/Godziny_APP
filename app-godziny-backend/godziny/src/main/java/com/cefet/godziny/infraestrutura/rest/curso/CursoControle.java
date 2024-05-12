@@ -1,9 +1,6 @@
 package com.cefet.godziny.infraestrutura.rest.curso;
 
 import jakarta.validation.Valid;
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +11,6 @@ import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.api.curso.ICursoApi;
 import com.cefet.godziny.domain.casouso.curso.CriarCursoCasoUso;
 import com.cefet.godziny.domain.casouso.curso.RemoverCursoCasoUso;
-import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 

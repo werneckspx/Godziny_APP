@@ -54,6 +54,8 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
 
     @Override
     public Integer atualizarUsuario(UsuarioEntidade newUsuario) throws Exception {
+        Optional<UsuarioEntidade> usuario = this.repositorio.findById(newUsuario.getMatricula());
+        UsuarioRestConverter.OptionalToUsuarioEntidade(usuario);
         return repositorio.save(newUsuario).getMatricula();
     }
     

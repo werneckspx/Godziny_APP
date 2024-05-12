@@ -39,6 +39,8 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
 
     @Override
     public String atualizarCurso(CursoEntidade newCurso) throws Exception {
+        Optional<CursoEntidade> curso = this.repositorio.findById(newCurso.getSigla());
+        CursoRestConverter.OptionalToCursoEntidade(curso);
         return repositorio.save(newCurso).getSigla();
     }
 
