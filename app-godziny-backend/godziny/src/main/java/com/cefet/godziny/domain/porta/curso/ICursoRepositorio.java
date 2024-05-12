@@ -15,4 +15,6 @@ public interface ICursoRepositorio {
     String atualizarCurso(CursoEntidade newCurso) throws Exception;
 
     void deletarCurso(String id) throws Exception;
+
+    void deleteAll();
 }

@@ -63,4 +63,9 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
         UsuarioRestConverter.OptionalToUsuarioEntidade(usuario);
         repositorio.deleteById(matricula);
     }
+
+    @Override
+    public void deleteAll(){
+        repositorio.deleteAll();
+    }
 }

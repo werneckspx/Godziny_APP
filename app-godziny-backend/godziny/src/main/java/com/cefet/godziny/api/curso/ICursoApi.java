@@ -15,7 +15,7 @@ public interface ICursoApi {
     ResponseEntity<CursoDto> recuperarCurso(@PathVariable(value = "cursoId") String sigla) throws Exception;
 
     @GetMapping("/lista")
-    ResponseEntity<Page<CursoDto>> listarCurso(
+    ResponseEntity<Page<CursoDto>> listarCursos(
         @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
         Pageable pageable
     );

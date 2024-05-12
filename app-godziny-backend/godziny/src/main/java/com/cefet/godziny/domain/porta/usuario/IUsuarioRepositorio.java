@@ -21,4 +21,6 @@ public interface IUsuarioRepositorio{
     Integer atualizarUsuario(UsuarioEntidade newUsuario) throws Exception;
 
     void deletarUsuario(Integer matricula) throws Exception;
+
+    void deleteAll();
 }

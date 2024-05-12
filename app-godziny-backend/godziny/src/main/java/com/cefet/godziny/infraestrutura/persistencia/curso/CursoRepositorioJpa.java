@@ -12,7 +12,7 @@ import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
 public class CursoRepositorioJpa implements ICursoRepositorio {
 
     @Autowired
-    private CursoRepositorioJpaSpring repositorio;
+    private final CursoRepositorioJpaSpring repositorio;
 
     public CursoRepositorioJpa(CursoRepositorioJpaSpring repositorio){
         this.repositorio = repositorio;
@@ -47,5 +47,10 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
         Optional<CursoEntidade> curso = this.repositorio.findById(sigla);
         CursoRestConverter.OptionalToCursoEntidade(curso);
         repositorio.deleteById(sigla);
+    }
+
+    @Override
+    public void deleteAll(){
+        repositorio.deleteAll();
     }
 }

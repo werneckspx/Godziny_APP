@@ -1,6 +1,9 @@
 package com.cefet.godziny.infraestrutura.rest.curso;
 
 import jakarta.validation.Valid;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +14,7 @@ import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.api.curso.ICursoApi;
 import com.cefet.godziny.domain.casouso.curso.CriarCursoCasoUso;
 import com.cefet.godziny.domain.casouso.curso.RemoverCursoCasoUso;
+import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 
@@ -35,7 +39,7 @@ public class CursoControle implements ICursoApi{
     }
 
     @Override
-    public ResponseEntity<Page<CursoDto>> listarCurso(Pageable pageable) {
+    public ResponseEntity<Page<CursoDto>> listarCursos(Pageable pageable) {
         Page<CursoDto> pageCursoDto = cursoRepositorioJpa.listarCursos(pageable).map(CursoRestConverter::EntidadeToCursoDto);
         return ResponseEntity.status(HttpStatus.OK).body(pageCursoDto);
     }
@@ -45,14 +49,15 @@ public class CursoControle implements ICursoApi{
         CriarCursoCasoUso casoUso = CursoRestConverter.DtoToCriarCursoCasoUso(dto);
         casoUso.validarCriacao();
         var cursoEntidade = CursoRestConverter.DtoToEntidadeJpa(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cursoRepositorioJpa.criarCurso(cursoEntidade));
+        String sigla = cursoRepositorioJpa.criarCurso(cursoEntidade);
+        return ResponseEntity.status(HttpStatus.CREATED).body(sigla);
     }
 
     @Override
     public ResponseEntity<String> atualizarCurso(@Valid CursoDto dto) throws Exception {
         CriarCursoCasoUso casoUso = CursoRestConverter.DtoToCriarCursoCasoUso(dto);
         casoUso.validarCriacao();
-        var cursoEntidade = CursoRestConverter.DtoToEntidadeJpa(dto);
+        var cursoEntidade = cursoRepositorioJpa.pesquisarPorId(dto.getSigla());
         return ResponseEntity.status(HttpStatus.OK).body(cursoRepositorioJpa.atualizarCurso(cursoEntidade));
     }
 
