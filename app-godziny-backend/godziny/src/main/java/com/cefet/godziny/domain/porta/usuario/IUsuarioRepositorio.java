@@ -8,19 +8,19 @@ import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 
 public interface IUsuarioRepositorio{
 
-    UsuarioEntidade pesquisarPorId(Integer matricula) throws Exception;
+    UsuarioEntidade findById(Integer matricula) throws Exception;
 
-    UsuarioEntidade pesquisarPorEmail(String email) throws Exception;
+    UsuarioEntidade findByEmail(String email) throws Exception;
 
-    Page<UsuarioEntidade> listarUsuario(Pageable pageable);
+    Page<UsuarioEntidade> listUsuario(Pageable pageable);
 
-    Page<UsuarioEntidade>listarUsuarioPorCurso(Pageable pageable, CursoEntidade curso);
+    Page<UsuarioEntidade>listUsuarioByCurso(Pageable pageable, CursoEntidade curso);
 
-    Integer criarUsuario(UsuarioEntidade newUsuario);
+    Integer createUsuario(UsuarioEntidade newUsuario);
 
-    Integer atualizarUsuario(UsuarioEntidade newUsuario) throws Exception;
+    Integer updateUsuario(UsuarioEntidade newUsuario) throws Exception;
 
-    void deletarUsuario(Integer matricula) throws Exception;
+    void deleteUsuario(Integer matricula) throws Exception;
 
     void deleteAll();
 }

@@ -29,38 +29,38 @@ public class CursoControle implements ICursoApi{
     }
 
     @Override
-    public ResponseEntity<CursoDto> recuperarCurso(String sigla) throws Exception {
-        var cursoDto = CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.pesquisarPorId(sigla));
+    public ResponseEntity<CursoDto> getCurso(String sigla) throws Exception {
+        var cursoDto = CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.findyById(sigla));
         return ResponseEntity.status(HttpStatus.OK).body(cursoDto);
     }
 
     @Override
-    public ResponseEntity<Page<CursoDto>> listarCursos(Pageable pageable) {
-        Page<CursoDto> pageCursoDto = cursoRepositorioJpa.listarCursos(pageable).map(CursoRestConverter::EntidadeToCursoDto);
+    public ResponseEntity<Page<CursoDto>> listCursos(Pageable pageable) {
+        Page<CursoDto> pageCursoDto = cursoRepositorioJpa.listCursos(pageable).map(CursoRestConverter::EntidadeToCursoDto);
         return ResponseEntity.status(HttpStatus.OK).body(pageCursoDto);
     }
 
     @Override
-    public ResponseEntity<String> criarCurso(@Valid CursoDto dto) throws Exception{
+    public ResponseEntity<String> createCurso(@Valid CursoDto dto) throws Exception{
         CriarCursoCasoUso casoUso = CursoRestConverter.DtoToCriarCursoCasoUso(dto);
         casoUso.validarCriacao();
         var cursoEntidade = CursoRestConverter.DtoToEntidadeJpa(dto);
-        String sigla = cursoRepositorioJpa.criarCurso(cursoEntidade);
+        String sigla = cursoRepositorioJpa.createCurso(cursoEntidade);
         return ResponseEntity.status(HttpStatus.CREATED).body(sigla);
     }
 
     @Override
-    public ResponseEntity<String> atualizarCurso(@Valid CursoDto dto) throws Exception {
+    public ResponseEntity<String> updateCurso(@Valid CursoDto dto) throws Exception {
         CriarCursoCasoUso casoUso = CursoRestConverter.DtoToCriarCursoCasoUso(dto);
         casoUso.validarCriacao();
-        return ResponseEntity.status(HttpStatus.OK).body(cursoRepositorioJpa.atualizarCurso(CursoRestConverter.DtoToEntidadeJpa(dto)));
+        return ResponseEntity.status(HttpStatus.OK).body(cursoRepositorioJpa.updateCurso(CursoRestConverter.DtoToEntidadeJpa(dto)));
     }
 
     @Override
-    public ResponseEntity<Void> removerCurso(String sigla) throws Exception {
+    public ResponseEntity<Void> removeCurso(String sigla) throws Exception {
         RemoverCursoCasoUso casoUso = new RemoverCursoCasoUso(sigla, usuarioRepositorioJpa, cursoRepositorioJpa);
         casoUso.validarRemocao();
-        cursoRepositorioJpa.deletarCurso(sigla);
+        cursoRepositorioJpa.deleteCurso(sigla);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

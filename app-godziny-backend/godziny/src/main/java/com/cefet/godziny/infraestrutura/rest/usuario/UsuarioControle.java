@@ -37,43 +37,43 @@ public class UsuarioControle implements IUsuarioApi{
     private final PasswordEncoder enconder;
 
     @Override
-    public ResponseEntity<UsuarioRecuperarDto> recuperarUsuario(Integer matricula) throws Exception {
-        var usuarioEntidade = usuarioRepositorioJpa.pesquisarPorId(matricula);
+    public ResponseEntity<UsuarioRecuperarDto> getUsuario(Integer matricula) throws Exception {
+        var usuarioEntidade = usuarioRepositorioJpa.findById(matricula);
         var usuarioRecuperarDto = UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(usuarioEntidade, CursoRestConverter.EntidadeToCursoDto(usuarioEntidade.getCurso()));
         return ResponseEntity.status(HttpStatus.OK).body(usuarioRecuperarDto);
     }
 
     @Override
-    public ResponseEntity<Page<UsuarioRecuperarDto>> listarUsuario(Pageable pageable) throws Exception{
-        Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listarUsuario(pageable).map(entidade -> {
+    public ResponseEntity<Page<UsuarioRecuperarDto>> listUsuario(Pageable pageable) throws Exception{
+        Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listUsuario(pageable).map(entidade -> {
             return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoDto( entidade.getCurso()));
         });
         return ResponseEntity.status(HttpStatus.OK).body(pageUsuarioRecuperarDto);
     }
 
     @Override
-    public ResponseEntity<Integer> criarUsuario(@Valid UsuarioDto dto) throws Exception{
+    public ResponseEntity<Integer> createUsuario(@Valid UsuarioDto dto) throws Exception{
         CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.pesquisarPorId(dto.getCursoId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepositorioJpa.criarUsuario(usuarioEntidade));
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findyById(dto.getCursoId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepositorioJpa.createUsuario(usuarioEntidade));
     }
 
     @Override
-    public ResponseEntity<Integer> atualizarUsuario(@Valid UsuarioDto dto) throws Exception {
+    public ResponseEntity<Integer> updateUsuario(@Valid UsuarioDto dto) throws Exception {
         CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.pesquisarPorId(dto.getCursoId()));
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioRepositorioJpa.atualizarUsuario(usuarioEntidade));
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findyById(dto.getCursoId()));
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioRepositorioJpa.updateUsuario(usuarioEntidade));
     }
 
     @Override
-    public ResponseEntity<Void> removerUsuario(Integer matricula) throws Exception {
+    public ResponseEntity<Void> removeUsuario(Integer matricula) throws Exception {
         RemoverUsuarioCasoUso casoUso = new RemoverUsuarioCasoUso(matricula);
         casoUso.validarRemocao();
-        usuarioRepositorioJpa.deletarUsuario(matricula);
+        usuarioRepositorioJpa.deleteUsuario(matricula);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

@@ -21,13 +21,13 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     }
 
     @Override
-    public UsuarioEntidade pesquisarPorId(Integer matricula) throws Exception{
+    public UsuarioEntidade findById(Integer matricula) throws Exception{
         Optional<UsuarioEntidade> entidade = repositorio.findById(matricula);
         return UsuarioRestConverter.OptionalToUsuarioEntidade(entidade);
     }
 
     @Override
-    public UsuarioEntidade pesquisarPorEmail(String email) throws Exception {
+    public UsuarioEntidade findByEmail(String email) throws Exception {
         Optional<UsuarioEntidade> entidade = repositorio.findByEmail(email);
         if(!entidade.isPresent()){
             return null;
@@ -38,29 +38,29 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     }
 
     @Override
-    public Page<UsuarioEntidade> listarUsuario(Pageable pageable) {
+    public Page<UsuarioEntidade> listUsuario(Pageable pageable) {
         return repositorio.findAll(pageable);
     }
 
     @Override
-    public Page<UsuarioEntidade> listarUsuarioPorCurso(Pageable pageable, CursoEntidade curso) {
+    public Page<UsuarioEntidade> listUsuarioByCurso(Pageable pageable, CursoEntidade curso) {
         return repositorio.findByCurso(curso, pageable);
     }
 
     @Override
-    public Integer criarUsuario(UsuarioEntidade newUsuario) {
+    public Integer createUsuario(UsuarioEntidade newUsuario) {
         return repositorio.save(newUsuario).getMatricula();
     }
 
     @Override
-    public Integer atualizarUsuario(UsuarioEntidade newUsuario) throws Exception {
+    public Integer updateUsuario(UsuarioEntidade newUsuario) throws Exception {
         Optional<UsuarioEntidade> usuario = this.repositorio.findById(newUsuario.getMatricula());
         UsuarioRestConverter.OptionalToUsuarioEntidade(usuario);
         return repositorio.save(newUsuario).getMatricula();
     }
     
     @Override
-    public void deletarUsuario(Integer matricula) throws Exception {
+    public void deleteUsuario(Integer matricula) throws Exception {
         Optional<UsuarioEntidade> usuario = this.repositorio.findById(matricula);
         UsuarioRestConverter.OptionalToUsuarioEntidade(usuario);
         repositorio.deleteById(matricula);

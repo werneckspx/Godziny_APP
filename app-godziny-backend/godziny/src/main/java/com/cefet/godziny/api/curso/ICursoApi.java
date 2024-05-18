@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.*;
 public interface ICursoApi {
 
     @GetMapping("/{cursoId}")
-    ResponseEntity<CursoDto> recuperarCurso(@PathVariable(value = "cursoId") String sigla) throws Exception;
+    ResponseEntity<CursoDto> getCurso(@PathVariable(value = "cursoId") String sigla) throws Exception;
 
-    @GetMapping("/lista")
-    ResponseEntity<Page<CursoDto>> listarCursos(
+    @GetMapping("/list")
+    ResponseEntity<Page<CursoDto>> listCursos(
         @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
         Pageable pageable
     );
 
     @PostMapping("")
-    ResponseEntity<String> criarCurso(@RequestBody @Valid CursoDto dto) throws Exception;
+    ResponseEntity<String> createCurso(@RequestBody @Valid CursoDto dto) throws Exception;
 
     @PutMapping("")
-    ResponseEntity<String> atualizarCurso(@RequestBody @Valid CursoDto dto) throws Exception;
+    ResponseEntity<String> updateCurso(@RequestBody @Valid CursoDto dto) throws Exception;
 
 
     @DeleteMapping("/{cursoId}")
-    ResponseEntity<Void> removerCurso(@PathVariable(value = "cursoId") String sigla) throws Exception;
+    ResponseEntity<Void> removeCurso(@PathVariable(value = "cursoId") String sigla) throws Exception;
 }

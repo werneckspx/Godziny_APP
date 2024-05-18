@@ -6,15 +6,15 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 
 public interface ICursoRepositorio {
 
-    CursoEntidade pesquisarPorId(String id) throws Exception;
+    CursoEntidade findyById(String id) throws Exception;
 
-    Page<CursoEntidade> listarCursos(Pageable pageable);
+    Page<CursoEntidade> listCursos(Pageable pageable);
     
-    String criarCurso(CursoEntidade curso);
+    String createCurso(CursoEntidade curso);
 
-    String atualizarCurso(CursoEntidade newCurso) throws Exception;
+    String updateCurso(CursoEntidade newCurso) throws Exception;
 
-    void deletarCurso(String id) throws Exception;
+    void deleteCurso(String id) throws Exception;
 
     void deleteAll();
 }

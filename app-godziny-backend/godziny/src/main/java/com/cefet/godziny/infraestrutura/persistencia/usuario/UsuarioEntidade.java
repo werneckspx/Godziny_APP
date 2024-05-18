@@ -3,7 +3,6 @@ package com.cefet.godziny.infraestrutura.persistencia.usuario;
 import java.io.Serializable;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,7 +18,6 @@ import lombok.*;
 
 @Entity(name = "usuario")
 @Table(name = "tb_usuario")
-@EqualsAndHashCode(of = "matricula")
 @Getter
 @Builder
 @Setter

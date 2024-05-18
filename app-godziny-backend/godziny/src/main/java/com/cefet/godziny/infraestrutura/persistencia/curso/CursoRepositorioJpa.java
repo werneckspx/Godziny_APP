@@ -19,7 +19,7 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     }
 
     @Override
-    public CursoEntidade pesquisarPorId(String sigla) throws Exception {
+    public CursoEntidade findyById(String sigla) throws Exception {
         if(sigla == ""){
             return null;
         }
@@ -28,24 +28,24 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     }
 
     @Override
-    public Page<CursoEntidade> listarCursos(Pageable pageable) {
+    public Page<CursoEntidade> listCursos(Pageable pageable) {
         return repositorio.findAll(pageable);
     }
 
     @Override
-    public String criarCurso(CursoEntidade newCurso) {
+    public String createCurso(CursoEntidade newCurso) {
         return repositorio.save(newCurso).getSigla();
     }
 
     @Override
-    public String atualizarCurso(CursoEntidade newCurso) throws Exception {
+    public String updateCurso(CursoEntidade newCurso) throws Exception {
         Optional<CursoEntidade> curso = this.repositorio.findById(newCurso.getSigla());
         CursoRestConverter.OptionalToCursoEntidade(curso);
         return repositorio.save(newCurso).getSigla();
     }
 
     @Override
-    public void deletarCurso(String sigla) throws Exception {
+    public void deleteCurso(String sigla) throws Exception {
         Optional<CursoEntidade> curso = this.repositorio.findById(sigla);
         CursoRestConverter.OptionalToCursoEntidade(curso);
         repositorio.deleteById(sigla);

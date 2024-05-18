@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.*;
 public interface IUsuarioApi {
 
     @GetMapping("/{matricula}")
-    ResponseEntity<UsuarioRecuperarDto> recuperarUsuario(@PathVariable(value = "matricula") Integer matricula) throws Exception;
+    ResponseEntity<UsuarioRecuperarDto> getUsuario(@PathVariable(value = "matricula") Integer matricula) throws Exception;
 
-    @GetMapping("/lista")
-    ResponseEntity<Page<UsuarioRecuperarDto>> listarUsuario(
+    @GetMapping("/list")
+    ResponseEntity<Page<UsuarioRecuperarDto>> listUsuario(
         @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
         Pageable pageable
     ) throws Exception;
 
     @PostMapping("")
-    ResponseEntity<Integer> criarUsuario(@RequestBody @Valid UsuarioDto dto) throws Exception;
+    ResponseEntity<Integer> createUsuario(@RequestBody @Valid UsuarioDto dto) throws Exception;
 
     @PutMapping("")
-    ResponseEntity<Integer> atualizarUsuario(@RequestBody @Valid UsuarioDto dto) throws Exception;
+    ResponseEntity<Integer> updateUsuario(@RequestBody @Valid UsuarioDto dto) throws Exception;
 
     @DeleteMapping("/{matricula}")
-    ResponseEntity<Void> removerUsuario(@PathVariable(value = "matricula") Integer matricula) throws Exception;
+    ResponseEntity<Void> removeUsuario(@PathVariable(value = "matricula") Integer matricula) throws Exception;
 
 }
