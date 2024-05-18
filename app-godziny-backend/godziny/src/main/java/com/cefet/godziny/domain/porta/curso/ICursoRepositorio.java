@@ -6,7 +6,7 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 
 public interface ICursoRepositorio {
 
-    CursoEntidade findyById(String id) throws Exception;
+    CursoEntidade findById(String id) throws Exception;
 
     Page<CursoEntidade> listCursos(Pageable pageable);
     

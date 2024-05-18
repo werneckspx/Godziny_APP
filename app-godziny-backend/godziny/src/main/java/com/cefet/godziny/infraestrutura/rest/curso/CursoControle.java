@@ -30,7 +30,7 @@ public class CursoControle implements ICursoApi{
 
     @Override
     public ResponseEntity<CursoDto> getCurso(String sigla) throws Exception {
-        var cursoDto = CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.findyById(sigla));
+        var cursoDto = CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.findById(sigla));
         return ResponseEntity.status(HttpStatus.OK).body(cursoDto);
     }
 

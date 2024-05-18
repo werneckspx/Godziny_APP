@@ -65,7 +65,7 @@ public class CursoControleTest {
     void testGetCursoSuccess() throws Exception {
         this.entidade = createCursoEntidade();
 
-        when(cursoRepositorioJpa.findyById(Mockito.anyString())).thenReturn(entidade);
+        when(cursoRepositorioJpa.findById(Mockito.anyString())).thenReturn(entidade);
         ResponseEntity<CursoDto> response = controler.getCurso(SIGLA);
 
         assertThat(response.getBody()).isInstanceOf(CursoDto.class);
@@ -111,7 +111,7 @@ public class CursoControleTest {
         dto.setNome("Engnharia Elétrica Atualizada");
 
         when(cursoRepositorioJpa.updateCurso(Mockito.any(CursoEntidade.class))).thenReturn(SIGLA);
-        when(cursoRepositorioJpa.findyById(Mockito.anyString())).thenReturn(entidade);
+        when(cursoRepositorioJpa.findById(Mockito.anyString())).thenReturn(entidade);
         ResponseEntity<String> response = controler.updateCurso(dto);
 
         assertThat(response.getBody()).isInstanceOf(String.class);
@@ -125,8 +125,8 @@ public class CursoControleTest {
         this.entidade = createCursoEntidade();
         Page<UsuarioEntidade> pageUsers = new PageImpl<>(List.of());
 
-        when(cursoRepositorioJpa.findyById(Mockito.anyString())).thenReturn(entidade);
-        when(usuarioRepositorioJpa.listUsuarioByCurso(Mockito.any(Pageable.class), Mockito.any(CursoEntidade.class))).thenReturn(pageUsers);
+        when(cursoRepositorioJpa.findById(Mockito.anyString())).thenReturn(entidade);
+        when(usuarioRepositorioJpa.listUsuariosByCurso(Mockito.any(Pageable.class), Mockito.any(CursoEntidade.class))).thenReturn(pageUsers);
         ResponseEntity<Void> response = controler.removeCurso(SIGLA);
 
         assertThat(response).isNotNull();

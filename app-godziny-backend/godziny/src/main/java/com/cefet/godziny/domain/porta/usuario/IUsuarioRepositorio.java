@@ -12,9 +12,9 @@ public interface IUsuarioRepositorio{
 
     UsuarioEntidade findByEmail(String email) throws Exception;
 
-    Page<UsuarioEntidade> listUsuario(Pageable pageable);
+    Page<UsuarioEntidade> listUsuarios(Pageable pageable);
 
-    Page<UsuarioEntidade>listUsuarioByCurso(Pageable pageable, CursoEntidade curso);
+    Page<UsuarioEntidade>listUsuariosByCurso(Pageable pageable, CursoEntidade curso);
 
     Integer createUsuario(UsuarioEntidade newUsuario);
 

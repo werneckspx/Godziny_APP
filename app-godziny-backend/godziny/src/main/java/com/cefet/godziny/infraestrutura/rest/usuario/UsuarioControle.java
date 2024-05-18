@@ -45,7 +45,7 @@ public class UsuarioControle implements IUsuarioApi{
 
     @Override
     public ResponseEntity<Page<UsuarioRecuperarDto>> listUsuario(Pageable pageable) throws Exception{
-        Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listUsuario(pageable).map(entidade -> {
+        Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listUsuarios(pageable).map(entidade -> {
             return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoDto( entidade.getCurso()));
         });
         return ResponseEntity.status(HttpStatus.OK).body(pageUsuarioRecuperarDto);
@@ -56,7 +56,7 @@ public class UsuarioControle implements IUsuarioApi{
         CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findyById(dto.getCursoId()));
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findById(dto.getCursoId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepositorioJpa.createUsuario(usuarioEntidade));
     }
 
@@ -65,7 +65,7 @@ public class UsuarioControle implements IUsuarioApi{
         CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findyById(dto.getCursoId()));
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findById(dto.getCursoId()));
         return ResponseEntity.status(HttpStatus.OK).body(usuarioRepositorioJpa.updateUsuario(usuarioEntidade));
     }
 

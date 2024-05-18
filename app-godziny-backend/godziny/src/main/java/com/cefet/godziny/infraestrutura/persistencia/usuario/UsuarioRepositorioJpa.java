@@ -27,7 +27,7 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     }
 
     @Override
-    public UsuarioEntidade findByEmail(String email) throws Exception {
+    public UsuarioEntidade findByEmail(String email) {
         Optional<UsuarioEntidade> entidade = repositorio.findByEmail(email);
         if(!entidade.isPresent()){
             return null;
@@ -38,12 +38,12 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     }
 
     @Override
-    public Page<UsuarioEntidade> listUsuario(Pageable pageable) {
+    public Page<UsuarioEntidade> listUsuarios(Pageable pageable) {
         return repositorio.findAll(pageable);
     }
 
     @Override
-    public Page<UsuarioEntidade> listUsuarioByCurso(Pageable pageable, CursoEntidade curso) {
+    public Page<UsuarioEntidade> listUsuariosByCurso(Pageable pageable, CursoEntidade curso) {
         return repositorio.findByCurso(curso, pageable);
     }
 

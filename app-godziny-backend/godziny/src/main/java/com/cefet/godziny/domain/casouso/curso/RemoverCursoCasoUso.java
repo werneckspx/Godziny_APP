@@ -27,9 +27,9 @@ public class RemoverCursoCasoUso {
     private final CursoRepositorioJpa cursoRepositorioJpa;
 
     public void validarRemocao() throws Exception {
-        CursoEntidade curso = cursoRepositorioJpa.findyById(this.sigla);
+        CursoEntidade curso = cursoRepositorioJpa.findById(this.sigla);
         Pageable pageable = PageRequest.of(0, 1);
-        Page<UsuarioEntidade> usuariosDoCurso = usuarioRepositorioJpa.listUsuarioByCurso(pageable, curso);
+        Page<UsuarioEntidade> usuariosDoCurso = usuarioRepositorioJpa.listUsuariosByCurso(pageable, curso);
         if(!usuariosDoCurso.isEmpty()){
             throw new RemoverCursoComUsuariosException();
         }

@@ -19,7 +19,7 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     }
 
     @Override
-    public CursoEntidade findyById(String sigla) throws Exception {
+    public CursoEntidade findById(String sigla) throws Exception {
         if(sigla == ""){
             return null;
         }

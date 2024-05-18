@@ -63,7 +63,7 @@ public class CursoRepositorioJpaTest {
         this.optional = createOptionalCurso();
 
         when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
-        CursoEntidade result = cursoRepositorio.findyById(SIGLA);
+        CursoEntidade result = cursoRepositorio.findById(SIGLA);
 
         assertThat(result).isInstanceOf(CursoEntidade.class);
         assertThat(result).isNotNull();
@@ -72,19 +72,19 @@ public class CursoRepositorioJpaTest {
     @Test
     @DisplayName("Search for a Curso without SIGLA and retun null")
     void testFindByIdSuccessWithoutSigla() throws Exception {
-        CursoEntidade result = cursoRepositorio.findyById("");
+        CursoEntidade result = cursoRepositorio.findById("");
 
         assertThat(result).isNull();
     }
 
     @Test
-    @DisplayName("Search for a Curso and retun an excepiton because the SIGLA is NULL")
+    @DisplayName("Search for a Curso and retun an excepiton because the SIGLA doesn't exist")
     void testFindByIdCursoNaoEncontradoException() throws Exception {
         this.optional = Optional.empty();
 
         when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
         Exception thrown = assertThrows(CursoNaoEncontradoException.class, () -> {
-            cursoRepositorio.findyById("Curso que não existe");
+            cursoRepositorio.findById("Curso que não existe");
         });
         
         assertThat(thrown).isNotNull();
@@ -137,7 +137,7 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Try to update a Curso and and retun an excepiton because there isn't any Curso with that SIGLA")
+    @DisplayName("Try to update a Curso andretun an excepiton because there isn't any Curso with that SIGLA")
     void testUpdateCursoCursoNaoEncontradoException() throws Exception {
         this.entidade = createCursoEntidade();
         this.optional = Optional.empty();
@@ -153,7 +153,19 @@ public class CursoRepositorioJpaTest {
 
     @Test
     @DisplayName("Should delete a Curso successfully")
-    void testDeleteCurso() throws Exception{
+    void testDeleteCursoSuccess() throws Exception{
+        this.optional = createOptionalCurso();
+
+        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
+        doNothing().when(cursoRepositorioJpaSpring).deleteById(Mockito.anyString());
+        cursoRepositorio.deleteCurso(SIGLA);
+
+        verify(cursoRepositorioJpaSpring, times(1)).deleteById(Mockito.anyString());
+    }
+
+    @Test
+    @DisplayName("Try to delete a Curso and retun an excepiton because there isn't any Curso with that SIGLA")
+    void testDeleteCursoCursoNaoEncontradoException() throws Exception{
         this.optional = Optional.empty();
 
         when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
@@ -166,20 +178,8 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Try to delete a Curso and retun an excepiton because there isn't any Curso with that SIGLA")
-    void testDeleteCursoCursoNaoEncontradoException() throws Exception{
-        this.optional = createOptionalCurso();
-
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
-        doNothing().when(cursoRepositorioJpaSpring).deleteById(Mockito.anyString());
-        cursoRepositorio.deleteCurso(SIGLA);
-
-        verify(cursoRepositorioJpaSpring, times(1)).deleteById(Mockito.anyString());
-    }
-
-    @Test
     @DisplayName("Should delete allCurso successfully")
-    void testDeleteAll() {
+    void testDeleteAllSuccess() {
         doNothing().when(cursoRepositorioJpaSpring).deleteAll();
         cursoRepositorio.deleteAll();
 
