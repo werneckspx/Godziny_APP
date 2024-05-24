@@ -24,7 +24,7 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
             return null;
         }
         Optional<CursoEntidade> curso = this.repositorio.findById(sigla);
-        return CursoRestConverter.OptionalToCursoEntidade(curso);
+        return CursoRestConverter.OptionalPresentToCursoEntidade(curso);
     }
 
     @Override
@@ -40,14 +40,14 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     @Override
     public String updateCurso(CursoEntidade newCurso) throws Exception {
         Optional<CursoEntidade> curso = this.repositorio.findById(newCurso.getSigla());
-        CursoRestConverter.OptionalToCursoEntidade(curso);
+        CursoRestConverter.OptionalEmptyToCursoEntidade(curso);
         return repositorio.save(newCurso).getSigla();
     }
 
     @Override
     public void deleteCurso(String sigla) throws Exception {
         Optional<CursoEntidade> curso = this.repositorio.findById(sigla);
-        CursoRestConverter.OptionalToCursoEntidade(curso);
+        CursoRestConverter.OptionalPresentToCursoEntidade(curso);
         repositorio.deleteById(sigla);
     }
 

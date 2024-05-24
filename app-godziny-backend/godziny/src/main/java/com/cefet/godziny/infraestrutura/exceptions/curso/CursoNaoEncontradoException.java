@@ -4,4 +4,6 @@ public class CursoNaoEncontradoException extends RuntimeException{
 
     public CursoNaoEncontradoException() {super("Curso não encontrado na base de dados");}
 
+    public CursoNaoEncontradoException(String message) {super(message);}
+
 }

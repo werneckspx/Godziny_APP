@@ -14,9 +14,18 @@ import lombok.AccessLevel;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CursoRestConverter {
 
-    public static CursoEntidade OptionalToCursoEntidade(Optional<CursoEntidade> optional) throws Exception{
+    public static CursoEntidade OptionalPresentToCursoEntidade(Optional<CursoEntidade> optional) throws Exception{
         if(!optional.isPresent()){
             throw new CursoNaoEncontradoException();
+        }
+        var cursoEntidade = new CursoEntidade();
+        BeanUtils.copyProperties(optional.get(), cursoEntidade);
+        return cursoEntidade;
+    }
+
+    public static CursoEntidade OptionalEmptyToCursoEntidade(Optional<CursoEntidade> optional) throws Exception{
+        if(optional.isPresent()){
+            throw new CursoNaoEncontradoException("Já existe um Curso com essa sigla cadastrado na base de dados");
         }
         var cursoEntidade = new CursoEntidade();
         BeanUtils.copyProperties(optional.get(), cursoEntidade);
