@@ -5,8 +5,10 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.domain.casouso.curso.CriarCursoCasoUso;
+import com.cefet.godziny.domain.casouso.curso.AtualizarCursoCasoUso;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import lombok.AccessLevel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -40,8 +42,18 @@ public class CursoRestConverter {
         return null;
     }
 
-    public static CriarCursoCasoUso DtoToCriarCursoCasoUso(CursoDto dto) {
+    public static CriarCursoCasoUso DtoToCriarCursoCasoUso(CursoDto dto, CursoRepositorioJpa cursoRepositorioJpa) {
         return CriarCursoCasoUso.builder()
+        .cursoRepositorioJpa(cursoRepositorioJpa)
+        .sigla(dto.getSigla())
+        .nome(dto.getNome())
+        .cargaHorariaComplementar(dto.getCarga_horaria_complementar())
+        .build();
+    }
+
+    public static AtualizarCursoCasoUso DtoToUpdateCursoCasoUso(CursoDto dto, CursoRepositorioJpa cursoRepositorioJpa) {
+        return AtualizarCursoCasoUso.builder()
+        .cursoRepositorioJpa(cursoRepositorioJpa)
         .sigla(dto.getSigla())
         .nome(dto.getNome())
         .cargaHorariaComplementar(dto.getCarga_horaria_complementar())

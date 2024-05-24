@@ -17,14 +17,15 @@ import lombok.*;
 @Getter
 @Setter
 public class RemoverCursoCasoUso {
-    @NotNull(message = "A sigla do curso é obrigatória")
-    private String sigla;
+
+    @Autowired
+    private final CursoRepositorioJpa cursoRepositorioJpa;
 
     @Autowired
     private final UsuarioRepositorioJpa usuarioRepositorioJpa;
 
-    @Autowired
-    private final CursoRepositorioJpa cursoRepositorioJpa;
+    @NotNull(message = "A sigla do curso é obrigatória")
+    private String sigla;
 
     public void validarRemocao() throws Exception {
         CursoEntidade curso = cursoRepositorioJpa.findById(this.sigla);
@@ -33,5 +34,9 @@ public class RemoverCursoCasoUso {
         if(!usuariosDoCurso.isEmpty()){
             throw new RemoverCursoComUsuariosException();
         }
+    }
+
+     public void removerCurso() throws Exception {
+        cursoRepositorioJpa.deleteCurso(this.sigla);
     }
 }

@@ -12,9 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CriarCursoCasoUso {
-
-    @Autowired
+public class AtualizarCursoCasoUso {
+     @Autowired
     private final CursoRepositorioJpa cursoRepositorioJpa;
 
     @NotNull(message = "A sigla do curso é obrigatória")
@@ -26,7 +25,7 @@ public class CriarCursoCasoUso {
     @NotNull(message = "A carga de horas complementares do curso é obrigatória")
     private int cargaHorariaComplementar;
 
-    public void validarCriacao() throws Exception {
+    public void validarAtualizacao() throws Exception {
         if (sigla.length() < 3 || sigla.length() > 20) {
             throw new CriarCursoIncompletoException("A sigla do curso deve ter entre 3 e 20 caracteres");
         }
@@ -38,10 +37,7 @@ public class CriarCursoCasoUso {
         }
     }
 
-    public String createCurso(CursoDto dto) throws Exception{
-        var cursoEntidade = CursoRestConverter.DtoToEntidadeJpa(dto);
-        String sigla = cursoRepositorioJpa.createCurso(cursoEntidade);
-        return sigla;
+    public String AtualizarCurso(CursoDto dto) throws Exception{
+        return cursoRepositorioJpa.updateCurso(CursoRestConverter.DtoToEntidadeJpa(dto));
     }
 }
-
