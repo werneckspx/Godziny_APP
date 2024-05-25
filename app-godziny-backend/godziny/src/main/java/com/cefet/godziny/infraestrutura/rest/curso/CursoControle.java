@@ -50,10 +50,10 @@ public class CursoControle implements ICursoApi{
     }
 
     @Override
-    public ResponseEntity<String> updateCurso(@Valid CursoDto dto) throws Exception {
+    public ResponseEntity<String> updateCurso(String cursoSigla, @Valid CursoDto dto) throws Exception {
         AtualizarCursoCasoUso casoUso = CursoRestConverter.DtoToUpdateCursoCasoUso(dto, cursoRepositorioJpa);
         casoUso.validarAtualizacao();
-        return ResponseEntity.status(HttpStatus.OK).body(casoUso.AtualizarCurso(dto));
+        return ResponseEntity.status(HttpStatus.OK).body(casoUso.AtualizarCurso(cursoSigla, dto));
     }
 
     @Override

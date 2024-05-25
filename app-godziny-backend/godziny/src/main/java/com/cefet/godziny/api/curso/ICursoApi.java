@@ -23,8 +23,8 @@ public interface ICursoApi {
     @PostMapping("")
     ResponseEntity<String> createCurso(@RequestBody @Valid CursoDto dto) throws Exception;
 
-    @PutMapping("")
-    ResponseEntity<String> updateCurso(@RequestBody @Valid CursoDto dto) throws Exception;
+    @PutMapping("/{cursoId}")
+    ResponseEntity<String> updateCurso(@PathVariable(value = "cursoId") String cursoSigla, @RequestBody @Valid CursoDto dto) throws Exception;
 
 
     @DeleteMapping("/{cursoId}")

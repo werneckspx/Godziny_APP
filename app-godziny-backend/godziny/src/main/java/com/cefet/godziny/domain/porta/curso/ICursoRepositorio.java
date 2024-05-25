@@ -2,6 +2,7 @@ package com.cefet.godziny.domain.porta.curso;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 
 public interface ICursoRepositorio {
@@ -12,7 +13,7 @@ public interface ICursoRepositorio {
     
     String createCurso(CursoEntidade curso);
 
-    String updateCurso(CursoEntidade newCurso) throws Exception;
+    String updateCurso(String cursoSigla, CursoEntidade newCurso) throws Exception;
 
     void deleteCurso(String id) throws Exception;
 

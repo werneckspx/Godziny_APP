@@ -53,6 +53,8 @@ public class CursoRepositorioJpaTest {
     @AfterEach
     @Transactional
     void clean() {
+        cursoRepositorio.deleteAll();
+
         this.optional = null;
         this.entidade = null;
     }
@@ -127,9 +129,16 @@ public class CursoRepositorioJpaTest {
         this.entidade = createCursoEntidade();
         this.optional = createOptionalCurso();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
-        when(cursoRepositorioJpaSpring.save(Mockito.any(CursoEntidade.class))).thenReturn(this.entidade);
-        String result = cursoRepositorio.updateCurso(entidade);
+        when(cursoRepositorioJpaSpring.findById(Mockito.anyString()))
+            .thenReturn(Optional.empty())
+            .thenReturn(optional); 
+        doNothing().when(cursoRepositorioJpaSpring).updateCursoById(
+            Mockito.anyString(),
+            Mockito.anyString(),
+            Mockito.anyInt(),
+            Mockito.anyString()
+        );
+        String result = cursoRepositorio.updateCurso(SIGLA, entidade);
 
         assertThat(result).isNotNull();
         assertThat(result).isInstanceOf(String.class);
@@ -137,18 +146,33 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Try to update a Curso andretun an excepiton because there isn't any Curso with that SIGLA")
+    @DisplayName("Try to update a Curso and return an exception because there isn't any Curso with that SIGLA")
     void testUpdateCursoCursoNaoEncontradoException() throws Exception {
         this.entidade = createCursoEntidade();
         this.optional = Optional.empty();
 
         when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
         Exception thrown = assertThrows(CursoNaoEncontradoException.class, () -> {
-            cursoRepositorio.updateCurso(entidade);
+            cursoRepositorio.updateCurso(SIGLA, entidade);
         });
         
         assertThat(thrown).isNotNull();
         assertThat(thrown.getMessage()).isEqualTo("Curso não encontrado na base de dados");
+    }
+
+    @Test
+    @DisplayName("Try to update a Curso and return an exception because already exist a Curso with that SIGLA")
+    void testUpdateCursoCursoNaoEncontradoExceptionCase2() throws Exception {
+        this.entidade = createCursoEntidade();
+        this.optional = createOptionalCurso();
+
+        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
+        Exception thrown = assertThrows(CursoNaoEncontradoException.class, () -> {
+            cursoRepositorio.updateCurso(SIGLA, entidade);
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Já existe um Curso com essa sigla cadastrado na base de dados");
     }
 
     @Test

@@ -31,7 +31,7 @@ public class UsuarioEntidade implements Serializable{
     private Integer matricula;
 
     @ManyToOne
-    @JoinColumn(name = "curso_id")
+    @JoinColumn(name = "curso_sigla", referencedColumnName = "sigla")
     private CursoEntidade curso;
 
     @Column(nullable = false)
@@ -47,4 +47,5 @@ public class UsuarioEntidade implements Serializable{
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EnumRecursos tipo;
+
 }

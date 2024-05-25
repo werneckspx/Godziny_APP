@@ -37,7 +37,7 @@ public class AtualizarCursoCasoUso {
         }
     }
 
-    public String AtualizarCurso(CursoDto dto) throws Exception{
-        return cursoRepositorioJpa.updateCurso(CursoRestConverter.DtoToEntidadeJpa(dto));
+    public String AtualizarCurso(String cursoSigla, CursoDto dto) throws Exception{
+        return cursoRepositorioJpa.updateCurso(cursoSigla, CursoRestConverter.DtoToEntidadeJpa(dto));
     }
 }
