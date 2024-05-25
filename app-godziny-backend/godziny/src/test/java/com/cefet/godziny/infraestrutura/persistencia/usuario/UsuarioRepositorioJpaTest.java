@@ -3,6 +3,8 @@ package com.cefet.godziny.infraestrutura.persistencia.usuario;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,6 +35,7 @@ public class UsuarioRepositorioJpaTest {
     private static final  Integer MATRICULA = 9999999;
     private static final String NOME = "Teste";
     private static final CursoEntidade CURSO_ENTIDADE = new CursoEntidade(
+        UUID.randomUUID(),
         "ODONT_DIV",
         "Odontologia",
         615

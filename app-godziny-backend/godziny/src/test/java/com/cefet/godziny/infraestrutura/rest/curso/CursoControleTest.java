@@ -24,9 +24,11 @@ import jakarta.transaction.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 public class CursoControleTest {
+    private static final UUID ID = UUID.randomUUID();
     private static final String SIGLA = "ENG_ELET_BH";
     private static final Integer CARGA_HORARIA_COMPLEMENTAR = 500;
     private static final String NOME = "Engenharia Elétrica";
@@ -65,7 +67,7 @@ public class CursoControleTest {
     void testGetCursoSuccess() throws Exception {
         this.entidade = createCursoEntidade();
 
-        when(cursoRepositorioJpa.findById(Mockito.anyString())).thenReturn(entidade);
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
         ResponseEntity<CursoDto> response = controler.getCurso(SIGLA);
 
         assertThat(response.getBody()).isInstanceOf(CursoDto.class);
@@ -112,7 +114,7 @@ public class CursoControleTest {
         dto.setNome("Engnharia Elétrica Atualizada");
 
         when(cursoRepositorioJpa.updateCurso(Mockito.anyString(), Mockito.any(CursoEntidade.class))).thenReturn(SIGLA);
-        when(cursoRepositorioJpa.findById(Mockito.anyString())).thenReturn(entidade);
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
         ResponseEntity<String> response = controler.updateCurso(SIGLA, dto);
 
         assertThat(response.getBody()).isInstanceOf(String.class);
@@ -126,7 +128,7 @@ public class CursoControleTest {
         this.entidade = createCursoEntidade();
         Page<UsuarioEntidade> pageUsers = new PageImpl<>(List.of());
 
-        when(cursoRepositorioJpa.findById(Mockito.anyString())).thenReturn(entidade);
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
         when(usuarioRepositorioJpa.listUsuariosByCurso(Mockito.any(Pageable.class), Mockito.any(CursoEntidade.class))).thenReturn(pageUsers);
         ResponseEntity<Void> response = controler.removeCurso(SIGLA);
 
@@ -135,7 +137,7 @@ public class CursoControleTest {
     }
 
     private CursoEntidade createCursoEntidade(){
-        CursoEntidade curso = new CursoEntidade(SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
+        CursoEntidade curso = new CursoEntidade(ID, SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
         return curso;
     }
 

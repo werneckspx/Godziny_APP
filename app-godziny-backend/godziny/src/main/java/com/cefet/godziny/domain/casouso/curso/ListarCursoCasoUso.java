@@ -21,7 +21,7 @@ public class ListarCursoCasoUso {
     private String sigla;
 
     public CursoDto validarListagem() throws Exception {
-        return CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.findById(this.sigla));
+        return CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.findBySigla(this.sigla));
     }
 
     public Page<CursoDto> ListarCursos(Pageable pageable) {

@@ -22,11 +22,11 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     }
 
     @Override
-    public CursoEntidade findById(String sigla) throws Exception {
+    public CursoEntidade findBySigla(String sigla) throws Exception {
         if(sigla == ""){
             return null;
         }
-        Optional<CursoEntidade> curso = this.repositorio.findById(sigla);
+        Optional<CursoEntidade> curso = this.repositorio.findBySigla(sigla);
         return CursoRestConverter.OptionalToCursoEntidade(curso);
     }
 
@@ -45,12 +45,12 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     public String updateCurso(String cursoSigla, CursoEntidade newCurso) throws Exception {
         Optional<CursoEntidade> curso;
         if(!cursoSigla.equals(newCurso.getSigla())){
-            curso = this.repositorio.findById(newCurso.getSigla());
+            curso = this.repositorio.findBySigla(newCurso.getSigla());
             if(curso.isPresent()){
                 throw new CursoNaoEncontradoException("Já existe um Curso com essa sigla cadastrado na base de dados");
             }
         }
-        curso = this.repositorio.findById(cursoSigla);
+        curso = this.repositorio.findBySigla(cursoSigla);
         CursoRestConverter.OptionalToCursoEntidade(curso);
         repositorio.updateCursoById(cursoSigla, newCurso.getSigla(), newCurso.getCarga_horaria_complementar(), newCurso.getNome());
         return newCurso.getSigla();
@@ -58,9 +58,9 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
 
     @Override
     public void deleteCurso(String sigla) throws Exception {
-        Optional<CursoEntidade> curso = this.repositorio.findById(sigla);
+        Optional<CursoEntidade> curso = this.repositorio.findBySigla(sigla);
         CursoRestConverter.OptionalToCursoEntidade(curso);
-        repositorio.deleteById(sigla);
+        repositorio.deleteBySigla(sigla);
     }
 
     @Override

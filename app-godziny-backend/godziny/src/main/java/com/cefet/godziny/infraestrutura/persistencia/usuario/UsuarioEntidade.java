@@ -31,7 +31,7 @@ public class UsuarioEntidade implements Serializable{
     private Integer matricula;
 
     @ManyToOne
-    @JoinColumn(name = "curso_sigla", referencedColumnName = "sigla")
+    @JoinColumn(name = "curso_id", referencedColumnName = "id")
     private CursoEntidade curso;
 
     @Column(nullable = false)

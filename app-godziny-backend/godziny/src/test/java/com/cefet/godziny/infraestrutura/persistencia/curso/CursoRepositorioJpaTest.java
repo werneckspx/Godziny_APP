@@ -2,6 +2,8 @@ package com.cefet.godziny.infraestrutura.persistencia.curso;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +30,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ActiveProfiles("test")
 public class CursoRepositorioJpaTest {
-
+    private static final UUID ID = UUID.randomUUID();
     private static final String SIGLA = "ODONT_DIV";
     private static final Integer CARGA_HORARIA_COMPLEMENTAR = 615;
     private static final String NOME = "Odontologia";
@@ -64,8 +66,8 @@ public class CursoRepositorioJpaTest {
     void testFindByIdSuccess() throws Exception {
         this.optional = createOptionalCurso();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
-        CursoEntidade result = cursoRepositorio.findById(SIGLA);
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
+        CursoEntidade result = cursoRepositorio.findBySigla(SIGLA);
 
         assertThat(result).isInstanceOf(CursoEntidade.class);
         assertThat(result).isNotNull();
@@ -74,7 +76,7 @@ public class CursoRepositorioJpaTest {
     @Test
     @DisplayName("Search for a Curso without SIGLA and retun null")
     void testFindByIdSuccessWithoutSigla() throws Exception {
-        CursoEntidade result = cursoRepositorio.findById("");
+        CursoEntidade result = cursoRepositorio.findBySigla("");
 
         assertThat(result).isNull();
     }
@@ -84,9 +86,9 @@ public class CursoRepositorioJpaTest {
     void testFindByIdCursoNaoEncontradoException() throws Exception {
         this.optional = Optional.empty();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
         Exception thrown = assertThrows(CursoNaoEncontradoException.class, () -> {
-            cursoRepositorio.findById("Curso que não existe");
+            cursoRepositorio.findBySigla("Curso que não existe");
         });
         
         assertThat(thrown).isNotNull();
@@ -129,9 +131,7 @@ public class CursoRepositorioJpaTest {
         this.entidade = createCursoEntidade();
         this.optional = createOptionalCurso();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString()))
-            .thenReturn(Optional.empty())
-            .thenReturn(optional); 
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(optional);
         doNothing().when(cursoRepositorioJpaSpring).updateCursoById(
             Mockito.anyString(),
             Mockito.anyString(),
@@ -151,7 +151,7 @@ public class CursoRepositorioJpaTest {
         this.entidade = createCursoEntidade();
         this.optional = Optional.empty();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
         Exception thrown = assertThrows(CursoNaoEncontradoException.class, () -> {
             cursoRepositorio.updateCurso(SIGLA, entidade);
         });
@@ -166,9 +166,9 @@ public class CursoRepositorioJpaTest {
         this.entidade = createCursoEntidade();
         this.optional = createOptionalCurso();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
         Exception thrown = assertThrows(CursoNaoEncontradoException.class, () -> {
-            cursoRepositorio.updateCurso(SIGLA, entidade);
+            cursoRepositorio.updateCurso("Curso que não existe", entidade);
         });
         
         assertThat(thrown).isNotNull();
@@ -180,11 +180,11 @@ public class CursoRepositorioJpaTest {
     void testDeleteCursoSuccess() throws Exception{
         this.optional = createOptionalCurso();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
-        doNothing().when(cursoRepositorioJpaSpring).deleteById(Mockito.anyString());
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
+        doNothing().when(cursoRepositorioJpaSpring).deleteBySigla(Mockito.anyString());
         cursoRepositorio.deleteCurso(SIGLA);
 
-        verify(cursoRepositorioJpaSpring, times(1)).deleteById(Mockito.anyString());
+        verify(cursoRepositorioJpaSpring, times(1)).deleteBySigla(Mockito.anyString());
     }
 
     @Test
@@ -192,7 +192,7 @@ public class CursoRepositorioJpaTest {
     void testDeleteCursoCursoNaoEncontradoException() throws Exception{
         this.optional = Optional.empty();
 
-        when(cursoRepositorioJpaSpring.findById(Mockito.anyString())).thenReturn(this.optional);
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
         Exception thrown = assertThrows(CursoNaoEncontradoException.class, () -> {
             cursoRepositorio.deleteCurso("Curso que não existe");
         });
@@ -212,14 +212,14 @@ public class CursoRepositorioJpaTest {
 
 
     private Optional<CursoEntidade> createOptionalCurso(){
-        CursoEntidade curso = new CursoEntidade(SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
+        CursoEntidade curso = new CursoEntidade(ID, SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
     
         Optional<CursoEntidade> cursoOptional = Optional.ofNullable(curso);
         return cursoOptional;
     }
 
     private CursoEntidade createCursoEntidade(){
-        CursoEntidade curso = new CursoEntidade(SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
+        CursoEntidade curso = new CursoEntidade(ID, SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
         return curso;
     }
 }

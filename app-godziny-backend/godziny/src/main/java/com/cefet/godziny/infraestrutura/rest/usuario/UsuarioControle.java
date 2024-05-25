@@ -56,7 +56,7 @@ public class UsuarioControle implements IUsuarioApi{
         CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findById(dto.getCursoId()));
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepositorioJpa.createUsuario(usuarioEntidade));
     }
 
@@ -65,7 +65,7 @@ public class UsuarioControle implements IUsuarioApi{
         CriarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToCriarUsuarioCasoUso(dto, usuarioRepositorioJpa);
         casoUso.validarCriacao();
         dto.setSenha(enconder.encode(dto.getSenha()));
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findById(dto.getCursoId()));
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoId()));
         return ResponseEntity.status(HttpStatus.OK).body(usuarioRepositorioJpa.updateUsuario(usuarioEntidade));
     }
 
