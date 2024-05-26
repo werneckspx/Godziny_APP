@@ -20,7 +20,6 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
-import jakarta.transaction.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import java.util.List;
@@ -46,14 +45,12 @@ public class CursoControleTest {
     UsuarioRepositorioJpa usuarioRepositorioJpa;
 
     @BeforeEach
-    @Transactional
     void inicializarDados() {
         MockitoAnnotations.openMocks(this);
         controler = new CursoControle(cursoRepositorioJpa, usuarioRepositorioJpa);
     };
 
     @AfterEach
-    @Transactional
     void limparDados() {
         this.entidade = null;
         this.dto = null;

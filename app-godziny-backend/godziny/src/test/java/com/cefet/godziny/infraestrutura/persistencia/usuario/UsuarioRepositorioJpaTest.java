@@ -21,7 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.UsuarioNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
-import jakarta.transaction.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
@@ -55,21 +54,19 @@ public class UsuarioRepositorioJpaTest {
 
 
     @BeforeEach
-    @Transactional
     void start() {
         MockitoAnnotations.openMocks(this);
         usuarioRepositorio = new UsuarioRepositorioJpa(usuarioRepositorioJpaSpring);
     };
 
     @AfterEach
-    @Transactional
     void clean() {
         this.optional = null;
         this.entidade = null;
     }
 
     @Test
-    @DisplayName("Search for  an Usuario by MATRICULA and retun an existing successfully from DataBase")
+    @DisplayName("Search for  an Usuario by MATRICULA and return an existing successfully from DataBase")
     void testFindByIdSuccess() throws Exception {
         this.optional = createOptionalUsuario();
 
@@ -81,7 +78,7 @@ public class UsuarioRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Search for an Usuario by MATRICULA and retun an excepiton because the MATRICULA doesn't exist")
+    @DisplayName("Search for an Usuario by MATRICULA and return an excepiton because the MATRICULA doesn't exist")
     void testFindByIdUsuarioNaoEncontradoException() throws Exception {
         this.optional = Optional.empty();
 
@@ -95,7 +92,7 @@ public class UsuarioRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Search for an Usuario by EMAIL and retun an existing successfully from DataBase")
+    @DisplayName("Search for an Usuario by EMAIL and return an existing successfully from DataBase")
     void testFindByEmailSuccess() throws Exception {
         this.optional = createOptionalUsuario();
 
@@ -107,7 +104,7 @@ public class UsuarioRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Search for an Usuario by EMAIL and retun null because the EMAIL doesn't exist")
+    @DisplayName("Search for an Usuario by EMAIL and return null because the EMAIL doesn't exist")
     void testFindByEmailNotFound() {
         this.optional = Optional.empty();
 
@@ -179,7 +176,7 @@ public class UsuarioRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Try to update an Usuario and retun an excepiton because there isn't any Usuario with that MATRICULA")
+    @DisplayName("Try to update an Usuario and return an excepiton because there isn't any Usuario with that MATRICULA")
     void testUpdateUsuarioUsuarioNaoEncontradoException() throws Exception {
         this.entidade = createUsuarioEntidade();
         this.optional = Optional.empty();
@@ -206,7 +203,7 @@ public class UsuarioRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Try to delete an Usuario and retun an excepiton because there isn't any Usuario with that MATRICULA")
+    @DisplayName("Try to delete an Usuario and return an excepiton because there isn't any Usuario with that MATRICULA")
     void testDeleteUsuarioUsuarioNaoEncontradoException() throws Exception{
         this.optional = Optional.empty();
 

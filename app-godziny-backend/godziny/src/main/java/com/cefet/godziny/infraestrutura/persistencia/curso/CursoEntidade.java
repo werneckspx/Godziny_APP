@@ -2,7 +2,6 @@ package com.cefet.godziny.infraestrutura.persistencia.curso;
 
 import java.io.Serializable;
 import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

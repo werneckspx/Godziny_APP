@@ -19,7 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
-import jakarta.transaction.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
@@ -46,14 +45,12 @@ public class CursoRepositorioJpaTest {
 
 
     @BeforeEach
-    @Transactional
     void start() {
         MockitoAnnotations.openMocks(this);
         cursoRepositorio = new CursoRepositorioJpa(cursoRepositorioJpaSpring);
     };
 
     @AfterEach
-    @Transactional
     void clean() {
         cursoRepositorio.deleteAll();
 
@@ -62,7 +59,7 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Search for a Curso and retun an existing successfully from DataBase")
+    @DisplayName("Search for a Curso and return an existing successfully from DataBase")
     void testFindByIdSuccess() throws Exception {
         this.optional = createOptionalCurso();
 
@@ -74,7 +71,7 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Search for a Curso without SIGLA and retun null")
+    @DisplayName("Search for a Curso without SIGLA and return null")
     void testFindByIdSuccessWithoutSigla() throws Exception {
         CursoEntidade result = cursoRepositorio.findBySigla("");
 
@@ -82,7 +79,7 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Search for a Curso and retun an excepiton because the SIGLA doesn't exist")
+    @DisplayName("Search for a Curso and return an excepiton because the SIGLA doesn't exist")
     void testFindByIdCursoNaoEncontradoException() throws Exception {
         this.optional = Optional.empty();
 
@@ -146,6 +143,28 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
+    @DisplayName("Try to update a Curso's ID successfully")
+    void testUpdateCursoIDSuccess() throws Exception {
+        this.entidade = createCursoEntidade();
+        this.optional = createOptionalCurso();
+
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString()))
+            .thenReturn(Optional.empty())
+            .thenReturn(optional);
+        doNothing().when(cursoRepositorioJpaSpring).updateCursoById(
+            Mockito.anyString(),
+            Mockito.anyString(),
+            Mockito.anyInt(),
+            Mockito.anyString()
+        );
+        String result = cursoRepositorio.updateCurso("SIGLA diferente", entidade);
+
+        assertThat(result).isNotNull();
+        assertThat(result).isInstanceOf(String.class);
+        assertThat(result).isEqualTo(SIGLA);
+    }
+
+    @Test
     @DisplayName("Try to update a Curso and return an exception because there isn't any Curso with that SIGLA")
     void testUpdateCursoCursoNaoEncontradoException() throws Exception {
         this.entidade = createCursoEntidade();
@@ -188,7 +207,7 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Try to delete a Curso and retun an excepiton because there isn't any Curso with that SIGLA")
+    @DisplayName("Try to delete a Curso and return an excepiton because there isn't any Curso with that SIGLA")
     void testDeleteCursoCursoNaoEncontradoException() throws Exception{
         this.optional = Optional.empty();
 

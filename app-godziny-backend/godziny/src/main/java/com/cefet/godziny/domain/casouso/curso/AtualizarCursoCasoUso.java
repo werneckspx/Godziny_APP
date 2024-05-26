@@ -10,7 +10,6 @@ import lombok.*;
 
 @Builder
 @AllArgsConstructor
-@Getter
 @Setter
 public class AtualizarCursoCasoUso {
      @Autowired

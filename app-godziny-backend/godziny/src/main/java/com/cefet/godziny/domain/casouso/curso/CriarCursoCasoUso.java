@@ -10,7 +10,6 @@ import lombok.*;
 
 @Builder
 @AllArgsConstructor
-@Getter
 @Setter
 public class CriarCursoCasoUso {
 

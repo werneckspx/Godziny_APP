@@ -12,9 +12,7 @@ import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJ
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-@Builder
 @AllArgsConstructor
-@Getter
 @Setter
 public class RemoverCursoCasoUso {
 
