@@ -15,7 +15,7 @@ public interface IUsuarioApi {
     ResponseEntity<UsuarioRecuperarDto> getUsuario(@PathVariable(value = "matricula") Integer matricula) throws Exception;
 
     @GetMapping("/list")
-    ResponseEntity<Page<UsuarioRecuperarDto>> listUsuario(
+    ResponseEntity<Page<UsuarioRecuperarDto>> listUsuarios(
         @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
         Pageable pageable
     ) throws Exception;

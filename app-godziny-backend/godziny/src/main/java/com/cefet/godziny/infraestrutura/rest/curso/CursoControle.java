@@ -1,11 +1,14 @@
 package com.cefet.godziny.infraestrutura.rest.curso;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.api.curso.ICursoApi;
@@ -17,6 +20,8 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequiredArgsConstructor
 public class CursoControle implements ICursoApi{
 
     @Autowired
@@ -24,11 +29,6 @@ public class CursoControle implements ICursoApi{
 
     @Autowired
     private final UsuarioRepositorioJpa usuarioRepositorioJpa;
-
-    public CursoControle(CursoRepositorioJpa cursoRepositorioJpa, UsuarioRepositorioJpa usuarioRepositorioJpa){
-        this.cursoRepositorioJpa = cursoRepositorioJpa;
-        this.usuarioRepositorioJpa = usuarioRepositorioJpa;
-    }
 
     @Override
     public ResponseEntity<CursoDto> getCurso(String sigla) throws Exception {

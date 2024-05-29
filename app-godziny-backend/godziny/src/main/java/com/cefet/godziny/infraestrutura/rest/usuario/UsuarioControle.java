@@ -19,11 +19,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/usuario")
 @RequiredArgsConstructor
 public class UsuarioControle implements IUsuarioApi{
 
@@ -36,6 +34,7 @@ public class UsuarioControle implements IUsuarioApi{
     @Autowired
     private final PasswordEncoder enconder;
 
+
     @Override
     public ResponseEntity<UsuarioRecuperarDto> getUsuario(Integer matricula) throws Exception {
         var usuarioEntidade = usuarioRepositorioJpa.findById(matricula);
@@ -44,7 +43,7 @@ public class UsuarioControle implements IUsuarioApi{
     }
 
     @Override
-    public ResponseEntity<Page<UsuarioRecuperarDto>> listUsuario(Pageable pageable) throws Exception{
+    public ResponseEntity<Page<UsuarioRecuperarDto>> listUsuarios(Pageable pageable) {
         Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listUsuarios(pageable).map(entidade -> {
             return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoDto( entidade.getCurso()));
         });
