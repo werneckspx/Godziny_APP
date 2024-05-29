@@ -1,7 +1,7 @@
 package com.cefet.godziny.domain.casouso.usuario;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
@@ -13,12 +13,12 @@ import com.cefet.godziny.infraestrutura.rest.usuario.UsuarioRestConverter;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
+    
 @Builder
 @AllArgsConstructor
 @Getter
 @Setter
-public class CriarUsuarioCasoUso { 
+public class AtualizarUsuarioCasoUso {
     @NotNull(message = "O nome do usuário é obrigatório")
     private String nome;
 
@@ -35,7 +35,7 @@ public class CriarUsuarioCasoUso {
     @Autowired
     private final CursoRepositorioJpa cursoRepositorioJpa;
 
-    public void validarCriacao() throws Exception {
+    public void validarAtualizacao() throws Exception {
         if (this.nome.length() < 3 || this.nome.length() > 100) {
             throw new CriarUsuarioIncompletoException("O nome do usuário deve ter entre 3 e 100 caracteres");
         }
@@ -54,8 +54,9 @@ public class CriarUsuarioCasoUso {
         return email != null && email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     }
 
-    public Integer createUsuario(UsuarioDto dto) throws Exception{
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoId())); 
-        return usuarioRepositorioJpa.createUsuario(usuarioEntidade); 
+    public Integer AtualizarUsuario(UsuarioDto dto) throws Exception{
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoId()));
+        return usuarioRepositorioJpa.updateUsuario(usuarioEntidade);
     }
 }
+

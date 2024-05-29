@@ -13,7 +13,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @AllArgsConstructor
-@Setter
 public class RemoverCursoCasoUso {
 
     @Autowired
@@ -34,7 +33,7 @@ public class RemoverCursoCasoUso {
         }
     }
 
-     public void removerCurso() throws Exception {
+    public void removerCurso() throws Exception {
         cursoRepositorioJpa.deleteCurso(this.sigla);
     }
 }

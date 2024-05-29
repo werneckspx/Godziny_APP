@@ -22,7 +22,7 @@ public class ListarCursoCasoUso {
         return CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.findBySigla(this.sigla));
     }
 
-    public Page<CursoDto> ListarCursos(Pageable pageable) {
+    public Page<CursoDto> listarCursos(Pageable pageable) {
         Page<CursoDto> pageCursoDto = cursoRepositorioJpa.listCursos(pageable).map(CursoRestConverter::EntidadeToCursoDto);
         return pageCursoDto;
     }

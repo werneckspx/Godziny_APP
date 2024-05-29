@@ -39,7 +39,7 @@ public class CursoControle implements ICursoApi{
     @Override
     public ResponseEntity<Page<CursoDto>> listCursos(Pageable pageable) {
         ListarCursoCasoUso casoUso = new ListarCursoCasoUso(cursoRepositorioJpa, "");
-        return  ResponseEntity.status(HttpStatus.OK).body(casoUso.ListarCursos(pageable));
+        return  ResponseEntity.status(HttpStatus.OK).body(casoUso.listarCursos(pageable));
     }
 
     @Override
