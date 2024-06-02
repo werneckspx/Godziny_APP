@@ -16,7 +16,6 @@ import lombok.*;
 
 @Builder
 @AllArgsConstructor
-@Getter
 @Setter
 public class CriarUsuarioCasoUso { 
     @NotNull(message = "O nome do usuário é obrigatório")
@@ -55,7 +54,7 @@ public class CriarUsuarioCasoUso {
     }
 
     public Integer createUsuario(UsuarioDto dto) throws Exception{
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoId())); 
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoSigla())); 
         return usuarioRepositorioJpa.createUsuario(usuarioEntidade); 
     }
 }

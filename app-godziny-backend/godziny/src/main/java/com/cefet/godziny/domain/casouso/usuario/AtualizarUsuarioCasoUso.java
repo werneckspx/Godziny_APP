@@ -1,6 +1,5 @@
 package com.cefet.godziny.domain.casouso.usuario;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
@@ -9,14 +8,12 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 import com.cefet.godziny.infraestrutura.rest.usuario.UsuarioRestConverter;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
     
 @Builder
 @AllArgsConstructor
-@Getter
 @Setter
 public class AtualizarUsuarioCasoUso {
     @NotNull(message = "O nome do usuário é obrigatório")
@@ -55,7 +52,7 @@ public class AtualizarUsuarioCasoUso {
     }
 
     public Integer AtualizarUsuario(UsuarioDto dto) throws Exception{
-        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoId()));
+        UsuarioEntidade usuarioEntidade = UsuarioRestConverter.DtoToEntidadeJpa(dto, cursoRepositorioJpa.findBySigla(dto.getCursoSigla()));
         return usuarioRepositorioJpa.updateUsuario(usuarioEntidade);
     }
 }

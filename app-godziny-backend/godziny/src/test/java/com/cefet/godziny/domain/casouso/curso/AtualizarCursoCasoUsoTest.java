@@ -64,7 +64,7 @@ public class AtualizarCursoCasoUsoTest {
     @Test
     @DisplayName("Try to create a Curso and return an exception because the SIGLA is too short")
     void testeAtualizarCursoCasoUsoExceptionCase2() {
-        atualizarCursoCasoUso.setSigla("S"); // SIGLA menor que 3 caracteres
+        atualizarCursoCasoUso.setSigla("S");
         
         Exception thrown = assertThrows(CriarCursoIncompletoException.class, () -> {
             atualizarCursoCasoUso.validarAtualizacao();

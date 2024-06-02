@@ -6,7 +6,6 @@ import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Getter
@@ -16,7 +15,7 @@ public class UsuarioDto{
     private Integer matricula;
     
     @Nullable
-    private String cursoId;
+    private String cursoSigla;
     
     @NotNull
     private String nome;

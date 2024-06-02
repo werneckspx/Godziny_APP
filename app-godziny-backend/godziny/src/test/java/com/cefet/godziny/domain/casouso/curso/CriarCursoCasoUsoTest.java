@@ -64,7 +64,7 @@ public class CriarCursoCasoUsoTest {
     @Test
     @DisplayName("Try to create a Curso and return an exception because the SIGLA is too short")
     void testCriarCursoCasoUsoExceptionCase2() {
-        criarCursoCasoUso.setSigla("S"); // SIGLA menor que 3 caracteres
+        criarCursoCasoUso.setSigla("S");
         
         Exception thrown = assertThrows(CriarCursoIncompletoException.class, () -> {
             criarCursoCasoUso.validarCriacao();

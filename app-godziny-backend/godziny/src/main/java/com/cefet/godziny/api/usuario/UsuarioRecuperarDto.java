@@ -9,10 +9,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 @Builder
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-@Getter
-@Setter
 public class UsuarioRecuperarDto{
     @NotNull
     @Positive

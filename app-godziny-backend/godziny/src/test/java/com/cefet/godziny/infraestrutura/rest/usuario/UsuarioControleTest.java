@@ -148,7 +148,7 @@ public class UsuarioControleTest {
     private UsuarioDto createUsuarioDto(){
         UsuarioDto usuario = new UsuarioDto();
         usuario.setMatricula(null);
-        usuario.setCursoId(CURSO_ID);
+        usuario.setCursoSigla(CURSO_ID);
         usuario.setNome(NOME);
         usuario.setEmail(EMAIL);
         usuario.setSenha(SENHA);
