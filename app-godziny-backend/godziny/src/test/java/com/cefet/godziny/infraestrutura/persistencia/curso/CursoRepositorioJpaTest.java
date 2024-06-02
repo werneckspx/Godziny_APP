@@ -3,7 +3,6 @@ package com.cefet.godziny.infraestrutura.persistencia.curso;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,10 +37,10 @@ public class CursoRepositorioJpaTest {
     private CursoEntidade entidade;
 
     @Mock
-    CursoRepositorioJpaSpring cursoRepositorioJpaSpring;
+    private CursoRepositorioJpaSpring cursoRepositorioJpaSpring;
 
     @InjectMocks
-    CursoRepositorioJpa cursoRepositorio;
+    private CursoRepositorioJpa cursoRepositorio;
 
 
     @BeforeEach
