@@ -10,6 +10,9 @@ import lombok.*;
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class UsuarioRecuperarDto{
     @NotNull
     @Positive

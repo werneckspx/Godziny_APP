@@ -22,7 +22,7 @@ public class ListarUsuarioCasoUso {
 
     public UsuarioRecuperarDto validarListagem() throws Exception {
         UsuarioEntidade usuarioEntidade = usuarioRepositorioJpa.findById(matricula);
-        return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(usuarioEntidade, CursoRestConverter.EntidadeToCursoDto(usuarioEntidade.getCurso()));
+        return createUsuarioRecuperarDto(usuarioEntidade);
     }
 
     public Page<UsuarioRecuperarDto> listarUsuarios(Pageable pageable) {
@@ -30,5 +30,23 @@ public class ListarUsuarioCasoUso {
             return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoDto(entidade.getCurso()));
         });
         return pageUsuarioRecuperarDto;
+    }
+
+
+    private UsuarioRecuperarDto createUsuarioRecuperarDto(UsuarioEntidade usuarioEntidade){
+        UsuarioRecuperarDto dto = new  UsuarioRecuperarDto();
+        dto.setMatricula(usuarioEntidade.getMatricula());
+        dto.setCurso(CursoRestConverter.EntidadeToCursoDto(usuarioEntidade.getCurso()));
+        dto.setNome(usuarioEntidade.getNome());
+        dto.setEmail(usuarioEntidade.getEmail());
+        dto.setSenha(usuarioEntidade.getSenha());
+        dto.setTipo(usuarioEntidade.getTipo());
+        dto.getMatricula();
+        dto.getCurso();
+        dto.getNome();
+        dto.getEmail();
+        dto.getSenha();
+        dto.getTipo();
+        return dto;
     }
 }
