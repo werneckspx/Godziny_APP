@@ -1,34 +1,35 @@
-package com.cefet.godziny.infraestrutura.persistencia.usuario;
+package com.cefet.godziny.infraestrutura.persistencia.categoria;
 
 import java.io.Serializable;
-import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import java.util.UUID;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Table(name = "tb_usuario")
+@Entity(name = "categoria")
+@Table(name = "tb_categoria")
 @Getter
-@Builder
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioEntidade implements Serializable{
+public class CategoriaEntidade implements Serializable {
     private static final long serialVersionUID  = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer matricula;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
@@ -37,15 +38,14 @@ public class UsuarioEntidade implements Serializable{
     @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
+    private int horas_maximas;
+
+    @Column(nullable = false)
+    private float horas_multiplicador;
+
     @Column(nullable = false, unique = true)
-    @Email(message = "O email fornecido para o usuário não é válido")
-    private String email;
-
-    @Column(nullable = false)
-    private String senha;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EnumRecursos tipo;
+    private String descricao;
 
 }
+

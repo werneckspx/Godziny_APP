@@ -2,7 +2,6 @@ package com.cefet.godziny.domain.porta.curso;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 
 public interface ICursoRepositorio {

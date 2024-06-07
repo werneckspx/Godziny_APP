@@ -13,7 +13,6 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
-
 import lombok.AccessLevel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -69,6 +68,5 @@ public class UsuarioRestConverter {
         .cursoRepositorioJpa(cursoRepositorioJpa)
         .build();
     }
-
 }
 
