@@ -1,5 +1,7 @@
 package com.cefet.godziny.domain.casouso.usuario;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
@@ -16,6 +18,9 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 public class AtualizarUsuarioCasoUso {
+    @NotNull(message = "A matricula do usuário é obrigatória")
+    private Integer matricula;
+
     @NotNull(message = "O nome do usuário é obrigatório")
     private String nome;
 
@@ -42,7 +47,8 @@ public class AtualizarUsuarioCasoUso {
         if (!isValidEmailAddress(this.email)) {
             throw new CriarUsuarioIncompletoException("O email fornecido para o usuário não é válido");
         }
-        if(usuarioRepositorioJpa.findByEmail(this.email) != null){
+        UsuarioEntidade entidade = usuarioRepositorioJpa.findByEmail(this.email);
+        if(entidade != null && entidade.getMatricula() != matricula){
             throw new CriarUsuarioEmailRepetidoException();
         }
     }

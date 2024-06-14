@@ -24,11 +24,14 @@ public class CursoRestConverter {
     }
 
     public static CursoDto EntidadeToCursoDto(CursoEntidade entidade){
-        return CursoDto.builder()
+        if(entidade != null){
+            return CursoDto.builder()
             .sigla(entidade.getSigla())
             .nome(entidade.getNome())
             .carga_horaria_complementar(entidade.getCarga_horaria_complementar())
             .build();
+        }
+        return null;
     }
 
     public static CursoEntidade DtoToEntidadeJpa(CursoDto dto) {

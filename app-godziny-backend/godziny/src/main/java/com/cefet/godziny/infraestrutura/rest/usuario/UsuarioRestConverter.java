@@ -61,6 +61,7 @@ public class UsuarioRestConverter {
     
     public static AtualizarUsuarioCasoUso DtoToUpdateCursoCasoUso(UsuarioDto dto, UsuarioRepositorioJpa usuarioRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
         return AtualizarUsuarioCasoUso.builder()
+        .matricula(dto.getMatricula())
         .nome(dto.getNome())
         .email(dto.getEmail())
         .senha(dto.getSenha())

@@ -35,7 +35,7 @@ public class AtualizarUsuarioCasoUsoTest {
 
     @BeforeEach
     void inicializarDados() {
-        atualizarUsuarioCasoUso = new AtualizarUsuarioCasoUso("TESTE", "teste@teste.com.br", "teste123",  usuarioRepositorioJpa, cursoRepositorioJpa);
+        atualizarUsuarioCasoUso = new AtualizarUsuarioCasoUso(999999, "TESTE", "teste@teste.com.br", "teste123",  usuarioRepositorioJpa, cursoRepositorioJpa);
     };
 
     @AfterEach
