@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
@@ -37,11 +38,14 @@ public class RemoverCursoCasoUsoTest {
     @Mock
     UsuarioRepositorioJpa usuarioRepositorioJpa;
 
+    @Mock
+    CategoriaRepositorioJpa categoriaRepositorioJpa;
+
     private RemoverCursoCasoUso removerCursoCasoUso;
 
     @BeforeEach
     void inicializarDados() {
-        removerCursoCasoUso = new RemoverCursoCasoUso(cursoRepositorioJpa, usuarioRepositorioJpa, "TESTE");
+        removerCursoCasoUso = new RemoverCursoCasoUso(cursoRepositorioJpa, usuarioRepositorioJpa, categoriaRepositorioJpa, "TESTE");
     };
 
     @AfterEach

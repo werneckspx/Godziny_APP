@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 public class AtualizarCursoCasoUso {
-     @Autowired
+    @Autowired
     private final CursoRepositorioJpa cursoRepositorioJpa;
 
     @NotNull(message = "A sigla do curso é obrigatória")

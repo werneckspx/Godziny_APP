@@ -9,7 +9,6 @@ import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-
 @AllArgsConstructor
 public class ListarCursoCasoUso {
     @Autowired

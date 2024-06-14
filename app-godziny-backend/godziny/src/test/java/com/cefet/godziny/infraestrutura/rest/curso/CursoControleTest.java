@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
@@ -44,10 +45,13 @@ public class CursoControleTest {
     @Mock
     UsuarioRepositorioJpa usuarioRepositorioJpa;
 
+    @Mock
+    CategoriaRepositorioJpa categoriaRepositorioJpa;
+
     @BeforeEach
     void inicializarDados() {
         MockitoAnnotations.openMocks(this);
-        controler = new CursoControle(cursoRepositorioJpa, usuarioRepositorioJpa);
+        controler = new CursoControle(cursoRepositorioJpa, usuarioRepositorioJpa, categoriaRepositorioJpa);
     };
 
     @AfterEach

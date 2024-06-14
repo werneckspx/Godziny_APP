@@ -5,9 +5,13 @@ import org.springframework.beans.BeanUtils;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.api.categoria.CategoriaRecuperarDto;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.domain.casouso.categoria.AtualizarCategoriaCasoUso;
+import com.cefet.godziny.domain.casouso.categoria.CriarCategoriaCasoUso;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 
 public class CategoriaRestConverter {
     public static CategoriaEntidade OptionalToCategoriaEntidade(Optional<CategoriaEntidade> optional) throws Exception {
@@ -19,46 +23,49 @@ public class CategoriaRestConverter {
         return categoriaEntidade;
     }
 
-     public static CategoriaRecuperarDto EntidadeToUsuarioRecuperarDto(CategoriaEntidade categoriaEntidade, CursoDto cursoDto){
+     public static CategoriaRecuperarDto EntidadeToCategoriaRecuperarDto(CategoriaEntidade categoriaEntidade, CursoDto cursoDto){
         return CategoriaRecuperarDto.builder()
         .id(categoriaEntidade.getId())
         .curso(cursoDto)
         .nome(categoriaEntidade.getNome())
-        .horas_maximas(categoriaEntidade.getHoras_maximas())
-        .horas_multiplicador(categoriaEntidade.getHoras_multiplicador())
+        .porcentagemHorasMaximas(categoriaEntidade.getPorcentagemHorasMaximas())
+        .horasMultiplicador(categoriaEntidade.getHorasMultiplicador())
         .descricao(categoriaEntidade.getDescricao())
         .build();
     }
 
-    public static CategoriaEntidade DtoToEntidadeJpa (CategoriaDto dto, CursoEntidade cursoEntidade){
+    public static CategoriaEntidade DtoToEntidadeJpa(CategoriaDto dto, CursoEntidade cursoEntidade){
         return CategoriaEntidade.builder()
         .id(dto.getId())
         .curso(cursoEntidade)
         .nome(dto.getNome())
-        .horas_maximas(dto.getHoras_maximas())
-        .horas_multiplicador(dto.getHoras_multiplicador())
+        .porcentagemHorasMaximas(dto.getPorcentagemHorasMaximas())
+        .horasMultiplicador(dto.getHorasMultiplicador())
         .descricao(dto.getDescricao())
         .build();
     }
 
-    // public static CriarUsuarioCasoUso DtoToCriarUsuarioCasoUso(UsuarioDto dto, UsuarioRepositorioJpa usuarioRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
-    //     return CriarUsuarioCasoUso.builder()
-    //     .nome(dto.getNome())
-    //     .email(dto.getEmail())
-    //     .senha(dto.getSenha())
-    //     .usuarioRepositorioJpa(usuarioRepositorioJpa)
-    //     .cursoRepositorioJpa(cursoRepositorioJpa)
-    //     .build();
-    // }
+    public static CriarCategoriaCasoUso DtoToCriarCategoriaCasoUso(CategoriaDto dto, CategoriaRepositorioJpa categoriaRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
+        return CriarCategoriaCasoUso.builder()
+        .nome(dto.getNome())
+        .cursoSigla(dto.getCursoSigla())
+        .porcentagemHorasMaximas(dto.getPorcentagemHorasMaximas())
+        .horasMultiplicador(dto.getHorasMultiplicador())
+        .descricao(dto.getDescricao())
+        .categoriaRepositorioJpa(categoriaRepositorioJpa)
+        .cursoRepositorioJpa(cursoRepositorioJpa)
+        .build();
+    }
 
-    
-    // public static AtualizarUsuarioCasoUso DtoToUpdateCursoCasoUso(UsuarioDto dto, UsuarioRepositorioJpa usuarioRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
-    //     return AtualizarUsuarioCasoUso.builder()
-    //     .nome(dto.getNome())
-    //     .email(dto.getEmail())
-    //     .senha(dto.getSenha())
-    //     .usuarioRepositorioJpa(usuarioRepositorioJpa)
-    //     .cursoRepositorioJpa(cursoRepositorioJpa)
-    //     .build();
-    // }
+    public static AtualizarCategoriaCasoUso DtoToUpdateCursoCasoUso(CategoriaDto dto, CategoriaRepositorioJpa categoriaRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
+        return AtualizarCategoriaCasoUso.builder()
+        .nome(dto.getNome())
+        .cursoSigla(dto.getCursoSigla())
+        .porcentagemHorasMaximas(dto.getPorcentagemHorasMaximas())
+        .horasMultiplicador(dto.getHorasMultiplicador())
+        .descricao(dto.getDescricao())
+        .categoriaRepositorioJpa(categoriaRepositorioJpa)
+        .cursoRepositorioJpa(cursoRepositorioJpa)
+        .build();
+    }
 }

@@ -14,16 +14,16 @@ public class CategoriaDto {
     private UUID id;
     
     @NotNull
-    private UUID cursoId;
+    private String cursoSigla;
     
     @NotNull
     private String nome;
 
     @NotNull
-    private int horas_maximas;
+    private float porcentagemHorasMaximas;
 
     @NotNull
-    private float horas_multiplicador;
+    private float horasMultiplicador;
 
     @NotNull
     private String descricao;

@@ -38,13 +38,13 @@ public class CategoriaEntidade implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
-    private int horas_maximas;
+    @Column(name = "porcentagem_horas_maximas", nullable = false)
+    private float porcentagemHorasMaximas;
+
+    @Column(name = "horas_multiplicador",nullable = false)
+    private float horasMultiplicador;
 
     @Column(nullable = false)
-    private float horas_multiplicador;
-
-    @Column(nullable = false, unique = true)
     private String descricao;
 
 }

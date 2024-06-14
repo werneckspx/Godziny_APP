@@ -1,5 +1,6 @@
 package com.cefet.godziny.infraestrutura.persistencia.categoria;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import com.cefet.godziny.domain.porta.categoria.ICategoriaRepositorio;
+import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.rest.categoria.CategoriaRestConverter;
 
 @Component
@@ -23,6 +25,16 @@ public class CategoriaRepositorioJpa implements ICategoriaRepositorio{
     public CategoriaEntidade findById(UUID id) throws Exception {
         Optional<CategoriaEntidade> entidade = repositorio.findById(id);
         return CategoriaRestConverter.OptionalToCategoriaEntidade(entidade);
+    }
+
+    @Override
+    public List<CategoriaEntidade> findByCursoAndNome(CursoEntidade curso, String nome) {
+       return repositorio.findByCursoAndNome(curso, nome);
+    }
+
+    @Override
+    public List<CategoriaEntidade> findByCurso(CursoEntidade curso) {
+       return repositorio.findByCurso(curso);
     }
 
     @Override

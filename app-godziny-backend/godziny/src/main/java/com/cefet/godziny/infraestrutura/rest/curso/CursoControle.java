@@ -2,7 +2,6 @@ package com.cefet.godziny.infraestrutura.rest.curso;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +15,7 @@ import com.cefet.godziny.domain.casouso.curso.CriarCursoCasoUso;
 import com.cefet.godziny.domain.casouso.curso.ListarCursoCasoUso;
 import com.cefet.godziny.domain.casouso.curso.RemoverCursoCasoUso;
 import com.cefet.godziny.domain.casouso.curso.AtualizarCursoCasoUso;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 
@@ -29,6 +29,9 @@ public class CursoControle implements ICursoApi{
 
     @Autowired
     private final UsuarioRepositorioJpa usuarioRepositorioJpa;
+
+    @Autowired
+    private final CategoriaRepositorioJpa categoriaRepositorioJpa;
 
     @Override
     public ResponseEntity<CursoDto> getCurso(String sigla) throws Exception {
@@ -58,7 +61,7 @@ public class CursoControle implements ICursoApi{
 
     @Override
     public ResponseEntity<Void> removeCurso(String sigla) throws Exception {
-        RemoverCursoCasoUso casoUso = new RemoverCursoCasoUso(cursoRepositorioJpa, usuarioRepositorioJpa, sigla);
+        RemoverCursoCasoUso casoUso = new RemoverCursoCasoUso(cursoRepositorioJpa, usuarioRepositorioJpa, categoriaRepositorioJpa, sigla);
         casoUso.validarRemocao();
         casoUso.removerCurso();
         return ResponseEntity.status(HttpStatus.OK).build();

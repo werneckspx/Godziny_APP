@@ -28,7 +28,6 @@ public class UsuarioRecuperarDto{
     private String email;
 
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     @NotNull
