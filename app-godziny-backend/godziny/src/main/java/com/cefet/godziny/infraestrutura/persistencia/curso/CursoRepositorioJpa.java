@@ -43,14 +43,7 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     @Override
     @Transactional
     public String updateCurso(String cursoSigla, CursoEntidade newCurso) throws Exception {
-        Optional<CursoEntidade> curso;
-        if(!cursoSigla.equals(newCurso.getSigla())){
-            curso = this.repositorio.findBySigla(newCurso.getSigla());
-            if(curso.isPresent()){
-                throw new CursoNaoEncontradoException("Já existe um Curso com essa sigla cadastrado na base de dados");
-            }
-        }
-        curso = this.repositorio.findBySigla(cursoSigla);
+        Optional<CursoEntidade> curso = this.repositorio.findBySigla(cursoSigla);
         CursoRestConverter.OptionalToCursoEntidade(curso);
         repositorio.updateCursoById(cursoSigla, newCurso.getSigla(), newCurso.getCarga_horaria_complementar(), newCurso.getNome());
         return newCurso.getSigla();

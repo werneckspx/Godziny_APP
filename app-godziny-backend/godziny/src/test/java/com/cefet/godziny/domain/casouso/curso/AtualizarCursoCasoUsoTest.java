@@ -1,6 +1,7 @@
 package com.cefet.godziny.domain.casouso.curso;
 
 import static org.mockito.Mockito.when;
+import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +27,7 @@ public class AtualizarCursoCasoUsoTest {
 
     @BeforeEach
     void inicializarDados() {
-        atualizarCursoCasoUso = new AtualizarCursoCasoUso(cursoRepositorioJpa, "TESTE", "TESTE_TESTE", 100);
+        atualizarCursoCasoUso = new AtualizarCursoCasoUso(cursoRepositorioJpa, UUID.randomUUID(), "TESTE", "TESTE_ANTIGO", "TESTE_TESTE", 100);
     };
 
     @AfterEach
@@ -38,7 +39,7 @@ public class AtualizarCursoCasoUsoTest {
     @Test
     @DisplayName("Should valided a AtualizarCursoCasoUso successfully")
     void testeAtualizarCursoCasoUsoSuccess() throws Exception {
-        this.dto = new CursoDto("TESTE", "TESTE_TESTE", 100);
+        this.dto = new CursoDto(UUID.randomUUID(), "TESTE", "TESTE_TESTE", 100);
 
         when(cursoRepositorioJpa.updateCurso(Mockito.anyString(), Mockito.any(CursoEntidade.class))).thenReturn("TESTE");
         atualizarCursoCasoUso.validarAtualizacao();

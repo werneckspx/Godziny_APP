@@ -26,6 +26,7 @@ public class CursoRestConverter {
     public static CursoDto EntidadeToCursoDto(CursoEntidade entidade){
         if(entidade != null){
             return CursoDto.builder()
+            .id(entidade.getId())
             .sigla(entidade.getSigla())
             .nome(entidade.getNome())
             .carga_horaria_complementar(entidade.getCarga_horaria_complementar())
@@ -37,6 +38,7 @@ public class CursoRestConverter {
     public static CursoEntidade DtoToEntidadeJpa(CursoDto dto) {
         if(dto != null){
             return CursoEntidade.builder()
+            .id(dto.getId())
             .sigla(dto.getSigla())
             .nome(dto.getNome())
             .carga_horaria_complementar(dto.getCarga_horaria_complementar())
@@ -54,10 +56,12 @@ public class CursoRestConverter {
         .build();
     }
 
-    public static AtualizarCursoCasoUso DtoToUpdateCursoCasoUso(CursoDto dto, CursoRepositorioJpa cursoRepositorioJpa) {
+    public static AtualizarCursoCasoUso DtoToUpdateCursoCasoUso(String cursoSigla, CursoDto dto, CursoRepositorioJpa cursoRepositorioJpa) {
         return AtualizarCursoCasoUso.builder()
         .cursoRepositorioJpa(cursoRepositorioJpa)
+        .id(dto.getId())
         .sigla(dto.getSigla())
+        .siglaAntiga(cursoSigla)
         .nome(dto.getNome())
         .cargaHorariaComplementar(dto.getCarga_horaria_complementar())
         .build();

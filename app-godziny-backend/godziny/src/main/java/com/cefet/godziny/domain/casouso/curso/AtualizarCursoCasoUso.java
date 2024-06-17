@@ -1,8 +1,11 @@
 package com.cefet.godziny.domain.casouso.curso;
 
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
+import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +18,14 @@ public class AtualizarCursoCasoUso {
     @Autowired
     private final CursoRepositorioJpa cursoRepositorioJpa;
 
+    @NotNull(message = "O id do curso é obrigatório")
+    private UUID id;
+
     @NotNull(message = "A sigla do curso é obrigatória")
     private String sigla;
+
+    @NotNull(message = "A sigla antiiga do curso é obrigatória")
+    private String siglaAntiga;
 
     @NotNull(message = "O nome do curso é obrigatório")
     private String nome;
@@ -33,6 +42,10 @@ public class AtualizarCursoCasoUso {
         }
         if (cargaHorariaComplementar < 100 || cargaHorariaComplementar > 800) {
             throw new CriarCursoIncompletoException("A carga de horas complementares do curso deve estar entre 100 e 800");
+        }
+        CursoEntidade entidade = cursoRepositorioJpa.findBySigla(this.siglaAntiga);
+        if(entidade != null && entidade.getId().equals(this.id)){
+            throw new CampoRepetidoNoBancoException("Já existe um Curso com essa sigla cadastrado na base de dados"); 
         }
     }
 

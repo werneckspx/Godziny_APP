@@ -1,6 +1,9 @@
 package com.cefet.godziny.domain.casouso.curso;
 
 import static org.mockito.Mockito.when;
+
+import java.util.UUID;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,7 +41,7 @@ public class CriarCursoCasoUsoTest {
     @Test
     @DisplayName("Should valided a CriarCursoCasoUso successfully")
     void testCriarCursoCasoUsoSuccess() throws Exception {
-        this.dto = new CursoDto("TESTE", "TESTE_TESTE", 100);
+        this.dto = new CursoDto(UUID.randomUUID(), "TESTE", "TESTE_TESTE", 100);
 
         when(cursoRepositorioJpa.createCurso(Mockito.any(CursoEntidade.class))).thenReturn("TESTE");
         criarCursoCasoUso.validarCriacao();

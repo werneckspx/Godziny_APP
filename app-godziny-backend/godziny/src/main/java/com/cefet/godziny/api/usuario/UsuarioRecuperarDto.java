@@ -2,7 +2,6 @@ package com.cefet.godziny.api.usuario;
 
 import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

@@ -70,14 +70,14 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    @ExceptionHandler(CampoRepetidoNoBancoException.class)
-    public ResponseEntity<RestDefaultErrorMessage> campoRepetidoNoBancoException(CampoRepetidoNoBancoException exception) {
+    @ExceptionHandler(RemoverCursoComCategoriasException.class)
+    public ResponseEntity<RestDefaultErrorMessage> removerCursoComCategoriaException(RemoverCursoComCategoriasException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
-    @ExceptionHandler(RemoverCursoComCategoriasException.class)
-    public ResponseEntity<RestDefaultErrorMessage> removerCursoComCategoriaException(RemoverCursoComCategoriasException exception) {
+    @ExceptionHandler(CampoRepetidoNoBancoException.class)
+    public ResponseEntity<RestDefaultErrorMessage> campoRepetidoNoBancoException(CampoRepetidoNoBancoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
