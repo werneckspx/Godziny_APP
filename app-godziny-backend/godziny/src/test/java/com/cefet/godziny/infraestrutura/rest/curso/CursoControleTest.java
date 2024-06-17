@@ -144,6 +144,7 @@ public class CursoControleTest {
 
     private CursoDto createCursoDto(){
         CursoDto curso = new CursoDto();
+        curso.setId(ID);
         curso.setSigla(SIGLA);
         curso.setNome(NOME);
         curso.setCarga_horaria_complementar(CARGA_HORARIA_COMPLEMENTAR);

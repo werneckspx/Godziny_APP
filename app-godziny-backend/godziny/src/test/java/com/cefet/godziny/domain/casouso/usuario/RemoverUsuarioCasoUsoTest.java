@@ -19,6 +19,7 @@ import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJ
 @SpringBootTest
 public class RemoverUsuarioCasoUsoTest {
     
+    @Mock
     private UsuarioEntidade entidade;
 
     @Mock

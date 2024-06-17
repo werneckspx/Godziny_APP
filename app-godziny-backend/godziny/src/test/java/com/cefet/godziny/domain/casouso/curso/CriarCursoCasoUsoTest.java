@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
@@ -130,6 +131,18 @@ public class CriarCursoCasoUsoTest {
         assertThat(thrown.getMessage()).isEqualTo("A carga de horas complementares do curso deve estar entre 100 e 800");
     }
 
+    @Test
+    @DisplayName("Try to create a Curso and return an excepiton because the SIGLA already exists")
+    void testCriarCursoCasoUsoExceptionCase7() throws Exception{
+        CursoEntidade entidade = new CursoEntidade(UUID.randomUUID(),"ENG_ELET_BH", "Engenharia Elétrica", 500);
 
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
+        Exception thrown = assertThrows(CampoRepetidoNoBancoException.class, () -> {
+            criarCursoCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Já existe um Curso com essa sigla cadastrado na base de dados");
+    }
 }
 

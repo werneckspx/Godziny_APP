@@ -44,7 +44,7 @@ public class AtualizarCursoCasoUso {
             throw new CriarCursoIncompletoException("A carga de horas complementares do curso deve estar entre 100 e 800");
         }
         CursoEntidade entidade = cursoRepositorioJpa.findBySigla(this.siglaAntiga);
-        if(entidade != null && entidade.getId().equals(this.id)){
+        if(entidade != null && !entidade.getId().equals(this.id)){
             throw new CampoRepetidoNoBancoException("Já existe um Curso com essa sigla cadastrado na base de dados"); 
         }
     }

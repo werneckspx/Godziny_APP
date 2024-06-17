@@ -130,7 +130,7 @@ public class AtualizarUsuarioCasoUsoTest {
     @DisplayName("Try to update an Usuario and return an exception because the EMAIL is already in the database")
     void testeAtualizarUsuarioCasoUsoExceptionCase6() {
         UsuarioEntidade usuarioEntidade = new UsuarioEntidade(
-            999999, 
+            888888, 
             createCursoEntidade(),
             "TESTE",
             "teste@teste.com.br",

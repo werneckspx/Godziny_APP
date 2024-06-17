@@ -1,8 +1,6 @@
 package com.cefet.godziny.api.curso;
 
 import java.util.UUID;
-
-import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -12,7 +10,6 @@ import lombok.*;
 @Getter
 @Setter
 public class CursoDto{
-    @Nullable
     private UUID id;
     
     @NotNull
