@@ -20,7 +20,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
@@ -60,9 +62,11 @@ public class RemoverCursoCasoUsoTest {
     void testRemoverCursoSuccess() throws Exception {
         this.entidade = new CursoEntidade( UUID.randomUUID(), "TESTE", "TESTE_TESTE", 100);
         Page<UsuarioEntidade> pageUsers = new PageImpl<>(List.of());
+        List<CategoriaEntidade> listCategoria = List.of();
 
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
         when(usuarioRepositorioJpa.listUsuariosByCurso(Mockito.any(Pageable.class), Mockito.any(CursoEntidade.class))).thenReturn(pageUsers);
+        when(categoriaRepositorioJpa.findByCurso(Mockito.any(CursoEntidade.class))).thenReturn(listCategoria);
         removerCursoCasoUso.validarRemocao();
         removerCursoCasoUso.removerCurso();
 
@@ -84,14 +88,42 @@ public class RemoverCursoCasoUsoTest {
             EnumRecursos.NORMAL
         ));
         Page<UsuarioEntidade> pageUsers = new PageImpl<>(userList);
+        List<CategoriaEntidade> listCategoria = List.of();
 
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
         when(usuarioRepositorioJpa.listUsuariosByCurso(Mockito.any(Pageable.class), Mockito.any(CursoEntidade.class))).thenReturn(pageUsers);
+        when(categoriaRepositorioJpa.findByCurso(Mockito.any(CursoEntidade.class))).thenReturn(listCategoria);
         Exception thrown = assertThrows(RemoverCursoComUsuariosException.class, () -> {
             removerCursoCasoUso.validarRemocao();
         });
         
         assertThat(thrown).isNotNull();
         assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um curso que possuí usuários matriculados");
+    }
+
+
+    @Test
+    @DisplayName("Try to create a Curso and return an excepiton because exists categorias inside it")
+    void testRemoverCursoCasoUsoExceptionCase2() throws Exception{
+        this.entidade = new CursoEntidade(UUID.randomUUID(), "TESTE", "TESTE_TESTE", 100);
+        Page<UsuarioEntidade> pageUsers = new PageImpl<>(List.of());
+        List<CategoriaEntidade> listCategoria = List.of(new CategoriaEntidade(
+            UUID.randomUUID(),
+            entidade,
+            "CATEGORIA_TESTE",
+            (float) 0.5,
+            (float) 1.0,
+            "DESCRIICAO_TESTE"
+        ));
+
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
+        when(usuarioRepositorioJpa.listUsuariosByCurso(Mockito.any(Pageable.class), Mockito.any(CursoEntidade.class))).thenReturn(pageUsers);
+        when(categoriaRepositorioJpa.findByCurso(Mockito.any(CursoEntidade.class))).thenReturn(listCategoria);
+        Exception thrown = assertThrows(RemoverCursoComCategoriasException.class, () -> {
+            removerCursoCasoUso.validarRemocao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um curso que possuí categorias cadastradas");
     }
 }
