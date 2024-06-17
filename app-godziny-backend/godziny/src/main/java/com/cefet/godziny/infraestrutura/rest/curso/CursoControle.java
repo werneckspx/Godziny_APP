@@ -1,5 +1,6 @@
 package com.cefet.godziny.infraestrutura.rest.curso;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,9 @@ public class CursoControle implements ICursoApi{
     }
 
     @Override
-    public ResponseEntity<Void> removeCurso(String sigla) throws Exception {
-        RemoverCursoCasoUso casoUso = new RemoverCursoCasoUso(cursoRepositorioJpa, usuarioRepositorioJpa, categoriaRepositorioJpa, sigla);
+    @Transactional
+    public ResponseEntity<Void> removeCurso(String cursoSigla) throws Exception {
+        RemoverCursoCasoUso casoUso = new RemoverCursoCasoUso(cursoRepositorioJpa, usuarioRepositorioJpa, categoriaRepositorioJpa, cursoSigla);
         casoUso.validarRemocao();
         casoUso.removerCurso();
         return ResponseEntity.status(HttpStatus.OK).build();

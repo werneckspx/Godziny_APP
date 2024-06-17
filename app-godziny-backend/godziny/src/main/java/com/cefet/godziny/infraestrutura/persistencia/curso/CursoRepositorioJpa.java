@@ -6,9 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.cefet.godziny.domain.porta.curso.ICursoRepositorio;
-import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
 
 @Component

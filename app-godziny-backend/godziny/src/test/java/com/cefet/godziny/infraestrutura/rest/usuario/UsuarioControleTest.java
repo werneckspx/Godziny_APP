@@ -69,9 +69,23 @@ public class UsuarioControleTest {
     }
     
     @Test
-    @DisplayName("Should search get an Usuário by Matrícula successfully")
+    @DisplayName("Should search an Usuário by Matrícula successfully")
     void testGetUsuarioSuccess() throws Exception {
         this.entidade = createUsuarioEntidade();
+
+        when(usuarioRepositorioJpa.findById(Mockito.anyInt())).thenReturn(entidade);
+        ResponseEntity<UsuarioRecuperarDto> response = controler.getUsuario(MATRICULA);
+
+        assertThat(response.getBody()).isInstanceOf(UsuarioRecuperarDto.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Should search an Usuário without Curso by Matrícula successfully")
+    void testGetUsuarioSuccessCase2() throws Exception {
+        this.entidade = createUsuarioEntidade();
+        this.entidade.setCurso(null);
 
         when(usuarioRepositorioJpa.findById(Mockito.anyInt())).thenReturn(entidade);
         ResponseEntity<UsuarioRecuperarDto> response = controler.getUsuario(MATRICULA);

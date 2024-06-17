@@ -36,15 +36,12 @@ public class CursoRestConverter {
     }
 
     public static CursoEntidade DtoToEntidadeJpa(CursoDto dto) {
-        if(dto != null){
-            return CursoEntidade.builder()
-            .id(dto.getId())
-            .sigla(dto.getSigla())
-            .nome(dto.getNome())
-            .carga_horaria_complementar(dto.getCarga_horaria_complementar())
-            .build();
-        }
-        return null;
+        return CursoEntidade.builder()
+        .id(dto.getId())
+        .sigla(dto.getSigla())
+        .nome(dto.getNome())
+        .carga_horaria_complementar(dto.getCarga_horaria_complementar())
+        .build();
     }
 
     public static CriarCursoCasoUso DtoToCriarCursoCasoUso(CursoDto dto, CursoRepositorioJpa cursoRepositorioJpa) {

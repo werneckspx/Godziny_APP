@@ -128,5 +128,7 @@ public class AtualizarCursoCasoUsoTest {
         assertThat(thrown.getMessage()).isEqualTo("A carga de horas complementares do curso deve estar entre 100 e 800");
     }
 
+    
+
 }
 

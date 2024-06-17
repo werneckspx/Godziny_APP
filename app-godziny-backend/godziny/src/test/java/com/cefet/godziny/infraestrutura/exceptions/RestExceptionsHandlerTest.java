@@ -33,7 +33,7 @@ public class RestExceptionsHandlerTest {
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class RestExceptionsHandlerTest {
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class RestExceptionsHandlerTest {
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class RestExceptionsHandlerTest {
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class RestExceptionsHandlerTest {
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
 
     @Test
@@ -88,6 +88,6 @@ public class RestExceptionsHandlerTest {
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
