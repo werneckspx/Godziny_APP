@@ -1,4 +1,4 @@
-package com.cefet.godziny.domain.casouso.usuario;
+package com.cefet.godziny.domain.casouso.categoria;
 
 import static org.mockito.Mockito.when;
 import java.util.UUID;
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class CriarUsuarioCasoUsoTest {
+public class CriarCategoriaCasoUsoTest {
     private UsuarioDto usuarioDto;
     private CursoEntidade cursoEntidade;
 
@@ -32,7 +31,6 @@ public class CriarUsuarioCasoUsoTest {
     @Mock
     UsuarioRepositorioJpa usuarioRepositorioJpa;
 
-    @InjectMocks
     private CriarUsuarioCasoUso criarUsuarioCasoUso;
 
     @BeforeEach
@@ -174,3 +172,4 @@ public class CriarUsuarioCasoUsoTest {
     }
 
 }
+
