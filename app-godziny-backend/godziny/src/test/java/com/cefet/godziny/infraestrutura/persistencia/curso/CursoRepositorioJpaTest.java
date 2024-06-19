@@ -59,7 +59,7 @@ public class CursoRepositorioJpaTest {
 
     @Test
     @DisplayName("Search for a Curso and return an existing successfully from DataBase")
-    void testFindByIdSuccess() throws Exception {
+    void testFindBySiglaSuccess() throws Exception {
         this.optional = createOptionalCurso();
 
         when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
@@ -70,9 +70,29 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
+    @DisplayName("Search for a Curso and return an existing Optional successfully from DataBase")
+    void testFindBySiglaOptionalSuccess() throws Exception {
+        this.optional = createOptionalCurso();
+
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(this.optional);
+        Optional<CursoEntidade> result = cursoRepositorio.findBySiglaOptional(SIGLA);
+
+        assertThat(result).isPresent();
+        assertThat(result).containsInstanceOf(CursoEntidade.class);
+    }
+
+    @Test
     @DisplayName("Search for a Curso without SIGLA and return null")
     void testFindByIdSuccessWithoutSigla() throws Exception {
         CursoEntidade result = cursoRepositorio.findBySigla("");
+
+        assertThat(result).isNull();
+    }
+
+    @Test
+    @DisplayName("Search for a Curso Optional without SIGLA and return null")
+    void testFindBySiglaOptionalSuccessWithoutSigla() throws Exception {
+        Optional<CursoEntidade> result = cursoRepositorio.findBySiglaOptional("");
 
         assertThat(result).isNull();
     }

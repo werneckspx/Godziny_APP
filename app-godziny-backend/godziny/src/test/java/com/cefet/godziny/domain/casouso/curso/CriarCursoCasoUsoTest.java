@@ -2,8 +2,8 @@ package com.cefet.godziny.domain.casouso.curso;
 
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
 import java.util.UUID;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -45,6 +45,7 @@ public class CriarCursoCasoUsoTest {
         this.dto = new CursoDto(UUID.randomUUID(), "TESTE", "TESTE_TESTE", 100);
 
         when(cursoRepositorioJpa.createCurso(Mockito.any(CursoEntidade.class))).thenReturn("TESTE");
+        when(cursoRepositorioJpa.findBySiglaOptional(Mockito.anyString())).thenReturn(Optional.empty());
         criarCursoCasoUso.validarCriacao();
         String response = criarCursoCasoUso.createCurso(dto);
 
@@ -136,7 +137,7 @@ public class CriarCursoCasoUsoTest {
     void testCriarCursoCasoUsoExceptionCase7() throws Exception{
         CursoEntidade entidade = new CursoEntidade(UUID.randomUUID(),"ENG_ELET_BH", "Engenharia Elétrica", 500);
 
-        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
+        when(cursoRepositorioJpa.findBySiglaOptional(Mockito.anyString())).thenReturn(Optional.of(entidade));
         Exception thrown = assertThrows(CampoRepetidoNoBancoException.class, () -> {
             criarCursoCasoUso.validarCriacao();
         });

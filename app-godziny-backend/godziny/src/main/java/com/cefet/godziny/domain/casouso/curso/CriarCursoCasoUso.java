@@ -1,5 +1,6 @@
 package com.cefet.godziny.domain.casouso.curso;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
@@ -37,8 +38,8 @@ public class CriarCursoCasoUso {
         if (cargaHorariaComplementar < 100 || cargaHorariaComplementar > 800) {
             throw new CriarCursoIncompletoException("A carga de horas complementares do curso deve estar entre 100 e 800");
         }
-        CursoEntidade entidade = cursoRepositorioJpa.findBySigla(this.sigla);
-        if(entidade != null){
+        Optional<CursoEntidade> entidade = cursoRepositorioJpa.findBySiglaOptional(this.sigla);
+        if(entidade.isPresent()){
             throw new CampoRepetidoNoBancoException("Já existe um Curso com essa sigla cadastrado na base de dados"); 
         }
     }

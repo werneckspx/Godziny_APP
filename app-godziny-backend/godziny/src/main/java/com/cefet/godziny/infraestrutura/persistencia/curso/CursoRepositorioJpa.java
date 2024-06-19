@@ -29,6 +29,14 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
     }
 
     @Override
+    public Optional<CursoEntidade> findBySiglaOptional(String sigla) {
+        if(sigla == ""){
+            return null;
+        }
+        return this.repositorio.findBySigla(sigla);
+    }
+
+    @Override
     public Page<CursoEntidade> listCursos(Pageable pageable) {
         return repositorio.findAll(pageable);
     }
