@@ -22,6 +22,7 @@ public class ListarCategoriaCasoUso {
 
     public CategoriaRecuperarDto validarListagem() throws Exception {
         CategoriaEntidade entidade = categoriaRepositorioJpa.findById(this.id);
+        createCategoriaRecuperarDto(entidade);
         return CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoDto(entidade.getCurso()));
     }
 
@@ -32,5 +33,23 @@ public class ListarCategoriaCasoUso {
                 CursoRestConverter.EntidadeToCursoDto(categoriaEntidade.getCurso())
         ));
         return pageCategoriaDto;
+    }
+
+    private CategoriaRecuperarDto createCategoriaRecuperarDto(CategoriaEntidade categoriaEntidade){
+        CategoriaRecuperarDto dto = new  CategoriaRecuperarDto();
+        dto.setId(categoriaEntidade.getId());
+        dto.setCurso(CursoRestConverter.EntidadeToCursoDto(categoriaEntidade.getCurso()));
+        dto.setCurso(null);
+        dto.setNome(categoriaEntidade.getNome());
+        dto.setPorcentagemHorasMaximas(categoriaEntidade.getPorcentagemHorasMaximas());
+        dto.setHorasMultiplicador(categoriaEntidade.getHorasMultiplicador());
+        dto.setDescricao(categoriaEntidade.getDescricao());
+        dto.getId();
+        dto.getCurso();
+        dto.getNome();
+        dto.getPorcentagemHorasMaximas();
+        dto.getHorasMultiplicador();
+        dto.getDescricao();
+        return dto;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
 import jakarta.validation.constraints.NotNull;
@@ -18,11 +19,26 @@ public class ListarCursoCasoUso {
     private String sigla;
 
     public CursoDto validarListagem() throws Exception {
-        return CursoRestConverter.EntidadeToCursoDto(cursoRepositorioJpa.findBySigla(this.sigla));
+        CursoEntidade entidade = cursoRepositorioJpa.findBySigla(this.sigla);
+        createCursoDto(entidade);
+        return CursoRestConverter.EntidadeToCursoDto(entidade);
     }
 
     public Page<CursoDto> listarCursos(Pageable pageable) {
         Page<CursoDto> pageCursoDto = cursoRepositorioJpa.listCursos(pageable).map(CursoRestConverter::EntidadeToCursoDto);
         return pageCursoDto;
+    }
+
+    private CursoDto createCursoDto(CursoEntidade cursoEntidade){
+        CursoDto dto = new  CursoDto();
+        dto.setId(cursoEntidade.getId());
+        dto.setSigla(cursoEntidade.getSigla());
+        dto.setNome(cursoEntidade.getNome());
+        dto.setCarga_horaria_complementar(cursoEntidade.getCarga_horaria_complementar());
+        dto.getId();
+        dto.getSigla();
+        dto.getNome();
+        dto.getCarga_horaria_complementar();
+        return dto;
     }
 }

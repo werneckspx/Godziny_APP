@@ -9,166 +9,117 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.cefet.godziny.api.usuario.UsuarioDto;
-import com.cefet.godziny.constantes.usuario.EnumRecursos;
-import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
-import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
+import com.cefet.godziny.api.categoria.CategoriaDto;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
+import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
-import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
-import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class CriarCategoriaCasoUsoTest {
-    private UsuarioDto usuarioDto;
+    private CategoriaDto categoriaDto;
+    private CategoriaEntidade categoriaEntidade;
     private CursoEntidade cursoEntidade;
 
     @Mock
     CursoRepositorioJpa cursoRepositorioJpa;
 
     @Mock
-    UsuarioRepositorioJpa usuarioRepositorioJpa;
+    CategoriaRepositorioJpa categoriaRepositorioJpa;
 
-    private CriarUsuarioCasoUso criarUsuarioCasoUso;
+    private CriarCategoriaCasoUso criarCategoriaCasoUso;
 
     @BeforeEach
     void inicializarDados() {
-        criarUsuarioCasoUso = new CriarUsuarioCasoUso("TESTE", "teste@teste.com.br", "teste123",  usuarioRepositorioJpa, cursoRepositorioJpa);
+        criarCategoriaCasoUso = new CriarCategoriaCasoUso(
+            categoriaRepositorioJpa, cursoRepositorioJpa,
+            "sigla_TESTE", "nome_TESTE",
+            (float) 1.0, (float) 1.0,
+            "descrição_TESTE"
+        );
     };
 
     @AfterEach
     void limparDados() {
-        this.usuarioDto = null;
+        this.categoriaDto = null;
+        this.categoriaEntidade = null;
         this.cursoEntidade = null;
-        usuarioRepositorioJpa.deleteAll();
+        categoriaRepositorioJpa.deleteAll();
         cursoRepositorioJpa.deleteAll();
     }
     
     @Test
-    @DisplayName("Should valided an CriarUsuarioCasoUso successfully")
-    void testeCriarUsuarioCasoUsoSuccess() throws Exception {
-        this.usuarioDto = createUsuarioDto();
+    @DisplayName("Should valided an CriarCategoriaCasoUso successfully")
+    void testeCriarCategoriaCasoUsoSuccess() throws Exception {
+        this.categoriaDto = createCategoriaDto();
+        this.categoriaEntidade = createCategoriaEntidade();
         this.cursoEntidade = createCursoEntidade();
 
-        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(cursoEntidade);
-        when(usuarioRepositorioJpa.createUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(99999);
-        criarUsuarioCasoUso.validarCriacao();
-        Integer response = criarUsuarioCasoUso.createUsuario(usuarioDto);
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(this.cursoEntidade);
+        when(categoriaRepositorioJpa.createCategoria(Mockito.any(CategoriaEntidade.class))).thenReturn(UUID.randomUUID());
+        criarCategoriaCasoUso.validarCriacao();
+        UUID response = criarCategoriaCasoUso.createCategoria(this.categoriaDto, this.cursoEntidade);
 
-        assertThat(response).isInstanceOf(Integer.class);
+        assertThat(response).isInstanceOf(UUID.class);
         assertThat(response).isNotNull();
     }
 
     @Test
-    @DisplayName("Try to create an Usuario and return an excepiton because the NOME is too big")
-    void testCriarUsuarioCasoUsoExceptionCase1() throws Exception{
-        criarUsuarioCasoUso.setNome("NOME's bigger than 100 letters are not allowed. It's really difficuty someone has a name's length as one hundred letters. But the system stiil has that rule.");
+    @DisplayName("Try to create a Categoria and return an excepiton because the CURSOSIGLA is too big")
+    void testCriarCategoriaCasoUsoExceptionCase1() throws Exception{
+        criarCategoriaCasoUso.setCursoSigla("SIGLAS bigger than 20 letters are not allowed");
 
-        Exception thrown = assertThrows( CriarUsuarioIncompletoException.class, () -> {
-            criarUsuarioCasoUso.validarCriacao();
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("O nome do usuário deve ter entre 3 e 100 caracteres");
+        assertThat(thrown.getMessage()).isEqualTo("A sigla do curso na categoria deve ter entre 3 e 20 caracteres");
     }
 
     @Test
-    @DisplayName("Try to update an Usuario and return an exception because the NOME is too short")
-    void testeCriarUsuarioCasoUsoExceptionCase2() {
-        criarUsuarioCasoUso.setNome("N");
-        
-        Exception thrown = assertThrows(CriarUsuarioIncompletoException.class, () -> {
-            criarUsuarioCasoUso.validarCriacao();
+    @DisplayName("Try to create a Categoria and return an excepiton because the CURSOSIGLA is too short")
+    void testCriarCategoriaCasoUsoExceptionCase2() throws Exception{
+        criarCategoriaCasoUso.setCursoSigla("S");
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("O nome do usuário deve ter entre 3 e 100 caracteres");
-    }  
-
-    @Test
-    @DisplayName("Try to create an Usuario and return an excepiton because the SENHA is too short")
-    void testeCriarUsuarioCasoUsoExceptionCase3() throws Exception{
-        criarUsuarioCasoUso.setSenha("123");
-
-        Exception thrown = assertThrows(CriarUsuarioIncompletoException.class, () -> {
-            criarUsuarioCasoUso.validarCriacao();
-        });
-        
-        assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("A senha deve ter no mínimo 6 caracteres");
+        assertThat(thrown.getMessage()).isEqualTo("A sigla do curso na categoria deve ter entre 3 e 20 caracteres");
     }
 
-    @Test
-    @DisplayName("Try to create an Usuario and return an exception because the EMAIL is NULL")
-    void testeCriarUsuarioCasoUsoExceptionCase4() {
-        criarUsuarioCasoUso.setEmail(null);
-        
-        Exception thrown = assertThrows(CriarUsuarioIncompletoException.class, () -> {
-            criarUsuarioCasoUso.validarCriacao();
-        });
-        
-        assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("O email fornecido para o usuário não é válido");
-    }  
 
-    @Test
-    @DisplayName("Try to create an Usuario and return an exception because the EMAIL isn't right")
-    void testeCriarUsuarioCasoUsoExceptionCase5() {
-        criarUsuarioCasoUso.setEmail("testehotmail.com");
-        
-        Exception thrown = assertThrows(CriarUsuarioIncompletoException.class, () -> {
-            criarUsuarioCasoUso.validarCriacao();
-        });
-        
-        assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("O email fornecido para o usuário não é válido");
-    }
-
-    @Test
-    @DisplayName("Try to create an Usuario and return an exception because the EMAIL is already in the database")
-    void testeCriarUsuarioCasoUsoExceptionCase6() {
-        UsuarioEntidade usuarioEntidade = new UsuarioEntidade(
-            999999, 
-            createCursoEntidade(),
-            "TESTE",
-            "teste@teste.com.br",
-            "teste123",
-            EnumRecursos.NORMAL
+    private CategoriaDto createCategoriaDto(){
+        return new CategoriaDto(
+            UUID.randomUUID(), 
+            "sigla_TESTE",
+            "nome_TESTE",
+            (float) 1.0, (float) 1.0,
+            "descrição_TESTE"
         );
-
-        when(usuarioRepositorioJpa.findByEmail(Mockito.anyString())).thenReturn(usuarioEntidade);
-        
-        Exception thrown = assertThrows(CriarUsuarioEmailRepetidoException.class, () -> {
-            criarUsuarioCasoUso.validarCriacao();
-        });
-        
-        assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("O email fornecido já está cadastrado no sistema");
-    }
-
-
-    private UsuarioDto createUsuarioDto(){
-        UsuarioDto dto = new UsuarioDto(
-            999999, 
-            "CURSO_ID_TESTE",
-            "TESTE",
-            "teste@teste.com.br",
-            "teste123",
-            EnumRecursos.NORMAL
-        );
-        return dto;
     }
 
     private CursoEntidade createCursoEntidade(){
-        CursoEntidade curso = new CursoEntidade(
+        return new CursoEntidade(
             UUID.randomUUID(),
-            "CURSO_ID_TESTE",
-            "TESTE",
-            100
+            "ODONT_DIV",
+            "Odontologia",
+            1
         );
-        return curso;
+    }
+
+    private CategoriaEntidade createCategoriaEntidade(){
+        return new CategoriaEntidade(
+            UUID.randomUUID(),
+            createCursoEntidade(), "Categoria_TESTE",
+            (float) 1.0, (float) 1.0,
+            "Descrição_TESTE");
     }
 
 }

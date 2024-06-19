@@ -4,7 +4,6 @@ import java.util.UUID;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-@Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Getter
