@@ -59,6 +59,7 @@ public class CategoriaRestConverter {
 
     public static AtualizarCategoriaCasoUso DtoToUpdateCursoCasoUso(CategoriaDto dto, CategoriaRepositorioJpa categoriaRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
         return AtualizarCategoriaCasoUso.builder()
+        .categoriaId(dto.getId())
         .nome(dto.getNome())
         .cursoSigla(dto.getCursoSigla())
         .porcentagemHorasMaximas(dto.getPorcentagemHorasMaximas())

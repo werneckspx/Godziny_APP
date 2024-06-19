@@ -1,10 +1,12 @@
 package com.cefet.godziny.domain.casouso.categoria;
 
+import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
@@ -21,6 +23,9 @@ public class AtualizarCategoriaCasoUso {
 
     @Autowired
     private final CursoRepositorioJpa cursoRepositorioJpa;
+
+    @NotNull(message = "O id da categoria é obrigatório")
+    private UUID categoriaId;
 
     @NotNull(message = "A sigla do curso é obrigatória")
     private String cursoSigla;
@@ -55,7 +60,8 @@ public class AtualizarCategoriaCasoUso {
             throw new CriarCategoriaInconpletaException("A descrição da categoria deve ter no mínimo 10 caracteres");
         }
         CursoEntidade cursoEntidade = cursoRepositorioJpa.findBySigla(this.cursoSigla);
-        if(!(categoriaRepositorioJpa.findByCursoAndNome(cursoEntidade, this.nome).isEmpty())){
+        List<CategoriaEntidade> listCategoria = categoriaRepositorioJpa.findByCursoAndNome(cursoEntidade, this.nome);
+        if(!listCategoria.isEmpty() && !listCategoria.stream().anyMatch(element -> element.getId().equals(this.categoriaId))){
             throw new CampoRepetidoNoBancoException("Já existe uma categoria com este nome no curso selecionado");
         }
         return cursoEntidade;
