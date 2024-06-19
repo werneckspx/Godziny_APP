@@ -162,14 +162,12 @@ public class CursoRepositorioJpaTest {
     }
 
     @Test
-    @DisplayName("Try to update a Curso's ID successfully")
+    @DisplayName("Try to update a Curso by ID successfully")
     void testUpdateCursoIDSuccess() throws Exception {
         this.entidade = createCursoEntidade();
         this.optional = createOptionalCurso();
 
-        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString()))
-            .thenReturn(optional)
-            .thenReturn(Optional.empty());
+        when(cursoRepositorioJpaSpring.findBySigla(Mockito.anyString())).thenReturn(optional);
         doNothing().when(cursoRepositorioJpaSpring).updateCursoById(
             Mockito.anyString(),
             Mockito.anyString(),

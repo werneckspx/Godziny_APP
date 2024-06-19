@@ -12,7 +12,10 @@ import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoriaRestConverter {
     public static CategoriaEntidade OptionalToCategoriaEntidade(Optional<CategoriaEntidade> optional) throws Exception {
         if(!optional.isPresent()){
