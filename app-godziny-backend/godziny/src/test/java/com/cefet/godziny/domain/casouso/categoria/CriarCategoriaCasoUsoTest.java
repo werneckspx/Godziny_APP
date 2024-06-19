@@ -1,6 +1,9 @@
 package com.cefet.godziny.domain.casouso.categoria;
 
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.api.categoria.CategoriaDto;
+import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
@@ -93,6 +97,114 @@ public class CriarCategoriaCasoUsoTest {
         assertThat(thrown.getMessage()).isEqualTo("A sigla do curso na categoria deve ter entre 3 e 20 caracteres");
     }
 
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the NOME is too big")
+    void testCriarCategoriaCasoUsoExceptionCase3() throws Exception{
+        criarCategoriaCasoUso.setNome("That NOME is too big! The Godziny's rules doesn't let this happen because it's not allowed and Who do want to put a long NOME like this? That NOME is too big! The Godziny's rules doesn't let this happen because it's not allowed and Who do want to put a long NOME like this?");
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("O nome da categoria deve ter entre 3 e 250 caracteres");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the NOME is too short")
+    void testCriarCategoriaCasoUsoExceptionCase4() throws Exception{
+        criarCategoriaCasoUso.setNome("N");
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("O nome da categoria deve ter entre 3 e 250 caracteres");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the PORCENTAGEM HORAS MAXIMAS is lesser than 0")
+    void testCriarCategoriaCasoUsoExceptionCase5() throws Exception{
+        criarCategoriaCasoUso.setPorcentagemHorasMaximas((float) -5.5);
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("A porcentagem de horas máximas da categoria deve ser maior que zero");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the PORCENTAGEM HORAS MAXIMAS is equal to 0")
+    void testCriarCategoriaCasoUsoExceptionCase6() throws Exception{
+        criarCategoriaCasoUso.setPorcentagemHorasMaximas((float) 0.0);
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("A porcentagem de horas máximas da categoria deve ser maior que zero");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the MULTIPLICADOR HORAS is lesser than 0")
+    void testCriarCategoriaCasoUsoExceptionCase7() throws Exception{
+        criarCategoriaCasoUso.setHorasMultiplicador((float) -5.5);
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("O multiplicador por horas da categoria deve ser maior que zero");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the MULTIPLICADOR HORAS is equal to 0")
+    void testCriarCategoriaCasoUsoExceptionCase8() throws Exception{
+        criarCategoriaCasoUso.setHorasMultiplicador((float) 0.0);
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("O multiplicador por horas da categoria deve ser maior que zero");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the DESCRICAO has a size lesser than 10")
+    void testCriarCategoriaCasoUsoExceptionCase9() throws Exception{
+        criarCategoriaCasoUso.setDescricao("D");
+
+        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("A descrição da categoria deve ter no mínimo 10 caracteres");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because already exists one with the same CURSO and NOME")
+    void testCriarCategoriaCasoUsoExceptionCase10() throws Exception{
+        this.categoriaEntidade = createCategoriaEntidade();
+        this.cursoEntidade = createCursoEntidade();
+        List<CategoriaEntidade> list = new ArrayList<>();
+        list.add(categoriaEntidade);
+
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(this.cursoEntidade);
+        when(categoriaRepositorioJpa.findByCursoAndNome(Mockito.any(CursoEntidade.class), Mockito.anyString())).thenReturn(list);
+        Exception thrown = assertThrows(CampoRepetidoNoBancoException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Já existe uma categoria com este nome no curso selecionado");
+    }
 
     private CategoriaDto createCategoriaDto(){
         return new CategoriaDto(
@@ -122,4 +234,3 @@ public class CriarCategoriaCasoUsoTest {
     }
 
 }
-
