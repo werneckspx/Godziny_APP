@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
-import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
