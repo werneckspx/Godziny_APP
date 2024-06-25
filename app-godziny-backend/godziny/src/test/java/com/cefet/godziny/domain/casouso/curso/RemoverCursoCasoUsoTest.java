@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import java.util.List;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
@@ -76,7 +74,7 @@ public class RemoverCursoCasoUsoTest {
     }
 
     @Test
-    @DisplayName("Try to create a Curso and return an excepiton because exists users inside it")
+    @DisplayName("Try to delete a Curso and return an excepiton because exists users inside it")
     void testRemoverCursoCasoUsoExceptionCase1() throws Exception{
         this.entidade = new CursoEntidade(UUID.randomUUID(), "TESTE", "TESTE_TESTE", 100);
         List<UsuarioEntidade> userList = List.of(new UsuarioEntidade(
@@ -103,7 +101,7 @@ public class RemoverCursoCasoUsoTest {
 
 
     @Test
-    @DisplayName("Try to create a Curso and return an excepiton because exists categorias inside it")
+    @DisplayName("Try to delete a Curso and return an excepiton because exists categorias inside it")
     void testRemoverCursoCasoUsoExceptionCase2() throws Exception{
         this.entidade = new CursoEntidade(UUID.randomUUID(), "TESTE", "TESTE_TESTE", 100);
         Page<UsuarioEntidade> pageUsers = new PageImpl<>(List.of());

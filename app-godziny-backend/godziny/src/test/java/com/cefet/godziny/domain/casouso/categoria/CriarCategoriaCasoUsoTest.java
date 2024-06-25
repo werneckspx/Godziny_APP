@@ -1,7 +1,6 @@
 package com.cefet.godziny.domain.casouso.categoria;
 
 import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

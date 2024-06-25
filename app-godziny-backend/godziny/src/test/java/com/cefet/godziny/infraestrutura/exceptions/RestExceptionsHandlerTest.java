@@ -6,8 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
+import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
@@ -89,5 +92,49 @@ public class RestExceptionsHandlerTest {
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void testCategoriaNaoEncontradoException() throws Exception {
+        CategoriaNaoEncontradaException exception = new CategoriaNaoEncontradaException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.categoriaNaoEncontradaException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void testCriarCategoriaInconpletaExceptionn() throws Exception {
+        CriarCategoriaInconpletaException exception = new CriarCategoriaInconpletaException("Categora incompleta");
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarCategoriaInconpletaException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRemoverCursoComCategoriasException() throws Exception {
+        RemoverCursoComCategoriasException exception = new RemoverCursoComCategoriasException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.removerCursoComCategoriaException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
+    public void testCampoRepetidoNoBancoException() throws Exception {
+        CampoRepetidoNoBancoException exception = new CampoRepetidoNoBancoException("Campo repetido no banco de dados");
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.campoRepetidoNoBancoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
 }
