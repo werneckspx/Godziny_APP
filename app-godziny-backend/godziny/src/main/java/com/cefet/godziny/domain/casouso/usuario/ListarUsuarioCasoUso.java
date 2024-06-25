@@ -11,7 +11,6 @@ import com.cefet.godziny.infraestrutura.rest.usuario.UsuarioRestConverter;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-
 @AllArgsConstructor
 public class ListarUsuarioCasoUso {
     @Autowired
@@ -27,7 +26,7 @@ public class ListarUsuarioCasoUso {
 
     public Page<UsuarioRecuperarDto> listarUsuarios(Pageable pageable) {
         Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listUsuarios(pageable).map(entidade -> {
-            return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoDto(entidade.getCurso()));
+            return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoRecuperarDto(entidade.getCurso()));
         });
         return pageUsuarioRecuperarDto;
     }
@@ -36,7 +35,7 @@ public class ListarUsuarioCasoUso {
     private UsuarioRecuperarDto createUsuarioRecuperarDto(UsuarioEntidade usuarioEntidade){
         UsuarioRecuperarDto dto = new  UsuarioRecuperarDto();
         dto.setMatricula(usuarioEntidade.getMatricula());
-        dto.setCurso(CursoRestConverter.EntidadeToCursoDto(usuarioEntidade.getCurso()));
+        dto.setCurso(CursoRestConverter.EntidadeToCursoRecuperarDto(usuarioEntidade.getCurso()));
         dto.setNome(usuarioEntidade.getNome());
         dto.setEmail(usuarioEntidade.getEmail());
         dto.setSenha(usuarioEntidade.getSenha());

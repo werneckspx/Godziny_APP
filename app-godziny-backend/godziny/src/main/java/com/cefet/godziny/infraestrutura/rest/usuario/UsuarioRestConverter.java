@@ -3,7 +3,7 @@ package com.cefet.godziny.infraestrutura.rest.usuario;
 import lombok.NoArgsConstructor;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
-import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.api.usuario.UsuarioRecuperarDto;
 import com.cefet.godziny.domain.casouso.usuario.AtualizarUsuarioCasoUso;
@@ -26,10 +26,10 @@ public class UsuarioRestConverter {
         return usuarioEntidade;
     }
 
-    public static UsuarioRecuperarDto EntidadeToUsuarioRecuperarDto(UsuarioEntidade usuarioEntidade, CursoDto cursoDto){
+    public static UsuarioRecuperarDto EntidadeToUsuarioRecuperarDto(UsuarioEntidade usuarioEntidade, CursoRecuperarDto cursoRecuperarDto){
         return UsuarioRecuperarDto.builder()
         .matricula(usuarioEntidade.getMatricula())
-        .curso(cursoDto)
+        .curso(cursoRecuperarDto)
         .nome(usuarioEntidade.getNome())
         .email(usuarioEntidade.getEmail())
         .senha(usuarioEntidade.getSenha())
