@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 public interface ICursoApi {
 
     @GetMapping("/{cursoSigla}")
-    ResponseEntity<CursoDto> getCurso(@PathVariable(value = "cursoSigla") String cursoSigla) throws Exception;
+    ResponseEntity<CursoRecuperarDto> getCurso(@PathVariable(value = "cursoSigla") String cursoSigla) throws Exception;
 
     @GetMapping("/list")
-    ResponseEntity<Page<CursoDto>> listCursos(
+    ResponseEntity<Page<CursoRecuperarDto>> listCursos(
         @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
         Pageable pageable
     );

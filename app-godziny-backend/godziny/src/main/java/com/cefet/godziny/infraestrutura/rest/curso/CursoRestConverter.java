@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.domain.casouso.curso.CriarCursoCasoUso;
 import com.cefet.godziny.domain.casouso.curso.AtualizarCursoCasoUso;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
@@ -26,6 +27,18 @@ public class CursoRestConverter {
     public static CursoDto EntidadeToCursoDto(CursoEntidade entidade){
         if(entidade != null){
             return CursoDto.builder()
+            .id(entidade.getId())
+            .sigla(entidade.getSigla())
+            .nome(entidade.getNome())
+            .carga_horaria_complementar(entidade.getCarga_horaria_complementar())
+            .build();
+        }
+        return null;
+    }
+
+    public static CursoRecuperarDto EntidadeToCursoRecuperarDto(CursoEntidade entidade){
+        if(entidade != null){
+            return CursoRecuperarDto.builder()
             .id(entidade.getId())
             .sigla(entidade.getSigla())
             .nome(entidade.getNome())

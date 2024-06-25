@@ -6,11 +6,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Builder
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-@Getter
+@NoArgsConstructor
 @Setter
-public class CursoDto{
+@Getter
+public class CursoRecuperarDto{
+    @NotNull
     private UUID id;
     
     @NotNull

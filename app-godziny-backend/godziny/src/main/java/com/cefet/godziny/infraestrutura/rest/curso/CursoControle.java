@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.api.curso.ICursoApi;
 import com.cefet.godziny.domain.casouso.curso.CriarCursoCasoUso;
 import com.cefet.godziny.domain.casouso.curso.ListarCursoCasoUso;
@@ -35,13 +36,13 @@ public class CursoControle implements ICursoApi{
     private final CategoriaRepositorioJpa categoriaRepositorioJpa;
 
     @Override
-    public ResponseEntity<CursoDto> getCurso(String sigla) throws Exception {
+    public ResponseEntity<CursoRecuperarDto> getCurso(String sigla) throws Exception {
         ListarCursoCasoUso casoUso = new ListarCursoCasoUso(cursoRepositorioJpa, sigla);
         return ResponseEntity.status(HttpStatus.OK).body(casoUso.validarListagem());
     }
 
     @Override
-    public ResponseEntity<Page<CursoDto>> listCursos(Pageable pageable) {
+    public ResponseEntity<Page<CursoRecuperarDto>> listCursos(Pageable pageable) {
         ListarCursoCasoUso casoUso = new ListarCursoCasoUso(cursoRepositorioJpa, "");
         return  ResponseEntity.status(HttpStatus.OK).body(casoUso.listarCursos(pageable));
     }

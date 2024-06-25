@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
@@ -69,9 +70,9 @@ public class CursoControleTest {
         this.entidade = createCursoEntidade();
 
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(entidade);
-        ResponseEntity<CursoDto> response = controler.getCurso(SIGLA);
+        ResponseEntity<CursoRecuperarDto> response = controler.getCurso(SIGLA);
 
-        assertThat(response.getBody()).isInstanceOf(CursoDto.class);
+        assertThat(response.getBody()).isInstanceOf(CursoRecuperarDto.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -85,7 +86,7 @@ public class CursoControleTest {
         Pageable pageable = PageRequest.of(0, 10);
 
         when(cursoRepositorioJpa.listCursos(Mockito.any(Pageable.class))).thenReturn(page);
-        ResponseEntity<Page<CursoDto>> response = controler.listCursos(pageable);
+        ResponseEntity<Page<CursoRecuperarDto>> response = controler.listCursos(pageable);
 
         assertThat(response).isNotNull();
         assertThat(response.getBody()).isNotNull();

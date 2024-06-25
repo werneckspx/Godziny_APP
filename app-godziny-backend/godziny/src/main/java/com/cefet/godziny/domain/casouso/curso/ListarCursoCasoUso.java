@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.cefet.godziny.api.curso.CursoDto;
+import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
@@ -18,14 +19,14 @@ public class ListarCursoCasoUso {
     @NotNull(message = "A sigla do curso é obrigatória")
     private String sigla;
 
-    public CursoDto validarListagem() throws Exception {
+    public CursoRecuperarDto validarListagem() throws Exception {
         CursoEntidade entidade = cursoRepositorioJpa.findBySigla(this.sigla);
         createCursoDto(entidade);
-        return CursoRestConverter.EntidadeToCursoDto(entidade);
+        return createCursoRecuperarDto(entidade);
     }
 
-    public Page<CursoDto> listarCursos(Pageable pageable) {
-        Page<CursoDto> pageCursoDto = cursoRepositorioJpa.listCursos(pageable).map(CursoRestConverter::EntidadeToCursoDto);
+    public Page<CursoRecuperarDto> listarCursos(Pageable pageable) {
+        Page<CursoRecuperarDto> pageCursoDto = cursoRepositorioJpa.listCursos(pageable).map(CursoRestConverter::EntidadeToCursoRecuperarDto);
         return pageCursoDto;
     }
 
@@ -41,4 +42,19 @@ public class ListarCursoCasoUso {
         dto.getCarga_horaria_complementar();
         return dto;
     }
+
+    private CursoRecuperarDto createCursoRecuperarDto(CursoEntidade cursoEntidade){
+        CursoRecuperarDto dto = new CursoRecuperarDto();
+        dto.setId(cursoEntidade.getId());
+        dto.setSigla(cursoEntidade.getSigla());
+        dto.setNome(cursoEntidade.getNome());
+        dto.setCarga_horaria_complementar(cursoEntidade.getCarga_horaria_complementar());
+        dto.getId();
+        dto.getSigla();
+        dto.getNome();
+        dto.getCarga_horaria_complementar();
+        return dto;
+    }
 }
+
+
