@@ -44,8 +44,7 @@ public class CategoriaEntidade implements Serializable {
     @Column(name = "horas_multiplicador",nullable = false)
     private float horasMultiplicador;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String descricao;
-
 }
 

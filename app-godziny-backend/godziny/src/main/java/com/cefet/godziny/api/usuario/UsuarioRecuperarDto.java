@@ -3,6 +3,7 @@ package com.cefet.godziny.api.usuario;
 import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import io.micrometer.common.lang.Nullable;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -21,12 +22,15 @@ public class UsuarioRecuperarDto{
     private CursoDto curso;
     
     @NotNull
+    @NotBlank
     private String nome;
 
     @NotNull
+    @NotBlank
     private String email;
 
     @NotNull
+    @NotBlank
     private String senha;
 
     @NotNull

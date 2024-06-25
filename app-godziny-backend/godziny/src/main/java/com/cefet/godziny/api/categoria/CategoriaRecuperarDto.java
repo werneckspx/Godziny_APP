@@ -2,7 +2,7 @@ package com.cefet.godziny.api.categoria;
 
 import java.util.UUID;
 import com.cefet.godziny.api.curso.CursoDto;
-import io.micrometer.common.lang.Nullable;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -16,10 +16,11 @@ public class CategoriaRecuperarDto {
     @NotNull
     private UUID id;
     
-    @Nullable
+    @NotNull
     private CursoDto curso;
     
     @NotNull
+    @NotBlank
     private String nome;
 
     @NotNull
@@ -29,5 +30,6 @@ public class CategoriaRecuperarDto {
     private float horasMultiplicador;
 
     @NotNull
+    @NotBlank
     private String descricao;
 }

@@ -1,6 +1,8 @@
 package com.cefet.godziny.api.curso;
 
 import java.util.UUID;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -13,9 +15,11 @@ public class CursoDto{
     private UUID id;
     
     @NotNull
+    @NotBlank
     private String sigla;
 
     @NotNull
+    @NotBlank
     private String nome;
 
     @NotNull
