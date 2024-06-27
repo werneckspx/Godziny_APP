@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import com.cefet.godziny.constantes.atividade.EnumStatus;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import jakarta.persistence.Column;
@@ -14,8 +15,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,12 +56,10 @@ public class AtividadeEntidade implements Serializable {
     @Enumerated(EnumType.STRING)
     private EnumStatus status;
 
-    @Lob
-    @Column(nullable = false)
-    private byte[] arquivo;
+    @OneToOne
+    @JoinColumn(name = "arquivo_id", referencedColumnName = "id")
+    private ArquivoEntidade arquivo;
 
     @Column(name = "carga_horaria", nullable = true)
     private float cargaHoraria;
 }
-
-

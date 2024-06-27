@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/atividade")
 public interface IAtividadeApi {
     @GetMapping("/{atividadeId}")
-    ResponseEntity<AtividadeRecuperarDto> getAtividade(@PathVariable(value = "atividadeaId") UUID id) throws Exception;
+    ResponseEntity<AtividadeRecuperarDto> getAtividade(@PathVariable(value = "atividadeId") UUID id) throws Exception;
 
     @GetMapping("/list")
     ResponseEntity<Page<AtividadeRecuperarDto>> listAtividades(
