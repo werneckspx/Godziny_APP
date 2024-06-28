@@ -62,4 +62,7 @@ public class AtividadeEntidade implements Serializable {
 
     @Column(name = "carga_horaria", nullable = true)
     private float cargaHoraria;
+
+    @Column(name = "comentario", nullable = true, length = 500)
+    private String comentario;
 }

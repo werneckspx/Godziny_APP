@@ -1,15 +1,26 @@
 package com.cefet.godziny.api.atividade.arquivo;
 
+import java.util.UUID;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-public class dadosRespostaRecuperarDto {
+@Getter
+@Setter
+public class ArquivoRecuperarDto {
+
+    @NotNull
+    @NotBlank
+    private UUID id;
 
     @NotNull
     @NotBlank
@@ -17,13 +28,9 @@ public class dadosRespostaRecuperarDto {
 
     @NotNull
     @NotBlank
-    private String downloadURL;
-
-    @NotNull
-    @NotBlank
     private String tipo;
 
     @NotNull
-    @NotBlank
-    private long tamanhoArquivo;
+    @NotEmpty
+    private byte[] dado;
 }

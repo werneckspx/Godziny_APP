@@ -3,6 +3,9 @@ package com.cefet.godziny.api.atividade;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.cefet.godziny.api.atividade.arquivo.ArquivoRecuperarDto;
+import com.cefet.godziny.api.categoria.CategoriaRecuperarDto;
+import com.cefet.godziny.api.usuario.UsuarioRecuperarDto;
 import com.cefet.godziny.constantes.atividade.EnumStatus;
 import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
@@ -15,14 +18,16 @@ import lombok.*;
 @Getter
 @Setter
 public class AtividadeRecuperarDto{
-    @NonNull
+    @NotNull
     private UUID id;
 
     @NotNull
-    private String usuarioId;
+    @NotBlank
+    private UsuarioRecuperarDto usuario;
 
     @NotNull
-    private String categoriaId;
+    @NotBlank
+    private CategoriaRecuperarDto categoria;
 
     @NotNull
     @NotBlank
@@ -36,9 +41,13 @@ public class AtividadeRecuperarDto{
     private EnumStatus status;
 
     @NotNull
-    private byte[] arquivo;
+    private ArquivoRecuperarDto arquivo;
 
     @Nullable
     private float cargaHoraria;
+
+    @Nullable
+    @NotBlank
+    private String comentario;
 }
 

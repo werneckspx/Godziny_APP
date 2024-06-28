@@ -36,9 +36,13 @@ public class AtividadeDto{
     private EnumStatus status;
 
     @NotNull
-    private byte[] arquivo;
+    private String arquivoId;
 
     @Nullable
     private float cargaHoraria;
+
+    @Nullable
+    @NotBlank
+    private String comentario;
 }
 
