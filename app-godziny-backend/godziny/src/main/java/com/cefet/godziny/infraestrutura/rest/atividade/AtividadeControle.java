@@ -1,0 +1,80 @@
+package com.cefet.godziny.infraestrutura.rest.atividade;
+
+import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import com.cefet.godziny.api.atividade.AtividadeDto;
+import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
+import com.cefet.godziny.api.atividade.IAtividadeApi;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
+import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequiredArgsConstructor
+public class AtividadeControle implements IAtividadeApi {
+
+    @Autowired
+    private final AtividadeRepositorioJpa atividadeRepositorioJpa;
+
+    @Autowired
+    private final UsuarioRepositorioJpa usuarioRepositorioJpa;
+
+    @Autowired
+    private final CategoriaRepositorioJpa categoriaRepositorioJpa;
+
+    @Autowired
+    private final ArquivoRepositorioJpa arquivoRepositorioJpa;
+
+    @Override
+    public ResponseEntity<AtividadeRecuperarDto> getAtividade(UUID id) throws Exception {
+        //ListarCategoriaCasoUso casoUso = new ListarCategoriaCasoUso(categoriaRepositorioJpa, id);
+        //return ResponseEntity.status(HttpStatus.OK).body(casoUso.validarListagem());
+        return  ResponseEntity.status(HttpStatus.OK).body(AtividadeRestConverter.EntidadeToAtividadeRecuperarDto(atividadeRepositorioJpa.findById(id)));
+    }
+
+    @Override
+    public ResponseEntity<Page<AtividadeRecuperarDto>> listAtividades(Pageable pageable) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listAtividades'");
+    }
+
+    @Override
+    public ResponseEntity<UUID> createAtividade(@Valid @RequestPart("dto") AtividadeDto dto, @RequestPart("arquivo") MultipartFile arquivo) throws Exception {
+        //CriarCategoriaCasoUso casoUso = CategoriaRestConverter.DtoToCriarCategoriaCasoUso(dto, categoriaRepositorioJpa, cursoRepositorioJpa);
+        //CursoEntidade cursoEntidade = casoUso.validarCriacao();
+        //return ResponseEntity.status(HttpStatus.CREATED).body(casoUso.createCategoria(dto, cursoEntidade));
+        dto.setArquivoId(arquivoRepositorioJpa.createArquivo(arquivo, arquivo.getOriginalFilename()).getId());
+        return  ResponseEntity.status(HttpStatus.OK).body(atividadeRepositorioJpa.createAtividade(AtividadeRestConverter.DtoToEntidadeJpa(
+            dto,
+            usuarioRepositorioJpa.findById(dto.getUsuarioId()),
+            categoriaRepositorioJpa.findById(dto.getCategoriaId()),
+            arquivoRepositorioJpa.findById(dto.getArquivoId())
+        )));
+    }
+
+
+    @Override
+    public ResponseEntity<UUID> updateAtividade(UUID atividadeId, @Valid AtividadeDto dto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateAtividade'");
+    }
+
+    @Override
+    public ResponseEntity<Void> removeAtividade(UUID atividadeId) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeAtividade'");
+    }
+}
+

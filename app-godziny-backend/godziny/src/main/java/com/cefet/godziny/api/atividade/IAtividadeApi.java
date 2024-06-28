@@ -4,10 +4,12 @@ import jakarta.validation.Valid;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequestMapping("/atividade")
 public interface IAtividadeApi {
@@ -20,8 +22,8 @@ public interface IAtividadeApi {
         Pageable pageable
     );
 
-    @PostMapping("")
-    ResponseEntity<UUID> createAtividade(@RequestBody @Valid AtividadeDto dto) throws Exception;
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    ResponseEntity<UUID> createAtividade(@Valid @RequestPart("dto") AtividadeDto dto, @RequestPart("arquivo") MultipartFile arquivo) throws Exception;
 
     @PutMapping("/{atividadeId}")
     ResponseEntity<UUID> updateAtividade(@PathVariable(value = "atividadeId") UUID atividadeId, @RequestBody @Valid AtividadeDto dto) throws Exception;

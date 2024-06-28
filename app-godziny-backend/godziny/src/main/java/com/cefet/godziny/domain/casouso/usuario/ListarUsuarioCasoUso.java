@@ -26,7 +26,7 @@ public class ListarUsuarioCasoUso {
 
     public Page<UsuarioRecuperarDto> listarUsuarios(Pageable pageable) {
         Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listUsuarios(pageable).map(entidade -> {
-            return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoRecuperarDto(entidade.getCurso()));
+            return UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(entidade);
         });
         return pageUsuarioRecuperarDto;
     }

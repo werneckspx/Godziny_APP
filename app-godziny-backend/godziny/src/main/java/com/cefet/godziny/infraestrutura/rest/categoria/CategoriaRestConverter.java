@@ -4,7 +4,6 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.api.categoria.CategoriaRecuperarDto;
-import com.cefet.godziny.api.curso.CursoDto;
 import com.cefet.godziny.domain.casouso.categoria.AtualizarCategoriaCasoUso;
 import com.cefet.godziny.domain.casouso.categoria.CriarCategoriaCasoUso;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
@@ -12,6 +11,8 @@ import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
+import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +27,10 @@ public class CategoriaRestConverter {
         return categoriaEntidade;
     }
 
-     public static CategoriaRecuperarDto EntidadeToCategoriaRecuperarDto(CategoriaEntidade categoriaEntidade, CursoDto cursoDto){
+     public static CategoriaRecuperarDto EntidadeToCategoriaRecuperarDto(CategoriaEntidade categoriaEntidade){
         return CategoriaRecuperarDto.builder()
         .id(categoriaEntidade.getId())
-        .curso(cursoDto)
+        .curso(CursoRestConverter.EntidadeToCursoDto(categoriaEntidade.getCurso()))
         .nome(categoriaEntidade.getNome())
         .porcentagemHorasMaximas(categoriaEntidade.getPorcentagemHorasMaximas())
         .horasMultiplicador(categoriaEntidade.getHorasMultiplicador())

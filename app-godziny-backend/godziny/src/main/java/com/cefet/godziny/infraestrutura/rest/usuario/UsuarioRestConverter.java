@@ -3,7 +3,6 @@ package com.cefet.godziny.infraestrutura.rest.usuario;
 import lombok.NoArgsConstructor;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
-import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.api.usuario.UsuarioRecuperarDto;
 import com.cefet.godziny.domain.casouso.usuario.AtualizarUsuarioCasoUso;
@@ -13,6 +12,8 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
+import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
+
 import lombok.AccessLevel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,10 +27,10 @@ public class UsuarioRestConverter {
         return usuarioEntidade;
     }
 
-    public static UsuarioRecuperarDto EntidadeToUsuarioRecuperarDto(UsuarioEntidade usuarioEntidade, CursoRecuperarDto cursoRecuperarDto){
+    public static UsuarioRecuperarDto EntidadeToUsuarioRecuperarDto(UsuarioEntidade usuarioEntidade){
         return UsuarioRecuperarDto.builder()
         .matricula(usuarioEntidade.getMatricula())
-        .curso(cursoRecuperarDto)
+        .curso(CursoRestConverter.EntidadeToCursoRecuperarDto(usuarioEntidade.getCurso()))
         .nome(usuarioEntidade.getNome())
         .email(usuarioEntidade.getEmail())
         .senha(usuarioEntidade.getSenha())

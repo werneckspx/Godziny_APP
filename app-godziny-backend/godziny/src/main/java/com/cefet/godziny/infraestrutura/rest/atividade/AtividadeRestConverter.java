@@ -2,8 +2,18 @@ package com.cefet.godziny.infraestrutura.rest.atividade;
 
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
+
+import com.cefet.godziny.api.atividade.AtividadeDto;
+import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
+import com.cefet.godziny.infraestrutura.rest.atividade.arquivo.ArquivoRestConverter;
+import com.cefet.godziny.infraestrutura.rest.categoria.CategoriaRestConverter;
+import com.cefet.godziny.infraestrutura.rest.usuario.UsuarioRestConverter;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,27 +28,33 @@ public class AtividadeRestConverter {
         return atividadeEntidade;
     }
 
-    // public static UsuarioRecuperarDto EntidadeToUsuarioRecuperarDto(UsuarioEntidade usuarioEntidade, CursoRecuperarDto cursoRecuperarDto){
-    //     return UsuarioRecuperarDto.builder()
-    //     .matricula(usuarioEntidade.getMatricula())
-    //     .curso(cursoRecuperarDto)
-    //     .nome(usuarioEntidade.getNome())
-    //     .email(usuarioEntidade.getEmail())
-    //     .senha(usuarioEntidade.getSenha())
-    //     .tipo(usuarioEntidade.getTipo())
-    //     .build();
-    // }
+    public static AtividadeRecuperarDto EntidadeToAtividadeRecuperarDto(AtividadeEntidade atividadeEntidade){
+        return AtividadeRecuperarDto.builder()
+        .id(atividadeEntidade.getId())
+        .usuario(UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(atividadeEntidade.getUsuario()))
+        .categoria(CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(atividadeEntidade.getCategoria()))
+        .titulo(atividadeEntidade.getTitulo())
+        .createdAt(atividadeEntidade.getCreatedAt())
+        .status(atividadeEntidade.getStatus())
+        .arquivo(ArquivoRestConverter.EntidadeToArquivoRecuperarDto(atividadeEntidade.getArquivo()))
+        .cargaHoraria(atividadeEntidade.getCargaHoraria())
+        .comentario(atividadeEntidade.getComentario())
+        .build();
+    }
 
-    // public static UsuarioEntidade DtoToEntidadeJpa (UsuarioDto dto, CursoEntidade cursoEntidade){
-    //     return UsuarioEntidade.builder()
-    //     .matricula(dto.getMatricula())
-    //     .curso(cursoEntidade)
-    //     .nome(dto.getNome())
-    //     .email(dto.getEmail())
-    //     .senha(dto.getSenha())
-    //     .tipo(dto.getTipo())
-    //     .build();
-    // }
+    public static AtividadeEntidade DtoToEntidadeJpa (AtividadeDto dto, UsuarioEntidade usuarioEntidade, CategoriaEntidade categoriaEntidade, ArquivoEntidade arquivoEntidade){
+        return AtividadeEntidade.builder()
+        .id(dto.getId())
+        .usuario(usuarioEntidade)
+        .categoria(categoriaEntidade)
+        .titulo(dto.getTitulo())
+        .createdAt(dto.getCreatedAt())
+        .status(dto.getStatus())
+        .arquivo(arquivoEntidade)
+        .cargaHoraria(dto.getCargaHoraria())
+        .comentario(dto.getComentario())
+        .build();
+    }
 
     // public static CriarUsuarioCasoUso DtoToCriarUsuarioCasoUso(UsuarioDto dto, UsuarioRepositorioJpa usuarioRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
     //     return CriarUsuarioCasoUso.builder()

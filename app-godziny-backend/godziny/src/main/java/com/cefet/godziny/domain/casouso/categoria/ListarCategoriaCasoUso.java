@@ -23,14 +23,13 @@ public class ListarCategoriaCasoUso {
     public CategoriaRecuperarDto validarListagem() throws Exception {
         CategoriaEntidade entidade = categoriaRepositorioJpa.findById(this.id);
         createCategoriaRecuperarDto(entidade);
-        return CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(entidade, CursoRestConverter.EntidadeToCursoDto(entidade.getCurso()));
+        return CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(entidade);
     }
 
     public Page<CategoriaRecuperarDto> listarCategorias(Pageable pageable) {
         Page<CategoriaRecuperarDto> pageCategoriaDto = categoriaRepositorioJpa.listCategorias(pageable).map(
             categoriaEntidade -> CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(
-                categoriaEntidade, 
-                CursoRestConverter.EntidadeToCursoDto(categoriaEntidade.getCurso())
+                categoriaEntidade
         ));
         return pageCategoriaDto;
     }

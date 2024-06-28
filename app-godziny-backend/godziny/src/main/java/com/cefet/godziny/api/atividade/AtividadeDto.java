@@ -19,10 +19,10 @@ public class AtividadeDto{
     private UUID id;
 
     @NotNull
-    private String usuarioId;
+    private Integer usuarioId;
 
     @NotNull
-    private String categoriaId;
+    private UUID categoriaId;
 
     @NotNull
     @NotBlank
@@ -35,14 +35,12 @@ public class AtividadeDto{
     @NotNull
     private EnumStatus status;
 
-    @NotNull
-    private String arquivoId;
+    private UUID arquivoId;
 
     @Nullable
     private float cargaHoraria;
 
     @Nullable
-    @NotBlank
     private String comentario;
 }
 
