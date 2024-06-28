@@ -7,7 +7,7 @@ import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEn
 public interface IArquivoRepositorio {
     ArquivoEntidade findById(UUID id) throws Exception;
 
-    ArquivoEntidade createArquivo(MultipartFile arquivo) throws Exception;
+    ArquivoEntidade createArquivo(MultipartFile arquivo, String nomeArquivo) throws Exception;
 
     void deleteArquivo(UUID id) throws Exception;
 
