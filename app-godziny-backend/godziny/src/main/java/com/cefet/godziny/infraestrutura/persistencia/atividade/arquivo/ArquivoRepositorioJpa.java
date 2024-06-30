@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import com.cefet.godziny.domain.atividade.arquivo.CriarArquivoCasoUso;
+import com.cefet.godziny.domain.casouso.atividade.arquivo.CriarArquivoCasoUso;
 import com.cefet.godziny.domain.porta.atividade.arquivo.IArquivoRepositorio;
 import com.cefet.godziny.infraestrutura.rest.atividade.arquivo.ArquivoRestConverter;
 

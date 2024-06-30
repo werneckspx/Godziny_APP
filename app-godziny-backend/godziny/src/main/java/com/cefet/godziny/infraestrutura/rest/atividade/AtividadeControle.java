@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.api.atividade.AtividadeDto;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
 import com.cefet.godziny.api.atividade.IAtividadeApi;
+import com.cefet.godziny.domain.casouso.atividade.ListarAtividadeCasoUso;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
@@ -39,15 +40,14 @@ public class AtividadeControle implements IAtividadeApi {
 
     @Override
     public ResponseEntity<AtividadeRecuperarDto> getAtividade(UUID id) throws Exception {
-        //ListarCategoriaCasoUso casoUso = new ListarCategoriaCasoUso(categoriaRepositorioJpa, id);
-        //return ResponseEntity.status(HttpStatus.OK).body(casoUso.validarListagem());
-        return ResponseEntity.status(HttpStatus.OK).body(AtividadeRestConverter.EntidadeToAtividadeRecuperarDto(atividadeRepositorioJpa.findById(id)));
+        ListarAtividadeCasoUso casoUso = new ListarAtividadeCasoUso(atividadeRepositorioJpa, id);
+        return ResponseEntity.status(HttpStatus.OK).body(casoUso.validarListagem());
     }
 
     @Override
     public ResponseEntity<Page<AtividadeRecuperarDto>> listAtividades(Pageable pageable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listAtividades'");
+        ListarAtividadeCasoUso casoUso = new ListarAtividadeCasoUso(atividadeRepositorioJpa, UUID.randomUUID());
+        return  ResponseEntity.status(HttpStatus.OK).body(casoUso.listarAtividades(pageable));
     }
 
     @Override
@@ -64,17 +64,18 @@ public class AtividadeControle implements IAtividadeApi {
         )));
     }
 
-
     @Override
-    public ResponseEntity<UUID> updateAtividade(UUID atividadeId, @Valid AtividadeDto dto) throws Exception {
+    public ResponseEntity<UUID> updateAtividade(UUID atividadeId, @Valid AtividadeDto dto, MultipartFile arquivo) throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateAtividade'");
     }
+   
 
     @Override
     public ResponseEntity<Void> removeAtividade(UUID atividadeId) throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeAtividade'");
     }
+
 }
 

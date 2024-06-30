@@ -46,8 +46,8 @@ public class AtividadeEntidade implements Serializable {
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private CategoriaEntidade categoria;
 
-    @Column(length = 500, nullable = false)
-    private String titulo;
+    @Column(length = 500, nullable = false, name = "titulo")
+    private String nome;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;

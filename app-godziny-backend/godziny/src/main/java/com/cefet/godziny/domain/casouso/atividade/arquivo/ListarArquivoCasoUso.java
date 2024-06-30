@@ -1,4 +1,4 @@
-package com.cefet.godziny.domain.atividade.arquivo;
+package com.cefet.godziny.domain.casouso.atividade.arquivo;
 
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;

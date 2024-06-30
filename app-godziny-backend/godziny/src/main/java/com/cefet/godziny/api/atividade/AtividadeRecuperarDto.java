@@ -47,7 +47,6 @@ public class AtividadeRecuperarDto{
     private float cargaHoraria;
 
     @Nullable
-    @NotBlank
     private String comentario;
 }
 

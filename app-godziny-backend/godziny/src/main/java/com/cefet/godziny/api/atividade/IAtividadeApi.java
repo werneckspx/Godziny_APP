@@ -25,9 +25,8 @@ public interface IAtividadeApi {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity<UUID> createAtividade(@Valid @RequestPart("dto") AtividadeDto dto, @RequestPart("arquivo") MultipartFile arquivo) throws Exception;
 
-    @PutMapping("/{atividadeId}")
-    ResponseEntity<UUID> updateAtividade(@PathVariable(value = "atividadeId") UUID atividadeId, @RequestBody @Valid AtividadeDto dto) throws Exception;
-
+    @PutMapping(value = "/{atividadeId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    ResponseEntity<UUID> updateAtividade(@PathVariable(value = "atividadeId") UUID atividadeId, @Valid @RequestPart("dto") AtividadeDto dto, @RequestPart("arquivo") MultipartFile arquivo) throws Exception;
 
     @DeleteMapping("/{atividadeId}")
     ResponseEntity<Void> removeAtividade(@PathVariable(value = "atividadeId") UUID atividadeId) throws Exception;

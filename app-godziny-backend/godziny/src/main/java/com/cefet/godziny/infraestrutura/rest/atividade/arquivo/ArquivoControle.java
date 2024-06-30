@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.api.atividade.arquivo.IArquivoApi;
-import com.cefet.godziny.domain.atividade.arquivo.ListarArquivoCasoUso;
+import com.cefet.godziny.domain.casouso.atividade.arquivo.ListarArquivoCasoUso;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
 import lombok.RequiredArgsConstructor;
