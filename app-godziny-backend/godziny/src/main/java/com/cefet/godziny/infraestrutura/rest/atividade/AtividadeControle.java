@@ -41,7 +41,7 @@ public class AtividadeControle implements IAtividadeApi {
     public ResponseEntity<AtividadeRecuperarDto> getAtividade(UUID id) throws Exception {
         //ListarCategoriaCasoUso casoUso = new ListarCategoriaCasoUso(categoriaRepositorioJpa, id);
         //return ResponseEntity.status(HttpStatus.OK).body(casoUso.validarListagem());
-        return  ResponseEntity.status(HttpStatus.OK).body(AtividadeRestConverter.EntidadeToAtividadeRecuperarDto(atividadeRepositorioJpa.findById(id)));
+        return ResponseEntity.status(HttpStatus.OK).body(AtividadeRestConverter.EntidadeToAtividadeRecuperarDto(atividadeRepositorioJpa.findById(id)));
     }
 
     @Override

@@ -6,9 +6,9 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import com.cefet.godziny.api.atividade.arquivo.ArquivoRecuperarDto;
 import com.cefet.godziny.api.atividade.arquivo.IArquivoApi;
 import com.cefet.godziny.domain.atividade.arquivo.ListarArquivoCasoUso;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +26,7 @@ public class ArquivoControle implements IArquivoApi {
     @Override
     public ResponseEntity<Resource> getArquivo(UUID id) throws Exception {
         ListarArquivoCasoUso casoUso = new ListarArquivoCasoUso(arquivoRepositorioJpa, id);
-        ArquivoRecuperarDto arquivo = casoUso.validarListagem();
+        ArquivoEntidade arquivo = casoUso.validarListagem();
         return ResponseEntity.status(HttpStatus.OK)
             .contentType(MediaType.parseMediaType(arquivo.getTipo()))
             .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "arquivo; filename=\"" + arquivo.getNome() + "\"")

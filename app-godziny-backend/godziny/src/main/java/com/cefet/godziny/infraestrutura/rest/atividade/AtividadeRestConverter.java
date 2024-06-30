@@ -2,7 +2,6 @@ package com.cefet.godziny.infraestrutura.rest.atividade;
 
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
-
 import com.cefet.godziny.api.atividade.AtividadeDto;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
@@ -10,10 +9,8 @@ import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeEntidade
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
-import com.cefet.godziny.infraestrutura.rest.atividade.arquivo.ArquivoRestConverter;
 import com.cefet.godziny.infraestrutura.rest.categoria.CategoriaRestConverter;
 import com.cefet.godziny.infraestrutura.rest.usuario.UsuarioRestConverter;
-
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -36,7 +33,7 @@ public class AtividadeRestConverter {
         .titulo(atividadeEntidade.getTitulo())
         .createdAt(atividadeEntidade.getCreatedAt())
         .status(atividadeEntidade.getStatus())
-        .arquivo(ArquivoRestConverter.EntidadeToArquivoRecuperarDto(atividadeEntidade.getArquivo()))
+        .arquivoId(atividadeEntidade.getArquivo().getId())
         .cargaHoraria(atividadeEntidade.getCargaHoraria())
         .comentario(atividadeEntidade.getComentario())
         .build();

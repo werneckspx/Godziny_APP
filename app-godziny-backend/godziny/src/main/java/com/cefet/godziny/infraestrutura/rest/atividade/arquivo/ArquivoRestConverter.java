@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
-import com.cefet.godziny.api.atividade.arquivo.ArquivoRecuperarDto;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
 import lombok.AccessLevel;
@@ -29,15 +28,6 @@ public class ArquivoRestConverter {
         .nome(nomeArquivo)
         .tipo(arquivo.getContentType())
         .dado(arquivo.getBytes())
-        .build();
-    }
-
-    public static ArquivoRecuperarDto EntidadeToArquivoRecuperarDto(ArquivoEntidade entidade) {
-        return ArquivoRecuperarDto.builder()
-        .id(entidade.getId())
-        .nome(entidade.getNome())
-        .tipo(entidade.getTipo())
-        .dado(entidade.getDado())
         .build();
     }
 }
