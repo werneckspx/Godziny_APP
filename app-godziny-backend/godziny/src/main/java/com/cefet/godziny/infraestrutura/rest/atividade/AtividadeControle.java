@@ -55,7 +55,7 @@ public class AtividadeControle implements IAtividadeApi {
         //CriarCategoriaCasoUso casoUso = CategoriaRestConverter.DtoToCriarCategoriaCasoUso(dto, categoriaRepositorioJpa, cursoRepositorioJpa);
         //CursoEntidade cursoEntidade = casoUso.validarCriacao();
         //return ResponseEntity.status(HttpStatus.CREATED).body(casoUso.createCategoria(dto, cursoEntidade));
-        dto.setArquivoId(arquivoRepositorioJpa.createArquivo(arquivo, arquivo.getOriginalFilename()).getId());
+        dto.setArquivoId(arquivoRepositorioJpa.createArquivo(arquivo, arquivo.getOriginalFilename()));
         return  ResponseEntity.status(HttpStatus.OK).body(atividadeRepositorioJpa.createAtividade(AtividadeRestConverter.DtoToEntidadeJpa(
             dto,
             usuarioRepositorioJpa.findById(dto.getUsuarioId()),
