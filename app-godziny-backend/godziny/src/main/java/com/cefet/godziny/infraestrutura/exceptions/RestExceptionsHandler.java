@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.cefet.godziny.infraestrutura.exceptions.atividade.AlterarAtividadeNaoSimuladaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSemTerCriadoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
-import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
@@ -68,8 +71,8 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ExceptionHandler(CriarCategoriaInconpletaException.class)
-    public ResponseEntity<RestDefaultErrorMessage> criarCategoriaInconpletaException(CriarCategoriaInconpletaException exception) {
+    @ExceptionHandler(CriarCategoriaIncompletaException.class)
+    public ResponseEntity<RestDefaultErrorMessage> criarCategoriaInconpletaException(CriarCategoriaIncompletaException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
@@ -91,6 +94,25 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
+
+    @ExceptionHandler(CriarAtividadeIncompletaException.class)
+    public ResponseEntity<RestDefaultErrorMessage> criarAtividadeIncompletaException(CriarAtividadeIncompletaException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(AlterarAtividadeNaoSimuladaException.class)
+    public ResponseEntity<RestDefaultErrorMessage> alterarAtividadeNaoSimuladaException(AlterarAtividadeNaoSimuladaException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(RemoverAtividadeSemTerCriadoException.class)
+    public ResponseEntity<RestDefaultErrorMessage> removerAtividadeSemTerCriadoException(RemoverAtividadeSemTerCriadoException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
 
     @ExceptionHandler(ArquivoNaoEncontradoException.class)
     public ResponseEntity<RestDefaultErrorMessage> arquivoNaoEncontradoException(ArquivoNaoEncontradoException exception) {

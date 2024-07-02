@@ -4,7 +4,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
-import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
@@ -40,19 +40,19 @@ public class CriarCategoriaCasoUso {
 
     public CursoEntidade validarCriacao() throws Exception {
         if (cursoSigla.length() < 3 || cursoSigla.length() > 20) {
-            throw new CriarCategoriaInconpletaException("A sigla do curso na categoria deve ter entre 3 e 20 caracteres");
+            throw new CriarCategoriaIncompletaException("A sigla do curso na categoria deve ter entre 3 e 20 caracteres");
         }
         if (nome.length() < 3 || nome.length() > 250) {
-            throw new CriarCategoriaInconpletaException("O nome da categoria deve ter entre 3 e 250 caracteres");
+            throw new CriarCategoriaIncompletaException("O nome da categoria deve ter entre 3 e 250 caracteres");
         }
         if (porcentagemHorasMaximas <= 0) {
-            throw new CriarCategoriaInconpletaException("A porcentagem de horas máximas da categoria deve ser maior que zero");
+            throw new CriarCategoriaIncompletaException("A porcentagem de horas máximas da categoria deve ser maior que zero");
         }
         if (horasMultiplicador <= 0) {
-            throw new CriarCategoriaInconpletaException("O multiplicador por horas da categoria deve ser maior que zero");
+            throw new CriarCategoriaIncompletaException("O multiplicador por horas da categoria deve ser maior que zero");
         }
         if (descricao.length() < 10) {
-            throw new CriarCategoriaInconpletaException("A descrição da categoria deve ter no mínimo 10 caracteres");
+            throw new CriarCategoriaIncompletaException("A descrição da categoria deve ter no mínimo 10 caracteres");
         }
         CursoEntidade cursoEntidade = cursoRepositorioJpa.findBySigla(this.cursoSigla);
         if(!(categoriaRepositorioJpa.findByCursoAndNome(cursoEntidade, this.nome).isEmpty())){
