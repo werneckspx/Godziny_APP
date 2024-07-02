@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
-import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
@@ -106,8 +106,8 @@ public class RestExceptionsHandlerTest {
     }
 
     @Test
-    public void testCriarCategoriaInconpletaExceptionn() throws Exception {
-        CriarCategoriaInconpletaException exception = new CriarCategoriaInconpletaException("Categora incompleta");
+    public void testCriarCategoriaIncompletaExceptionn() throws Exception {
+        CriarCategoriaIncompletaException exception = new CriarCategoriaIncompletaException("Categora incompleta");
 
         ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarCategoriaInconpletaException(exception);
 

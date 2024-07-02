@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
-import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
@@ -96,7 +96,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase1() throws Exception{
         atualizarCategoriaCasoUso.setCursoSigla("SIGLAS bigger than 20 letters are not allowed");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -109,7 +109,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase2() throws Exception{
         atualizarCategoriaCasoUso.setCursoSigla("S");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -122,7 +122,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase3() throws Exception{
         atualizarCategoriaCasoUso.setNome("That NOME is too big! The Godziny's rules doesn't let this happen because it's not allowed and Who do want to put a long NOME like this? That NOME is too big! The Godziny's rules doesn't let this happen because it's not allowed and Who do want to put a long NOME like this?");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -135,7 +135,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase4() throws Exception{
         atualizarCategoriaCasoUso.setNome("N");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -148,7 +148,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase5() throws Exception{
         atualizarCategoriaCasoUso.setPorcentagemHorasMaximas((float) -5.5);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -161,7 +161,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase6() throws Exception{
         atualizarCategoriaCasoUso.setPorcentagemHorasMaximas((float) 0.0);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -174,7 +174,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase7() throws Exception{
         atualizarCategoriaCasoUso.setHorasMultiplicador((float) -5.5);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -187,7 +187,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase8() throws Exception{
         atualizarCategoriaCasoUso.setHorasMultiplicador((float) 0.0);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         
@@ -200,7 +200,7 @@ public class AtualizarCategoriaCasoUsoTest {
     void testAtualizarCategoriaCasoUsoExceptionCase9() throws Exception{
         atualizarCategoriaCasoUso.setDescricao("D");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             atualizarCategoriaCasoUso.validarAtualizacao();
         });
         

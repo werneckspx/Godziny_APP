@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.infraestrutura.exceptions.CampoRepetidoNoBancoException;
-import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaInconpletaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
@@ -75,7 +75,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase1() throws Exception{
         criarCategoriaCasoUso.setCursoSigla("SIGLAS bigger than 20 letters are not allowed");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -88,7 +88,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase2() throws Exception{
         criarCategoriaCasoUso.setCursoSigla("S");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -101,7 +101,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase3() throws Exception{
         criarCategoriaCasoUso.setNome("That NOME is too big! The Godziny's rules doesn't let this happen because it's not allowed and Who do want to put a long NOME like this? That NOME is too big! The Godziny's rules doesn't let this happen because it's not allowed and Who do want to put a long NOME like this?");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -114,7 +114,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase4() throws Exception{
         criarCategoriaCasoUso.setNome("N");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -127,7 +127,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase5() throws Exception{
         criarCategoriaCasoUso.setPorcentagemHorasMaximas((float) -5.5);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -140,7 +140,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase6() throws Exception{
         criarCategoriaCasoUso.setPorcentagemHorasMaximas((float) 0.0);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -153,7 +153,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase7() throws Exception{
         criarCategoriaCasoUso.setHorasMultiplicador((float) -5.5);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -166,7 +166,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase8() throws Exception{
         criarCategoriaCasoUso.setHorasMultiplicador((float) 0.0);
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
@@ -179,7 +179,7 @@ public class CriarCategoriaCasoUsoTest {
     void testCriarCategoriaCasoUsoExceptionCase9() throws Exception{
         criarCategoriaCasoUso.setDescricao("D");
 
-        Exception thrown = assertThrows(CriarCategoriaInconpletaException.class, () -> {
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
             criarCategoriaCasoUso.validarCriacao();
         });
         
