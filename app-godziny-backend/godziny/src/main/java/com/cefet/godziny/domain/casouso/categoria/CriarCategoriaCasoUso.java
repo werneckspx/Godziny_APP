@@ -9,6 +9,7 @@ import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaReposito
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.rest.categoria.CategoriaRestConverter;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class CriarCategoriaCasoUso {
     private final CursoRepositorioJpa cursoRepositorioJpa;
 
     @NotNull(message = "A sigla do curso é obrigatória")
+    @NotBlank(message = "Uma categoria precisa estar vinculada a algum curso")
     private String cursoSigla;
 
     @NotNull(message = "O nome da categoria é obrigatório")

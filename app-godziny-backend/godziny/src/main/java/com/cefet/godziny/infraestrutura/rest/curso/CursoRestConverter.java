@@ -25,15 +25,12 @@ public class CursoRestConverter {
     }
 
     public static CursoDto EntidadeToCursoDto(CursoEntidade entidade){
-        if(entidade != null){
-            return CursoDto.builder()
-            .id(entidade.getId())
-            .sigla(entidade.getSigla())
-            .nome(entidade.getNome())
-            .carga_horaria_complementar(entidade.getCarga_horaria_complementar())
-            .build();
-        }
-        return null;
+        return CursoDto.builder()
+        .id(entidade.getId())
+        .sigla(entidade.getSigla())
+        .nome(entidade.getNome())
+        .carga_horaria_complementar(entidade.getCarga_horaria_complementar())
+        .build();
     }
 
     public static CursoRecuperarDto EntidadeToCursoRecuperarDto(CursoEntidade entidade){
