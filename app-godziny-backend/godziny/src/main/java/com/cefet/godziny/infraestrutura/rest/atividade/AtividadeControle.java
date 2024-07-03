@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.api.atividade.AtividadeDto;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
 import com.cefet.godziny.api.atividade.IAtividadeApi;
+import com.cefet.godziny.domain.casouso.atividade.CriarAtividadeCasoUso;
 import com.cefet.godziny.domain.casouso.atividade.ListarAtividadeCasoUso;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
@@ -52,16 +53,9 @@ public class AtividadeControle implements IAtividadeApi {
 
     @Override
     public ResponseEntity<UUID> createAtividade(@Valid @RequestPart("dto") AtividadeDto dto, @RequestPart("arquivo") MultipartFile arquivo) throws Exception {
-        //CriarCategoriaCasoUso casoUso = CategoriaRestConverter.DtoToCriarCategoriaCasoUso(dto, categoriaRepositorioJpa, cursoRepositorioJpa);
-        //CursoEntidade cursoEntidade = casoUso.validarCriacao();
-        //return ResponseEntity.status(HttpStatus.CREATED).body(casoUso.createCategoria(dto, cursoEntidade));
-        dto.setArquivoId(arquivoRepositorioJpa.createArquivo(arquivo, arquivo.getOriginalFilename()));
-        return  ResponseEntity.status(HttpStatus.OK).body(atividadeRepositorioJpa.createAtividade(AtividadeRestConverter.DtoToEntidadeJpa(
-            dto,
-            usuarioRepositorioJpa.findById(dto.getUsuarioId()),
-            categoriaRepositorioJpa.findById(dto.getCategoriaId()),
-            arquivoRepositorioJpa.findById(dto.getArquivoId())
-        )));
+        CriarAtividadeCasoUso casoUso = AtividadeRestConverter.DtoToCriarAtividadeCasoUso(dto, atividadeRepositorioJpa, categoriaRepositorioJpa, usuarioRepositorioJpa, arquivoRepositorioJpa);
+        casoUso.validarCriacao();
+        return ResponseEntity.status(HttpStatus.CREATED).body(casoUso.createAtividade(dto, arquivo));
     }
 
     @Override

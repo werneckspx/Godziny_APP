@@ -29,7 +29,7 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<RestDefaultErrorMessage> criarCursoInclompletoException(CriarCursoIncompletoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         error.getStatus();
-        error.getMessage();
+        error.getDetail();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
@@ -37,7 +37,7 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<RestDefaultErrorMessage> cursoNaoEncontradoException(CursoNaoEncontradoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage();
         error.setStatus(HttpStatus.NOT_FOUND);
-        error.setMessage(exception.getMessage());
+        error.setDetail(exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 

@@ -4,11 +4,16 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import com.cefet.godziny.api.atividade.AtividadeDto;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
+import com.cefet.godziny.domain.casouso.atividade.CriarAtividadeCasoUso;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 import com.cefet.godziny.infraestrutura.rest.categoria.CategoriaRestConverter;
 import com.cefet.godziny.infraestrutura.rest.usuario.UsuarioRestConverter;
 import lombok.AccessLevel;
@@ -53,15 +58,25 @@ public class AtividadeRestConverter {
         .build();
     }
 
-    // public static CriarUsuarioCasoUso DtoToCriarUsuarioCasoUso(UsuarioDto dto, UsuarioRepositorioJpa usuarioRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
-    //     return CriarUsuarioCasoUso.builder()
-    //     .nome(dto.getNome())
-    //     .email(dto.getEmail())
-    //     .senha(dto.getSenha())
-    //     .usuarioRepositorioJpa(usuarioRepositorioJpa)
-    //     .cursoRepositorioJpa(cursoRepositorioJpa)
-    //     .build();
-    // }
+    public static CriarAtividadeCasoUso DtoToCriarAtividadeCasoUso(
+        AtividadeDto dto, AtividadeRepositorioJpa atividadeRepositorioJpa, 
+        CategoriaRepositorioJpa categoriaRepositorioJpa, 
+        UsuarioRepositorioJpa usuarioRepositorioJpa, 
+        ArquivoRepositorioJpa arquivoRepositorioJpa
+    ){
+        return CriarAtividadeCasoUso.builder()
+        .atividadeRepositorioJpa(atividadeRepositorioJpa)
+        .categoriaRepositorioJpa(categoriaRepositorioJpa)
+        .arquivoRepositorioJpa(arquivoRepositorioJpa)
+        .usuarioRepositorioJpa(usuarioRepositorioJpa)
+        .usuarioId(dto.getUsuarioId())
+        .categoriaId(dto.getCategoriaId())
+        .titulo(dto.getTitulo())
+        .createdAt(dto.getCreatedAt())
+        .status(dto.getStatus())
+        .usuarioRepositorioJpa(usuarioRepositorioJpa)
+        .build();
+    }
 
     // public static AtualizarUsuarioCasoUso DtoToUpdateCursoCasoUso(UsuarioDto dto, UsuarioRepositorioJpa usuarioRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
     //     return AtualizarUsuarioCasoUso.builder()

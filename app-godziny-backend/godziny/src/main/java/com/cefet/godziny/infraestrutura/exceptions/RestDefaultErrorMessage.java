@@ -12,5 +12,5 @@ import lombok.Getter;
 @Getter
 public class RestDefaultErrorMessage {
     private HttpStatus status;
-    private String message;
+    private String detail;
 }

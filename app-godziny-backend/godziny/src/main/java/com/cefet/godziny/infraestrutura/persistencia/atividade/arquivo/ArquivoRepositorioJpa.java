@@ -25,10 +25,10 @@ public class ArquivoRepositorioJpa implements IArquivoRepositorio {
     }
 
     @Override
-    public UUID createArquivo(MultipartFile arquivo, String nomeArquivo) throws Exception{
+    public ArquivoEntidade createArquivo(MultipartFile arquivo, String nomeArquivo) throws Exception{
         CriarArquivoCasoUso casoUso = new CriarArquivoCasoUso(repositorio, nomeArquivo);
         casoUso.validarCriacao();
-        return casoUso.createArquivo(arquivo).getId();
+        return casoUso.createArquivo(arquivo);
     }
 
     @Override
