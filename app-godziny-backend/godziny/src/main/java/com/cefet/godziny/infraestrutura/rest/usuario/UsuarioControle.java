@@ -8,9 +8,11 @@ import com.cefet.godziny.domain.casouso.usuario.AtualizarUsuarioCasoUso;
 import com.cefet.godziny.domain.casouso.usuario.CriarUsuarioCasoUso;
 import com.cefet.godziny.domain.casouso.usuario.ListarUsuarioCasoUso;
 import com.cefet.godziny.domain.casouso.usuario.RemoverUsuarioCasoUso;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 import lombok.RequiredArgsConstructor;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +32,9 @@ public class UsuarioControle implements IUsuarioApi{
 
     @Autowired
     private final CursoRepositorioJpa cursoRepositorioJpa;
+
+    @Autowired
+    private final AtividadeRepositorioJpa atividadeRepositorioJpa;
 
     @Autowired
     private final PasswordEncoder enconder;
@@ -63,8 +68,9 @@ public class UsuarioControle implements IUsuarioApi{
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Void> removeUsuario(Integer matricula) throws Exception {
-        RemoverUsuarioCasoUso casoUso = new RemoverUsuarioCasoUso(matricula, usuarioRepositorioJpa);
+        RemoverUsuarioCasoUso casoUso = new RemoverUsuarioCasoUso(matricula, usuarioRepositorioJpa, atividadeRepositorioJpa);
         casoUso.validarRemocao();
         casoUso.removerUsuario();
         return ResponseEntity.status(HttpStatus.OK).build();

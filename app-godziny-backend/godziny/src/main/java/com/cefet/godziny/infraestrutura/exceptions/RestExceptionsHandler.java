@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AlterarAtividadeNaoSimuladaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
@@ -14,12 +13,14 @@ import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInva
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.RemoverCategoriaComAtividadesException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.RemoverUsuarioComAtividadesException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.UsuarioNaoEncontradoException;
 
 @ControllerAdvice
@@ -47,6 +48,12 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
+    @ExceptionHandler(RemoverCursoComCategoriasException.class)
+    public ResponseEntity<RestDefaultErrorMessage> removerCursoComCategoriaException(RemoverCursoComCategoriasException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
     @ExceptionHandler(CriarUsuarioIncompletoException.class)
     public ResponseEntity<RestDefaultErrorMessage> criarUsuarioIncompletoException(CriarUsuarioIncompletoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
@@ -65,6 +72,12 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @ExceptionHandler(RemoverUsuarioComAtividadesException.class)
+    public ResponseEntity<RestDefaultErrorMessage> reemoverUsuarioComAtividadesException(RemoverUsuarioComAtividadesException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
     @ExceptionHandler(CategoriaNaoEncontradaException.class)
     public ResponseEntity<RestDefaultErrorMessage> categoriaNaoEncontradaException(CategoriaNaoEncontradaException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
@@ -77,14 +90,14 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    @ExceptionHandler(RemoverCursoComCategoriasException.class)
-    public ResponseEntity<RestDefaultErrorMessage> removerCursoComCategoriaException(RemoverCursoComCategoriasException exception) {
+    @ExceptionHandler(CampoRepetidoNoBancoException.class)
+    public ResponseEntity<RestDefaultErrorMessage> campoRepetidoNoBancoException(CampoRepetidoNoBancoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
-    @ExceptionHandler(CampoRepetidoNoBancoException.class)
-    public ResponseEntity<RestDefaultErrorMessage> campoRepetidoNoBancoException(CampoRepetidoNoBancoException exception) {
+    @ExceptionHandler(RemoverCategoriaComAtividadesException.class)
+    public ResponseEntity<RestDefaultErrorMessage> removerCategoriaComAtividadesException(RemoverCategoriaComAtividadesException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }

@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
@@ -22,13 +24,16 @@ public class RemoverCategoriaCasoUsoTest {
     private CategoriaEntidade entidade;
 
     @Mock
-    CategoriaRepositorioJpa categoriaRepositorioJpa;
+    private CategoriaRepositorioJpa categoriaRepositorioJpa;
+
+    @Mock
+    private AtividadeRepositorioJpa atividadeRepositorioJpa;
 
     private RemoverCategoriaCasoUso removerCategoriaCasoUso;
 
     @BeforeEach
     void inicializarDados() {
-        removerCategoriaCasoUso = new RemoverCategoriaCasoUso(categoriaRepositorioJpa, UUID.randomUUID());
+        removerCategoriaCasoUso = new RemoverCategoriaCasoUso(categoriaRepositorioJpa, atividadeRepositorioJpa, UUID.randomUUID());
     };
 
     @AfterEach

@@ -1,12 +1,17 @@
 package com.cefet.godziny.infraestrutura.persistencia.atividade;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cefet.godziny.domain.porta.atividade.IAtividadeRepositorio;
+import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.rest.atividade.AtividadeRestConverter;
 
 @Component
@@ -27,6 +32,18 @@ public class AtividadeRepositorioJpa implements IAtividadeRepositorio {
     @Override
     public Page<AtividadeEntidade> listAtividades(Pageable pageable) {
         return repositorio.findAll(pageable);
+    }
+
+    @Override
+    @Transactional
+    public List<AtividadeEntidade> findByCategoria(CategoriaEntidade categoria) {
+        return repositorio.findByCategoria(categoria);
+    }
+
+    @Override
+    @Transactional
+    public List<AtividadeEntidade> findByUsuario(UsuarioEntidade usuario) {
+        return repositorio.findByUsuario(usuario);
     }
 
     @Override

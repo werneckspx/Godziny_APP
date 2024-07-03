@@ -5,7 +5,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import com.cefet.godziny.api.atividade.AtividadeDto;
-import com.cefet.godziny.constantes.atividade.EnumStatus;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
@@ -45,25 +44,22 @@ public class CriarAtividadeCasoUso {
     @NotNull(message = "A data de criaçao da atividade é obrigatória")
     private LocalDateTime createdAt;
 
-    @NotNull(message = "O status da atividade é obrigatório")
-    private EnumStatus status;
-
     public void validarCriacao() throws Exception {
-        if (titulo.length() < 3 || titulo.length() > 500) {
+        if (this.titulo.length() < 3 || this.titulo.length() > 500) {
             throw new CriarAtividadeIncompletaException("O título da atividade deve ter entre 3 e 500 caracteres");
         }
-        if (createdAt.isAfter(LocalDateTime.now())) {
+        if (this.createdAt.isAfter(LocalDateTime.now())) {
             throw new CriarAtividadeIncompletaException("A data de criação da atividade deve ser menor ou igual à data e hora atuais");
         }
     }
 
-     public UUID createAtividade(AtividadeDto dto, MultipartFile arquivo) throws Exception{
+    public UUID createAtividade(AtividadeDto dto, MultipartFile arquivo) throws Exception{
         ArquivoEntidade arquivoEntidade = arquivoRepositorioJpa.createArquivo(arquivo, arquivo.getOriginalFilename());
         dto.setArquivoId(arquivoEntidade.getId());
         return atividadeRepositorioJpa.createAtividade(AtividadeRestConverter.DtoToEntidadeJpa(
             dto,
-            usuarioRepositorioJpa.findById(usuarioId),
-            categoriaRepositorioJpa.findById(categoriaId),
+            usuarioRepositorioJpa.findById(this.usuarioId),
+            categoriaRepositorioJpa.findById(this.categoriaId),
             arquivoEntidade
         ));
     }

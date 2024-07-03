@@ -73,7 +73,6 @@ public class AtividadeRestConverter {
         .categoriaId(dto.getCategoriaId())
         .titulo(dto.getTitulo())
         .createdAt(dto.getCreatedAt())
-        .status(dto.getStatus())
         .usuarioRepositorioJpa(usuarioRepositorioJpa)
         .build();
     }

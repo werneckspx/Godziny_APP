@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.api.categoria.CategoriaDto;
 import com.cefet.godziny.api.categoria.CategoriaRecuperarDto;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
@@ -44,18 +45,21 @@ public class CategoriaControleTest {
     private CategoriaDto dto;
 
     @InjectMocks
-    CategoriaControle controler;
+    private CategoriaControle controler;
 
     @Mock
-    CategoriaRepositorioJpa categoriaRepositorioJpa;
+    private CategoriaRepositorioJpa categoriaRepositorioJpa;
 
     @Mock
-    CursoRepositorioJpa cursoRepositorioJpa;
+    private CursoRepositorioJpa cursoRepositorioJpa;
+
+    @Mock
+    private AtividadeRepositorioJpa atividadeRepositorioJpa;
 
     @BeforeEach
     void inicializarDados() {
         MockitoAnnotations.openMocks(this);
-        controler = new CategoriaControle(categoriaRepositorioJpa, cursoRepositorioJpa);
+        controler = new CategoriaControle(categoriaRepositorioJpa, cursoRepositorioJpa, atividadeRepositorioJpa);
     };
 
     @AfterEach

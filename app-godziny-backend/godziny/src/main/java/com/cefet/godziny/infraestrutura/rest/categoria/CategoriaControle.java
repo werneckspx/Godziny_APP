@@ -13,9 +13,12 @@ import com.cefet.godziny.domain.casouso.categoria.AtualizarCategoriaCasoUso;
 import com.cefet.godziny.domain.casouso.categoria.CriarCategoriaCasoUso;
 import com.cefet.godziny.domain.casouso.categoria.ListarCategoriaCasoUso;
 import com.cefet.godziny.domain.casouso.categoria.RemoverCategoriaCasoUso;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
+
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +34,9 @@ public class CategoriaControle implements ICategoriaApi {
 
     @Autowired
     private final CursoRepositorioJpa cursoRepositorioJpa;
+
+    @Autowired
+    private final AtividadeRepositorioJpa atividadeRepositorioJpa;
 
     @Override
     public ResponseEntity<CategoriaRecuperarDto> getCategoria(UUID id) throws Exception {
@@ -59,8 +65,9 @@ public class CategoriaControle implements ICategoriaApi {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Void> removeCategoria(UUID categoriaId) throws Exception {
-        RemoverCategoriaCasoUso casoUso = new RemoverCategoriaCasoUso(categoriaRepositorioJpa, categoriaId);
+        RemoverCategoriaCasoUso casoUso = new RemoverCategoriaCasoUso(categoriaRepositorioJpa, atividadeRepositorioJpa, categoriaId);
         casoUso.validarRemocao();
         casoUso.removerCategoria();
         return ResponseEntity.status(HttpStatus.OK).build();

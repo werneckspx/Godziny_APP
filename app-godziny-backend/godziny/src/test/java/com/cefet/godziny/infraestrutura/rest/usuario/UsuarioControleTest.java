@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.api.usuario.UsuarioRecuperarDto;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
@@ -51,12 +52,15 @@ public class UsuarioControleTest {
     private UsuarioRepositorioJpa usuarioRepositorioJpa;
 
     @Mock
+    private AtividadeRepositorioJpa atividadeRepositorioJpa;
+
+    @Mock
     private PasswordEncoder enconder;
 
     @BeforeEach
     void inicializarDados() {
         MockitoAnnotations.openMocks(this);
-        controler = new UsuarioControle(usuarioRepositorioJpa, cursoRepositorioJpa, enconder);
+        controler = new UsuarioControle(usuarioRepositorioJpa, cursoRepositorioJpa, atividadeRepositorioJpa, enconder);
     };
 
     @AfterEach

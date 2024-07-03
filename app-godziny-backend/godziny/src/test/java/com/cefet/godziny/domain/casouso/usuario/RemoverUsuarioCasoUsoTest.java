@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
@@ -25,11 +26,14 @@ public class RemoverUsuarioCasoUsoTest {
     @Mock
     UsuarioRepositorioJpa usuarioRepositorioJpa;
 
+    @Mock
+    private AtividadeRepositorioJpa atividadeRepositorioJpa;
+
     private RemoverUsuarioCasoUso removerUsuarioCasoUso;
 
     @BeforeEach
     void inicializarDados() {
-        removerUsuarioCasoUso = new RemoverUsuarioCasoUso(99999, usuarioRepositorioJpa);
+        removerUsuarioCasoUso = new RemoverUsuarioCasoUso(99999, usuarioRepositorioJpa, atividadeRepositorioJpa);
     };
 
     @AfterEach
