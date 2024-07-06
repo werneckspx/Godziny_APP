@@ -175,8 +175,23 @@ public class CriarCategoriaCasoUsoTest {
     }
 
     @Test
-    @DisplayName("Try to create a Categoria and return an excepiton because the DESCRICAO has a size lesser than 10")
+    @DisplayName("Try to create a Categoria and return an excepiton because the DESCRICAO is too big")
     void testCriarCategoriaCasoUsoExceptionCase9() throws Exception{
+        criarCategoriaCasoUso.setDescricao(
+            "Localizado no coração da cidade, nosso hotel combina conforto moderno com charme histórico. Quartos espaçosos e elegantemente decorados oferecem vistas deslumbrantes da paisagem urbana. Desfrute de refeições requintadas em nosso restaurante premiado, seguido de relaxamento completo em nosso spa de classe mundial. Para reuniões e eventos, temos instalações versáteis e tecnologicamente avançadas. Nossa equipe dedicada está pronta para garantir que sua estadia seja memorável e livre de preocupações. Descubra uma experiência única no nosso hotel."
+        );
+
+        Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
+            criarCategoriaCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("A descrição da categoria deve ter entre 10 e 500 caracteres");
+    }
+
+    @Test
+    @DisplayName("Try to create a Categoria and return an excepiton because the DESCRICAO is too short")
+    void testCriarCategoriaCasoUsoExceptionCase10() throws Exception{
         criarCategoriaCasoUso.setDescricao("D");
 
         Exception thrown = assertThrows(CriarCategoriaIncompletaException.class, () -> {
@@ -184,12 +199,12 @@ public class CriarCategoriaCasoUsoTest {
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("A descrição da categoria deve ter no mínimo 10 caracteres");
+        assertThat(thrown.getMessage()).isEqualTo("A descrição da categoria deve ter entre 10 e 500 caracteres");
     }
 
     @Test
     @DisplayName("Try to create a Categoria and return an excepiton because already exists one with the same CURSO and NOME")
-    void testCriarCategoriaCasoUsoExceptionCase10() throws Exception{
+    void testCriarCategoriaCasoUsoExceptionCase11() throws Exception{
         this.categoriaEntidade = createCategoriaEntidade();
         this.cursoEntidade = createCursoEntidade();
         List<CategoriaEntidade> list = new ArrayList<>();
