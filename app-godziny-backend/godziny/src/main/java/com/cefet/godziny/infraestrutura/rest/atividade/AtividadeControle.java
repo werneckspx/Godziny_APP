@@ -6,9 +6,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.cefet.godziny.api.atividade.AtividadeAtualizarDto;
 import com.cefet.godziny.api.atividade.AtividadeDto;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
 import com.cefet.godziny.api.atividade.IAtividadeApi;
+import com.cefet.godziny.domain.casouso.atividade.AtualizarAtivdadeCasoUso;
 import com.cefet.godziny.domain.casouso.atividade.CriarAtividadeCasoUso;
 import com.cefet.godziny.domain.casouso.atividade.ListarAtividadeCasoUso;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
@@ -59,9 +62,10 @@ public class AtividadeControle implements IAtividadeApi {
     }
 
     @Override
-    public ResponseEntity<UUID> updateAtividade(UUID atividadeId, @Valid AtividadeDto dto, MultipartFile arquivo) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateAtividade'");
+    public ResponseEntity<UUID> updateAtividade(UUID atividadeId, @Valid AtividadeAtualizarDto dto) throws Exception {
+        AtualizarAtivdadeCasoUso casoUso = AtividadeRestConverter.DtoToUpdateCursoCasoUso(dto, atividadeRepositorioJpa, categoriaRepositorioJpa, usuarioRepositorioJpa, arquivoRepositorioJpa);
+        casoUso.validarAtualizacao();
+        return ResponseEntity.status(HttpStatus.OK).body(casoUso.atualizarAtividade(dto));
     }
    
 

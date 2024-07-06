@@ -17,7 +17,6 @@ import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeReposito
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
-
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

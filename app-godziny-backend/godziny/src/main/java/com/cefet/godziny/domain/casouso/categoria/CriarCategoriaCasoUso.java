@@ -41,20 +41,20 @@ public class CriarCategoriaCasoUso {
     private String descricao;
 
     public CursoEntidade validarCriacao() throws Exception {
-        if (cursoSigla.length() < 3 || cursoSigla.length() > 20) {
+        if (this.cursoSigla.length() < 3 || this.cursoSigla.length() > 20) {
             throw new CriarCategoriaIncompletaException("A sigla do curso na categoria deve ter entre 3 e 20 caracteres");
         }
-        if (nome.length() < 3 || nome.length() > 250) {
+        if (nome.length() < 3 || this.nome.length() > 250) {
             throw new CriarCategoriaIncompletaException("O nome da categoria deve ter entre 3 e 250 caracteres");
         }
-        if (porcentagemHorasMaximas <= 0) {
+        if (this.porcentagemHorasMaximas <= 0) {
             throw new CriarCategoriaIncompletaException("A porcentagem de horas máximas da categoria deve ser maior que zero");
         }
-        if (horasMultiplicador <= 0) {
+        if (this.horasMultiplicador <= 0) {
             throw new CriarCategoriaIncompletaException("O multiplicador por horas da categoria deve ser maior que zero");
         }
-        if (descricao.length() < 10) {
-            throw new CriarCategoriaIncompletaException("A descrição da categoria deve ter no mínimo 10 caracteres");
+        if (this.descricao.length() < 10 || this.descricao.length() > 500) {
+            throw new CriarCategoriaIncompletaException("A descrição da categoria deve ter entre 10 e 500 caracteres");
         }
         CursoEntidade cursoEntidade = cursoRepositorioJpa.findBySigla(this.cursoSigla);
         if(!(categoriaRepositorioJpa.findByCursoAndNome(cursoEntidade, this.nome).isEmpty())){

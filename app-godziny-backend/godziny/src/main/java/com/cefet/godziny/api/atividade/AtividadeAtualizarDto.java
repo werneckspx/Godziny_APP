@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.cefet.godziny.constantes.atividade.EnumStatus;
-import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 @Builder
@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AtividadeDto{
+public class AtividadeAtualizarDto{
 
     private UUID id;
 
@@ -36,12 +36,17 @@ public class AtividadeDto{
     @NotNull
     private EnumStatus status;
 
+    @NotNull
+    @NotBlank
     private UUID arquivoId;
 
-    @Nullable
+    @NotNull
+    @Positive
     private float cargaHoraria;
 
-    @Nullable
+    @NotNull
+    @NotBlank
     private String comentario;
 }
+
 

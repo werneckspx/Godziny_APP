@@ -2,8 +2,11 @@ package com.cefet.godziny.infraestrutura.rest.atividade;
 
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
+
+import com.cefet.godziny.api.atividade.AtividadeAtualizarDto;
 import com.cefet.godziny.api.atividade.AtividadeDto;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
+import com.cefet.godziny.domain.casouso.atividade.AtualizarAtivdadeCasoUso;
 import com.cefet.godziny.domain.casouso.atividade.CriarAtividadeCasoUso;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeEntidade;
@@ -44,7 +47,31 @@ public class AtividadeRestConverter {
         .build();
     }
 
-    public static AtividadeEntidade DtoToEntidadeJpa (AtividadeDto dto, UsuarioEntidade usuarioEntidade, CategoriaEntidade categoriaEntidade, ArquivoEntidade arquivoEntidade){
+    public static AtividadeEntidade DtoToEntidadeJpa(
+            AtividadeDto dto,
+            UsuarioEntidade usuarioEntidade,
+            CategoriaEntidade categoriaEntidade,
+            ArquivoEntidade arquivoEntidade
+        ){
+        return AtividadeEntidade.builder()
+        .id(dto.getId())
+        .usuario(usuarioEntidade)
+        .categoria(categoriaEntidade)
+        .nome(dto.getTitulo())
+        .createdAt(dto.getCreatedAt())
+        .status(dto.getStatus())
+        .arquivo(arquivoEntidade)
+        .cargaHoraria(dto.getCargaHoraria())
+        .comentario(dto.getComentario())
+        .build();
+    }
+
+    public static AtividadeEntidade DtoToEntidadeJpa(
+            AtividadeAtualizarDto dto, 
+            UsuarioEntidade usuarioEntidade,
+            CategoriaEntidade categoriaEntidade,
+            ArquivoEntidade arquivoEntidade
+        ){
         return AtividadeEntidade.builder()
         .id(dto.getId())
         .usuario(usuarioEntidade)
@@ -69,22 +96,24 @@ public class AtividadeRestConverter {
         .categoriaRepositorioJpa(categoriaRepositorioJpa)
         .arquivoRepositorioJpa(arquivoRepositorioJpa)
         .usuarioRepositorioJpa(usuarioRepositorioJpa)
-        .usuarioId(dto.getUsuarioId())
-        .categoriaId(dto.getCategoriaId())
         .titulo(dto.getTitulo())
         .createdAt(dto.getCreatedAt())
-        .usuarioRepositorioJpa(usuarioRepositorioJpa)
         .build();
     }
 
-    // public static AtualizarUsuarioCasoUso DtoToUpdateCursoCasoUso(UsuarioDto dto, UsuarioRepositorioJpa usuarioRepositorioJpa, CursoRepositorioJpa cursoRepositorioJpa){
-    //     return AtualizarUsuarioCasoUso.builder()
-    //     .matricula(dto.getMatricula())
-    //     .nome(dto.getNome())
-    //     .email(dto.getEmail())
-    //     .senha(dto.getSenha())
-    //     .usuarioRepositorioJpa(usuarioRepositorioJpa)
-    //     .cursoRepositorioJpa(cursoRepositorioJpa)
-    //     .build();
-    // }
+    public static AtualizarAtivdadeCasoUso DtoToUpdateCursoCasoUso(
+        AtividadeAtualizarDto dto, AtividadeRepositorioJpa atividadeRepositorioJpa, 
+        CategoriaRepositorioJpa categoriaRepositorioJpa, 
+        UsuarioRepositorioJpa usuarioRepositorioJpa, 
+        ArquivoRepositorioJpa arquivoRepositorioJpa
+    ){
+        return AtualizarAtivdadeCasoUso.builder()
+        .atividadeRepositorioJpa(atividadeRepositorioJpa)
+        .categoriaRepositorioJpa(categoriaRepositorioJpa)
+        .arquivoRepositorioJpa(arquivoRepositorioJpa)
+        .usuarioRepositorioJpa(usuarioRepositorioJpa)
+        .cargaHoraria(dto.getCargaHoraria())
+        .comentario(dto.getComentario())
+        .build();
+    }
 }
