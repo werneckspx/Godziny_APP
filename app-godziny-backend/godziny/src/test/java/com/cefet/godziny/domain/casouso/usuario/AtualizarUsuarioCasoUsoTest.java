@@ -54,6 +54,31 @@ public class AtualizarUsuarioCasoUsoTest {
 
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(cursoEntidade);
         when(usuarioRepositorioJpa.updateUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(99999);
+        when(usuarioRepositorioJpa.findByEmail(Mockito.anyString())).thenReturn(null);
+        atualizarUsuarioCasoUso.validarAtualizacao();
+        Integer response = atualizarUsuarioCasoUso.AtualizarUsuario(usuarioDto);
+
+        assertThat(response).isInstanceOf(Integer.class);
+        assertThat(response).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Try to update an Usuario successfully because is updating himself")
+    void testeAtualizarUsuarioCasoUsoSuccessCase2() throws Exception {
+        this.usuarioDto = createUsuarioDto();
+        this.cursoEntidade = createCursoEntidade();
+        UsuarioEntidade usuarioEntidade = new UsuarioEntidade(
+            999999, 
+            createCursoEntidade(),
+            "TESTE",
+            "teste@teste.com.br",
+            "teste123",
+            EnumRecursos.NORMAL
+        );
+
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(cursoEntidade);
+        when(usuarioRepositorioJpa.updateUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(99999);
+        when(usuarioRepositorioJpa.findByEmail(Mockito.anyString())).thenReturn(usuarioEntidade);
         atualizarUsuarioCasoUso.validarAtualizacao();
         Integer response = atualizarUsuarioCasoUso.AtualizarUsuario(usuarioDto);
 

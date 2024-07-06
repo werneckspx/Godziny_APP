@@ -56,7 +56,7 @@ public class AtualizarCategoriaCasoUsoTest {
     }
     
     @Test
-    @DisplayName("Should valided an AtualizarCategoriaCasoUso successfully")
+    @DisplayName("Should valided an AtualizarCategoriaCasoUso successfully cause it's a new Categoria")
     void testeAtualizarCategoriaCasoUsoSuccess() throws Exception {
         this.categoriaDto = createCategoriaDto();
         this.categoriaEntidade = createCategoriaEntidade();
@@ -82,11 +82,11 @@ public class AtualizarCategoriaCasoUsoTest {
         List<CategoriaEntidade> list = new ArrayList<>();
         list.add(categoriaEntidade);
         atualizarCategoriaCasoUso.setCategoriaId(categoriaEntidade.getId());
-    
 
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(this.cursoEntidade);
         when(categoriaRepositorioJpa.updateCategoria(Mockito.any(CategoriaEntidade.class))).thenReturn(UUID.randomUUID());
         when(categoriaRepositorioJpa.findByCursoAndNome(Mockito.any(CursoEntidade.class), Mockito.anyString())).thenReturn(list);
+        atualizarCategoriaCasoUso.validarAtualizacao();
         UUID response = atualizarCategoriaCasoUso.atualizarCategoria(this.categoriaDto, this.cursoEntidade);
 
         assertThat(response).isInstanceOf(UUID.class);

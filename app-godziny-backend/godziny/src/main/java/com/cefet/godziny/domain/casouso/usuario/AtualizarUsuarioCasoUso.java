@@ -46,7 +46,7 @@ public class AtualizarUsuarioCasoUso {
             throw new CriarUsuarioIncompletoException("O email fornecido para o usuário não é válido");
         }
         UsuarioEntidade entidade = usuarioRepositorioJpa.findByEmail(this.email);
-        if(entidade != null && !entidade.getMatricula().equals(matricula)){
+        if(entidade != null && !entidade.getMatricula().equals(this.matricula)){
             throw new CriarUsuarioEmailRepetidoException();
         }
     }
