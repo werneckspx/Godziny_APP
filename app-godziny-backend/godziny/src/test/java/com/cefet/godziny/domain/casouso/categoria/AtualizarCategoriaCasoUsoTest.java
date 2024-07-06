@@ -61,8 +61,10 @@ public class AtualizarCategoriaCasoUsoTest {
         this.categoriaDto = createCategoriaDto();
         this.categoriaEntidade = createCategoriaEntidade();
         this.cursoEntidade = createCursoEntidade();
+        List<CategoriaEntidade> list = List.of();
 
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(this.cursoEntidade);
+        when(categoriaRepositorioJpa.findByCursoAndNome(Mockito.any(CursoEntidade.class), Mockito.anyString())).thenReturn(list);
         when(categoriaRepositorioJpa.updateCategoria(Mockito.any(CategoriaEntidade.class))).thenReturn(UUID.randomUUID());
         atualizarCategoriaCasoUso.validarAtualizacao();
         UUID response = atualizarCategoriaCasoUso.atualizarCategoria(this.categoriaDto, this.cursoEntidade);
