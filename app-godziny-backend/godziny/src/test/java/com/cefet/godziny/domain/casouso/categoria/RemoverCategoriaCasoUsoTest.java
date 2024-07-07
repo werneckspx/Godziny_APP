@@ -75,7 +75,7 @@ public class RemoverCategoriaCasoUsoTest {
             "nome atividade TESTE",
             LocalDateTime.now(),
             EnumStatus.APROVADA,
-            new ArquivoEntidade(UUID.randomUUID(), "nome TESTE", "tipo TESTE", new byte[0]),
+            new ArquivoEntidade(UUID.randomUUID(), "nome TESTE", "tipo TESTE", "dados TESTE".getBytes()),
             (float) 2.4,
             "comentario TESTE"
         ));

@@ -43,4 +43,3 @@ public class ArquivoRepositorioJpa implements IArquivoRepositorio {
         repositorio.deleteAll();
     }
 }
-

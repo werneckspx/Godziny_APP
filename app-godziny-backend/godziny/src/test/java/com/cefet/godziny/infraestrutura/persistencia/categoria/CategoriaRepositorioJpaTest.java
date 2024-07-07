@@ -144,7 +144,7 @@ public class CategoriaRepositorioJpaTest {
         this.entidade = createCategoriaEntidade();
 
         when(categoriaRepositorioJpaSpring.save(Mockito.any(CategoriaEntidade.class))).thenReturn(this.entidade);
-        UUID result = categoriaRepositorio.createCategoria(entidade);
+        UUID result = categoriaRepositorio.createCategoria(this.entidade);
 
         assertThat(result).isNotNull();
         assertThat(result).isInstanceOf(UUID.class);
@@ -157,9 +157,9 @@ public class CategoriaRepositorioJpaTest {
         this.entidade = createCategoriaEntidade();
         this.optional = createOptionalCategoria();
 
-        when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(optional);
-        when(categoriaRepositorioJpaSpring.save(Mockito.any(CategoriaEntidade.class))).thenReturn(entidade);
-        UUID result = categoriaRepositorio.updateCategoria(entidade);
+        when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(this.optional);
+        when(categoriaRepositorioJpaSpring.save(Mockito.any(CategoriaEntidade.class))).thenReturn(this.entidade);
+        UUID result = categoriaRepositorio.updateCategoria(this.entidade);
 
         assertThat(result).isNotNull();
         assertThat(result).isInstanceOf(UUID.class);
@@ -172,7 +172,7 @@ public class CategoriaRepositorioJpaTest {
         this.entidade = createCategoriaEntidade();
         this.optional = Optional.empty();
 
-        when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(optional);
+        when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(this.optional);
         Exception thrown = assertThrows(CategoriaNaoEncontradaException.class, () -> {
             categoriaRepositorio.updateCategoria(entidade);
         });
@@ -198,7 +198,7 @@ public class CategoriaRepositorioJpaTest {
     void testDeleteCategoriaCategoriaNaoEncontradaException() throws Exception{
         this.optional = Optional.empty();
 
-        when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(optional);
+        when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(this.optional);
         Exception thrown = assertThrows(CategoriaNaoEncontradaException.class, () -> {
             categoriaRepositorio.deleteCategoria(ID);
         });
@@ -215,7 +215,6 @@ public class CategoriaRepositorioJpaTest {
 
         verify(categoriaRepositorioJpaSpring, times(1)).deleteAll();
     }
-
 
     private Optional<CategoriaEntidade> createOptionalCategoria(){
         CategoriaEntidade categoria = new CategoriaEntidade(ID, CURSO, NOME, PORCENTAGEM_HORAS_MAXIMAS, HORAS_MULTIPLICADOR, DESCRICAO);
