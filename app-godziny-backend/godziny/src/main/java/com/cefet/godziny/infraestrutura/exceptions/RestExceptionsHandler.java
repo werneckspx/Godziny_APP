@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import com.cefet.godziny.infraestrutura.exceptions.atividade.AlterarAtividadeNaoSimuladaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSemTerCriadoException;
@@ -110,12 +109,6 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CriarAtividadeIncompletaException.class)
     public ResponseEntity<RestDefaultErrorMessage> criarAtividadeIncompletaException(CriarAtividadeIncompletaException exception) {
-        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    }
-
-    @ExceptionHandler(AlterarAtividadeNaoSimuladaException.class)
-    public ResponseEntity<RestDefaultErrorMessage> alterarAtividadeNaoSimuladaException(AlterarAtividadeNaoSimuladaException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
