@@ -16,6 +16,8 @@ public interface IAtividadeRepositorio {
     List<AtividadeEntidade> findByCategoria(CategoriaEntidade categoria);
 
     List<AtividadeEntidade> findByUsuario(UsuarioEntidade usuario);
+
+    Float sumCargaHorarioByUsuarioIdAndCategoriaId(Integer usuarioId, UUID categoriaId) throws Exception;
     
     UUID createAtividade(AtividadeEntidade atividade);
 
