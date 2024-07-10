@@ -11,7 +11,6 @@ import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEn
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
-import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 import com.cefet.godziny.infraestrutura.rest.atividade.AtividadeRestConverter;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +33,9 @@ public class AtualizarAtivdadeCasoUso {
     @Autowired
     private final ArquivoRepositorioJpa arquivoRepositorioJpa;
 
+    @NotNull(message = "O ID da atividade é obrigatório")
+    private UUID atividadeId;
+
     @NotNull(message = "A matrícula do usuário da atividade é obrigatório")
     private Integer usuarioId;
 
@@ -53,12 +55,14 @@ public class AtualizarAtivdadeCasoUso {
         if (this.comentario.length() < 2 || this.comentario.length() > 500) {
             throw new CriarAtividadeIncompletaException("O comentário da atividade deve ter entre 2 e 500 caracteres");
         }
-        UsuarioEntidade usuarioEntidade = this.usuarioRepositorioJpa.findById(this.usuarioId);
+        Float cargaHorariaTotalUsuarioNaCategoria = this.atividadeRepositorioJpa
+                .sumCargaHorarioByUsuarioIdAndCategoriaId(this.usuarioId, this.categoriaId, this.atividadeId);
+        if(cargaHorariaTotalUsuarioNaCategoria == null){
+            cargaHorariaTotalUsuarioNaCategoria = (float) 0.0;
+        }
         CategoriaEntidade categoriaEntidade = this.categoriaRepositorioJpa.findById(this.categoriaId);
         float cargaHorariaMaximaCategoria = categoriaEntidade.getCurso().getCarga_horaria_complementar() 
                                             * categoriaEntidade.getPorcentagemHorasMaximas();
-        Float cargaHorariaTotalUsuarioNaCategoria = this.atividadeRepositorioJpa
-                .sumCargaHorarioByUsuarioIdAndCategoriaId(usuarioEntidade.getMatricula(), categoriaEntidade.getId());
         float novaCargaHoraria = this.cargaHoraria * categoriaEntidade.getHorasMultiplicador();
         if (cargaHorariaTotalUsuarioNaCategoria + novaCargaHoraria > cargaHorariaMaximaCategoria) {
             DecimalFormat df = new DecimalFormat("#.##");

@@ -16,9 +16,10 @@ public interface AtividadeRepositorioJpaSpring extends JpaRepository<AtividadeEn
 
     List<AtividadeEntidade> findByUsuario(UsuarioEntidade usuario);
     
-    @Query("SELECT SUM(a.cargaHoraria) FROM atividade a WHERE a.usuario.matricula = :usuarioId AND a.categoria.id = :categoriaId")
+    @Query("SELECT SUM(a.cargaHoraria) FROM atividade a WHERE a.usuario.matricula = :usuarioId AND a.categoria.id = :categoriaId AND a.id <> :atividadeId")
     Float sumCargaHorariaByUsuarioAndCategoria(
         @Param("usuarioId") Integer usuarioId,
-        @Param("categoriaId") UUID categoriaId
+        @Param("categoriaId") UUID categoriaId,
+        @Param("atividadeId") UUID atividadeId
     );
 }

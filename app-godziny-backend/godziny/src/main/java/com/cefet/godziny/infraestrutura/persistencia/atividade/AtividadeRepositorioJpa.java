@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.cefet.godziny.domain.porta.atividade.IAtividadeRepositorio;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpaSpring;
@@ -42,6 +41,11 @@ public class AtividadeRepositorioJpa implements IAtividadeRepositorio {
     }
 
     @Override
+    public Optional<AtividadeEntidade> findByIdOptional(UUID id) {
+        return this.atividadeRepositorio.findById(id);
+    }
+
+    @Override
     public Page<AtividadeEntidade> listAtividades(Pageable pageable) {
         return atividadeRepositorio.findAll(pageable);
     }
@@ -60,10 +64,11 @@ public class AtividadeRepositorioJpa implements IAtividadeRepositorio {
 
     @Override
     @Transactional
-    public Float sumCargaHorarioByUsuarioIdAndCategoriaId(Integer usuarioId, UUID categoriaId) throws Exception {
+    public Float sumCargaHorarioByUsuarioIdAndCategoriaId(Integer usuarioId, UUID categoriaId, UUID atividadeId) throws Exception {
         UsuarioRestConverter.OptionalToUsuarioEntidade(usuarioRepositorio.findById(usuarioId));
         CategoriaRestConverter.OptionalToCategoriaEntidade(categoriaRepositorio.findById(categoriaId));
-        return atividadeRepositorio.sumCargaHorariaByUsuarioAndCategoria(usuarioId, categoriaId);
+        AtividadeRestConverter.OptionalToAtividadeEntidade(atividadeRepositorio.findById(atividadeId));
+        return atividadeRepositorio.sumCargaHorariaByUsuarioAndCategoria(usuarioId, categoriaId, atividadeId);
     }
 
     @Override

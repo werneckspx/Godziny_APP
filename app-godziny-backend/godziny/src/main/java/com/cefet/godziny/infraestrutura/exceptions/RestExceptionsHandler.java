@@ -8,7 +8,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.LimiteCargaHorariaExcedidoException;
-import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSemTerCriadoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
@@ -119,13 +118,6 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
-
-    @ExceptionHandler(RemoverAtividadeSemTerCriadoException.class)
-    public ResponseEntity<RestDefaultErrorMessage> removerAtividadeSemTerCriadoException(RemoverAtividadeSemTerCriadoException exception) {
-        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    }
-
 
     @ExceptionHandler(ArquivoNaoEncontradoException.class)
     public ResponseEntity<RestDefaultErrorMessage> arquivoNaoEncontradoException(ArquivoNaoEncontradoException exception) {

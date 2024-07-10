@@ -178,8 +178,8 @@ public class AtividadeRepositorioJpaTest {
 
         when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(categoriaOptional);
         when(usuarioRepositorioJpaSpring.findById(Mockito.anyInt())).thenReturn(usuarioOptional);
-        when(atividadeRepositorioJpaSpring.sumCargaHorariaByUsuarioAndCategoria(Mockito.anyInt(), Mockito.any(UUID.class))).thenReturn((float) 110.54);
-        Float result = atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(USUARIO.getMatricula(), CATEGORIA.getId());
+        when(atividadeRepositorioJpaSpring.sumCargaHorariaByUsuarioAndCategoria(Mockito.anyInt(), Mockito.any(UUID.class), Mockito.any(UUID.class))).thenReturn((float) 110.54);
+        Float result = atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(USUARIO.getMatricula(), CATEGORIA.getId(), ID);
 
         assertThat(result).isNotNull();
         assertThat(result).isInstanceOf(Float.class);
@@ -196,7 +196,7 @@ public class AtividadeRepositorioJpaTest {
         when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(categoriaOptional);
         when(usuarioRepositorioJpaSpring.findById(Mockito.anyInt())).thenReturn(usuarioOptional);
         Exception thrown = assertThrows(UsuarioNaoEncontradoException.class, () -> {
-            atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(99999, CATEGORIA.getId());
+            atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(99999, CATEGORIA.getId(), ID);
         });
         
         assertThat(thrown).isNotNull();
@@ -212,11 +212,27 @@ public class AtividadeRepositorioJpaTest {
         when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(categoriaOptional);
         when(usuarioRepositorioJpaSpring.findById(Mockito.anyInt())).thenReturn(usuarioOptional);
         Exception thrown = assertThrows(CategoriaNaoEncontradaException.class, () -> {
-            atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(USUARIO.getMatricula(), UUID.randomUUID());
+            atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(USUARIO.getMatricula(), UUID.randomUUID(), ID);
         });
         
         assertThat(thrown).isNotNull();
         assertThat(thrown.getMessage()).isEqualTo("Categoria não encontrada na base de dados");
+    }
+
+    @Test
+    @DisplayName("Should try to get the sum of all CargaHoraria of an Atividade and return an exception cause there isn't Atividade with that ID")
+    void sumCargaHorarioByUsuarioIdAndCategoriaIdAtividadeNaoEncontradaException() throws Exception {
+        Optional<CategoriaEntidade> categoriaOptional = Optional.of(CATEGORIA);
+        Optional<UsuarioEntidade> usuarioOptional = Optional.of(USUARIO);
+
+        when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(categoriaOptional);
+        when(usuarioRepositorioJpaSpring.findById(Mockito.anyInt())).thenReturn(usuarioOptional);
+        Exception thrown = assertThrows(AtividadeNaoEncontradaException.class, () -> {
+            atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(USUARIO.getMatricula(), CATEGORIA.getId(), UUID.randomUUID());
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Atividade não encontrada na base de dados");
     }
 
     @Test

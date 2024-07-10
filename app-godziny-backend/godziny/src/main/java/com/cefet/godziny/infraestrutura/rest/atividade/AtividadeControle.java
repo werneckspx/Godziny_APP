@@ -13,6 +13,7 @@ import com.cefet.godziny.api.atividade.IAtividadeApi;
 import com.cefet.godziny.domain.casouso.atividade.AtualizarAtivdadeCasoUso;
 import com.cefet.godziny.domain.casouso.atividade.CriarAtividadeCasoUso;
 import com.cefet.godziny.domain.casouso.atividade.ListarAtividadeCasoUso;
+import com.cefet.godziny.domain.casouso.atividade.RemoverAtividadeCasoUso;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
@@ -70,8 +71,10 @@ public class AtividadeControle implements IAtividadeApi {
 
     @Override
     public ResponseEntity<Void> removeAtividade(UUID atividadeId) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeAtividade'");
+        RemoverAtividadeCasoUso casoUso = new RemoverAtividadeCasoUso(atividadeId, atividadeRepositorioJpa, arquivoRepositorioJpa);
+        casoUso.validarRemocao();
+        casoUso.removerAtividade();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }
