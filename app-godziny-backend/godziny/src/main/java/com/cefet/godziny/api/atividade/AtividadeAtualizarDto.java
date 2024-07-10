@@ -16,13 +16,14 @@ import lombok.*;
 @Setter
 public class AtividadeAtualizarDto{
 
+    @NotNull
     private UUID id;
 
     @NotNull
+    @Positive
     private Integer usuarioId;
 
     @NotNull
-    @NotBlank
     private UUID categoriaId;
 
     @NotNull
@@ -37,7 +38,6 @@ public class AtividadeAtualizarDto{
     private EnumStatus status;
 
     @NotNull
-    @NotBlank
     private UUID arquivoId;
 
     @NotNull
@@ -47,6 +47,10 @@ public class AtividadeAtualizarDto{
     @NotNull
     @NotBlank
     private String comentario;
+
+    
+
+    
 }
 
 

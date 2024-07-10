@@ -112,6 +112,8 @@ public class AtividadeRestConverter {
         .categoriaRepositorioJpa(categoriaRepositorioJpa)
         .arquivoRepositorioJpa(arquivoRepositorioJpa)
         .usuarioRepositorioJpa(usuarioRepositorioJpa)
+        .usuarioId(dto.getUsuarioId())
+        .categoriaId(dto.getCategoriaId())
         .cargaHoraria(dto.getCargaHoraria())
         .comentario(dto.getComentario())
         .build();

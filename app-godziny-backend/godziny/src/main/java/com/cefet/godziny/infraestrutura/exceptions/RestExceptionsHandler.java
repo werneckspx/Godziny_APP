@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.LimiteCargaHorariaExcedidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSemTerCriadoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
@@ -109,6 +110,12 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CriarAtividadeIncompletaException.class)
     public ResponseEntity<RestDefaultErrorMessage> criarAtividadeIncompletaException(CriarAtividadeIncompletaException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(LimiteCargaHorariaExcedidoException.class)
+    public ResponseEntity<RestDefaultErrorMessage> limiteCargaHorariaExcedidoException(LimiteCargaHorariaExcedidoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
