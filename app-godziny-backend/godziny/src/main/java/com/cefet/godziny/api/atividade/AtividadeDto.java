@@ -22,7 +22,6 @@ public class AtividadeDto{
     private Integer usuarioId;
 
     @NotNull
-    @NotBlank
     private UUID categoriaId;
 
     @NotNull

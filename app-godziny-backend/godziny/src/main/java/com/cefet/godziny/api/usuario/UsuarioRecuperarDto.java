@@ -2,6 +2,8 @@ package com.cefet.godziny.api.usuario;
 
 import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +33,7 @@ public class UsuarioRecuperarDto{
 
     @NotNull
     @NotBlank
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     @NotNull
