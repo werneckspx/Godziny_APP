@@ -41,11 +41,6 @@ public class AtividadeRepositorioJpa implements IAtividadeRepositorio {
     }
 
     @Override
-    public Optional<AtividadeEntidade> findByIdOptional(UUID id) {
-        return this.atividadeRepositorio.findById(id);
-    }
-
-    @Override
     public Page<AtividadeEntidade> listAtividades(Pageable pageable) {
         return atividadeRepositorio.findAll(pageable);
     }

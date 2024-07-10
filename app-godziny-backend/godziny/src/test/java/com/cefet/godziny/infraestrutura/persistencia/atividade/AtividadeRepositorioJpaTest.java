@@ -173,11 +173,13 @@ public class AtividadeRepositorioJpaTest {
     @Test
     @DisplayName("Should get the sum of all CargaHoraria of an Atividade By Usuario and Categoria successfully")
     void sumCargaHorarioByUsuarioIdAndCategoriaIdSuccess() throws Exception {
+        this.optional = createOptionalAtividade();
         Optional<CategoriaEntidade> categoriaOptional = Optional.of(CATEGORIA);
         Optional<UsuarioEntidade> usuarioOptional = Optional.of(USUARIO);
 
         when(categoriaRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(categoriaOptional);
         when(usuarioRepositorioJpaSpring.findById(Mockito.anyInt())).thenReturn(usuarioOptional);
+        when(atividadeRepositorioJpaSpring.findById(Mockito.any(UUID.class))).thenReturn(this.optional);
         when(atividadeRepositorioJpaSpring.sumCargaHorariaByUsuarioAndCategoria(Mockito.anyInt(), Mockito.any(UUID.class), Mockito.any(UUID.class))).thenReturn((float) 110.54);
         Float result = atividadeRepositorio.sumCargaHorarioByUsuarioIdAndCategoriaId(USUARIO.getMatricula(), CATEGORIA.getId(), ID);
 
@@ -185,7 +187,6 @@ public class AtividadeRepositorioJpaTest {
         assertThat(result).isInstanceOf(Float.class);
         assertThat(result).isEqualTo((float) 110.54);
     }
-
 
     @Test
     @DisplayName("Should try to get the sum of all CargaHoraria of an Atividade and return an exception because there isn't Usuario with that ID")

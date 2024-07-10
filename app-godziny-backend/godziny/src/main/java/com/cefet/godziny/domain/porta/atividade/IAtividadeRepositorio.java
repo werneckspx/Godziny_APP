@@ -1,7 +1,6 @@
 package com.cefet.godziny.domain.porta.atividade;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,9 +10,7 @@ import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 
 public interface IAtividadeRepositorio {
     AtividadeEntidade findById(UUID id) throws Exception;
-
-    Optional<AtividadeEntidade> findByIdOptional(UUID id);
-
+    
     Page<AtividadeEntidade> listAtividades(Pageable pageable);
 
     List<AtividadeEntidade> findByCategoria(CategoriaEntidade categoria);
