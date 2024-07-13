@@ -3,7 +3,8 @@ package com.cefet.godziny.domain.casouso.atividade;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.constraints.NotNull;
-
+import com.cefet.godziny.constantes.atividade.EnumStatus;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSimulandoOuAprovadaException;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRepositorioJpa;
@@ -28,6 +29,9 @@ public class RemoverAtividadeCasoUso {
 
     public void removerAtividade() throws Exception {
         AtividadeEntidade atividadeEntidade = atividadeRepositorioJpa.findById(atividadeId);
+        if(atividadeEntidade.getStatus() != EnumStatus.REJEITADA){
+            throw new RemoverAtividadeSimulandoOuAprovadaException();
+        }
         atividadeRepositorioJpa.deleteAtividade(this.atividadeId);
         arquivoRepositorioJpa.deleteArquivo(atividadeEntidade.getArquivo().getId());
     }

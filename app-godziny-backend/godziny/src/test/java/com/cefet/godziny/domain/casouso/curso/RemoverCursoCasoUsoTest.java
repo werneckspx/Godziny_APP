@@ -96,7 +96,7 @@ public class RemoverCursoCasoUsoTest {
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um curso que possuí usuários matriculados");
+        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um curso que possui usuários matriculados");
     }
 
 
@@ -122,6 +122,6 @@ public class RemoverCursoCasoUsoTest {
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um curso que possuí categorias cadastradas");
+        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um curso que possui categorias cadastradas");
     }
 }

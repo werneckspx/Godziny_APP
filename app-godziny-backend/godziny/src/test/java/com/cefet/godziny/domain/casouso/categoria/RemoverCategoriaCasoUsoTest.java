@@ -87,7 +87,7 @@ public class RemoverCategoriaCasoUsoTest {
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir uma categoria que possuí atividades cadastradas");
+        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir uma categoria que possui atividades cadastradas");
     }
 
 

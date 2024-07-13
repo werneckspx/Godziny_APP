@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.AtualizarAtividadeStatusErradoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.LimiteCargaHorariaExcedidoException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSimulandoOuAprovadaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
@@ -115,6 +117,18 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(LimiteCargaHorariaExcedidoException.class)
     public ResponseEntity<RestDefaultErrorMessage> limiteCargaHorariaExcedidoException(LimiteCargaHorariaExcedidoException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(AtualizarAtividadeStatusErradoException.class)
+    public ResponseEntity<RestDefaultErrorMessage> atualizarAtividadeStatusErradoException(AtualizarAtividadeStatusErradoException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(RemoverAtividadeSimulandoOuAprovadaException.class)
+    public ResponseEntity<RestDefaultErrorMessage> removerAtividadeSimulandoOuAprovadaException(RemoverAtividadeSimulandoOuAprovadaException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }

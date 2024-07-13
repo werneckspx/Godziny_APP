@@ -117,6 +117,7 @@ public class AtividadeRestConverter {
         .categoriaId(dto.getCategoriaId())
         .cargaHoraria(dto.getCargaHoraria())
         .comentario(dto.getComentario())
+        .status(dto.getStatus())
         .build();
     }
 }

@@ -86,7 +86,7 @@ public class RemoverUsuarioCasoUsoTest {
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um usuário que possuí atividades cadastradas");
+        assertThat(thrown.getMessage()).isEqualTo("Não é possível excluir um usuário que possui atividades cadastradas");
     }
 
 
