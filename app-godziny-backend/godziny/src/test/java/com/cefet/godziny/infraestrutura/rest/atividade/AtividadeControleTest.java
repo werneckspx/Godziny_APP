@@ -17,15 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.cefet.godziny.api.atividade.AtividadeAtualizarDto;
 import com.cefet.godziny.api.atividade.AtividadeDto;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
-import com.cefet.godziny.api.categoria.CategoriaDto;
-import com.cefet.godziny.api.categoria.CategoriaRecuperarDto;
 import com.cefet.godziny.constantes.atividade.EnumStatus;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
-import com.cefet.godziny.domain.casouso.atividade.ListarAtividadeCasoUso;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoEntidade;
@@ -33,7 +29,6 @@ import com.cefet.godziny.infraestrutura.persistencia.atividade.arquivo.ArquivoRe
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
-import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 
