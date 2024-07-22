@@ -72,8 +72,7 @@ public class AtividadeControle implements IAtividadeApi {
     @Override
     public ResponseEntity<Void> removeAtividade(UUID atividadeId) throws Exception {
         RemoverAtividadeCasoUso casoUso = new RemoverAtividadeCasoUso(atividadeId, atividadeRepositorioJpa, arquivoRepositorioJpa);
-        casoUso.validarRemocao();
-        casoUso.removerAtividade();
+        casoUso.removerAtividade(casoUso.validarRemocao());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

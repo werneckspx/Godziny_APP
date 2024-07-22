@@ -74,7 +74,7 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(RemoverUsuarioComAtividadesException.class)
-    public ResponseEntity<RestDefaultErrorMessage> reemoverUsuarioComAtividadesException(RemoverUsuarioComAtividadesException exception) {
+    public ResponseEntity<RestDefaultErrorMessage> removerUsuarioComAtividadesException(RemoverUsuarioComAtividadesException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }

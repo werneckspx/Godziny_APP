@@ -23,16 +23,16 @@ public class RemoverAtividadeCasoUso {
     private final ArquivoRepositorioJpa arquivoRepositorioJpa;
 
 
-    public void validarRemocao() throws Exception {
-        
-    }
-
-    public void removerAtividade() throws Exception {
+    public AtividadeEntidade validarRemocao() throws Exception {
         AtividadeEntidade atividadeEntidade = atividadeRepositorioJpa.findById(atividadeId);
         if(atividadeEntidade.getStatus() != EnumStatus.REJEITADA){
             throw new RemoverAtividadeSimulandoOuAprovadaException();
         }
+        return atividadeEntidade;
+    }
+
+    public void removerAtividade(AtividadeEntidade entidade) throws Exception {
         atividadeRepositorioJpa.deleteAtividade(this.atividadeId);
-        arquivoRepositorioJpa.deleteArquivo(atividadeEntidade.getArquivo().getId());
+        arquivoRepositorioJpa.deleteArquivo(entidade.getArquivo().getId());
     }
 }

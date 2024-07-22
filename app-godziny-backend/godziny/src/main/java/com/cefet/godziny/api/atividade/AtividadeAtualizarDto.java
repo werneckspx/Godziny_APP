@@ -47,10 +47,6 @@ public class AtividadeAtualizarDto{
     @NotNull
     @NotBlank
     private String comentario;
-
-    
-
-    
 }
 
 

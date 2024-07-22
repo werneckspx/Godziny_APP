@@ -6,14 +6,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.AtividadeNaoEncontradaException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.AtualizarAtividadeStatusErradoException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.CriarAtividadeIncompletaException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.LimiteCargaHorariaExcedidoException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSimulandoOuAprovadaException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
+import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
+import com.cefet.godziny.infraestrutura.exceptions.categoria.RemoverCategoriaComAtividadesException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.RemoverUsuarioComAtividadesException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.UsuarioNaoEncontradoException;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -95,6 +104,17 @@ public class RestExceptionsHandlerTest {
     }
 
     @Test
+    public void testRemoverUsuarioComAtividadesException() throws Exception {
+        RemoverUsuarioComAtividadesException exception = new RemoverUsuarioComAtividadesException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.removerUsuarioComAtividadesException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
     public void testCategoriaNaoEncontradoException() throws Exception {
         CategoriaNaoEncontradaException exception = new CategoriaNaoEncontradaException();
 
@@ -106,7 +126,7 @@ public class RestExceptionsHandlerTest {
     }
 
     @Test
-    public void testCriarCategoriaIncompletaExceptionn() throws Exception {
+    public void testCriarCategoriaIncompletaException() throws Exception {
         CriarCategoriaIncompletaException exception = new CriarCategoriaIncompletaException("Categora incompleta");
 
         ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarCategoriaInconpletaException(exception);
@@ -136,5 +156,93 @@ public class RestExceptionsHandlerTest {
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
+    public void testRemoverCategoriaComAtividadesException() throws Exception {
+        RemoverCategoriaComAtividadesException exception = new RemoverCategoriaComAtividadesException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.removerCategoriaComAtividadesException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
+    public void testAtividadeNaoEncontradaException() throws Exception {
+        AtividadeNaoEncontradaException exception = new AtividadeNaoEncontradaException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.atividadeNaoEncontradaException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+    
+    @Test
+    public void testCriarAtividadeIncompletaException() throws Exception {
+        CriarAtividadeIncompletaException exception = new CriarAtividadeIncompletaException("Atividade incompleta");
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarAtividadeIncompletaException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testLimiteCargaHorariaExcedidoException() throws Exception {
+        LimiteCargaHorariaExcedidoException exception = new LimiteCargaHorariaExcedidoException("Carga horaria ultrapassou o limite");
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.limiteCargaHorariaExcedidoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testAtualizarAtividadeStatusErradoException() throws Exception {
+        AtualizarAtividadeStatusErradoException exception = new AtualizarAtividadeStatusErradoException("Não é possível atualizar atividades em simulação");
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.atualizarAtividadeStatusErradoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRemoverAtividadeSimulandoOuAprovadaException() throws Exception {
+        RemoverAtividadeSimulandoOuAprovadaException exception = new RemoverAtividadeSimulandoOuAprovadaException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.removerAtividadeSimulandoOuAprovadaException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testArquivoNaoEncontradoException() throws Exception {
+        ArquivoNaoEncontradoException exception = new ArquivoNaoEncontradoException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.arquivoNaoEncontradoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void testArquivoInvalidoException() throws Exception {
+        ArquivoInvalidoException exception = new ArquivoInvalidoException("Nome do arquivo inválido");
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.arquivoInvalidoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }

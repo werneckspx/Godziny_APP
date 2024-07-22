@@ -86,8 +86,8 @@ public class CategoriaControleTest {
 
     @SuppressWarnings("null")
     @Test
-    @DisplayName("Should list all Cateria successfully")
-    void testListCateriasSuccess() {
+    @DisplayName("Should list all Categorias successfully")
+    void testListCategoriasSuccess() {
         this.entidade = createCategoriaEntidade();
         Page<CategoriaEntidade> page = new PageImpl<>(List.of(entidade));
         Pageable pageable = PageRequest.of(0, 10);
