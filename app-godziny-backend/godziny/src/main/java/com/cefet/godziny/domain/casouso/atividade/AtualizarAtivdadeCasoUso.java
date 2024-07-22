@@ -62,6 +62,10 @@ public class AtualizarAtivdadeCasoUso {
         }
         if(this.status.equals(EnumStatus.SIMULANDO)){
             throw new AtualizarAtividadeStatusErradoException("Não é possível atualizar atividades em simulação");
+        } else if(this.status.equals(EnumStatus.APROVADA) && this.cargaHoraria == 0){
+            throw new AtualizarAtividadeStatusErradoException("Não é possível aprovar uma atividade com carga de zero horas");
+        } else if(this.status.equals(EnumStatus.REJEITADA) && this.cargaHoraria > 0){
+            throw new AtualizarAtividadeStatusErradoException("Não é possível aprovar horas em uma atividade rejeitada");
         }
         Float cargaHorariaTotalUsuarioNaCategoria = this.atividadeRepositorioJpa
                 .sumCargaHorarioByUsuarioIdAndCategoriaId(this.usuarioId, this.categoriaId, this.atividadeId);
@@ -89,4 +93,3 @@ public class AtualizarAtivdadeCasoUso {
         ));
     }
 }
-
