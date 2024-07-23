@@ -1,6 +1,8 @@
 package com.cefet.godziny.domain.casouso.atividade;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.atividade.AtividadeAtualizarDto;
@@ -77,7 +79,9 @@ public class AtualizarAtivdadeCasoUso {
                                             * categoriaEntidade.getPorcentagemHorasMaximas();
         float novaCargaHoraria = this.cargaHoraria * categoriaEntidade.getHorasMultiplicador();
         if (cargaHorariaTotalUsuarioNaCategoria + novaCargaHoraria > cargaHorariaMaximaCategoria) {
-            DecimalFormat df = new DecimalFormat("#.##");
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+            symbols.setDecimalSeparator(',');
+            DecimalFormat df = new DecimalFormat("#.##", symbols);
             throw new LimiteCargaHorariaExcedidoException("A carga horária total deste usuário para esta categoria irá exceder o limite permitido em " + 
             df.format(((cargaHorariaTotalUsuarioNaCategoria + novaCargaHoraria) - cargaHorariaMaximaCategoria)) + " horas.");
         }

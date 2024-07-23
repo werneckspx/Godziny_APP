@@ -248,7 +248,7 @@ public class AtualizarAtividadeCasoUsoTest {
         });
         
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("A carga horária total deste usuário para esta categoria irá exceder o limite permitido em 852.4 horas.");
+        assertThat(thrown.getMessage()).isEqualTo("A carga horária total deste usuário para esta categoria irá exceder o limite permitido em 852,4 horas.");
     }
 
     private AtividadeEntidade createAtividadeEntidade(){
