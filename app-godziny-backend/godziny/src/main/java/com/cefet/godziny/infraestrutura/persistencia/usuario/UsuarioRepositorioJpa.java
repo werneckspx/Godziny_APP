@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import com.cefet.godziny.domain.porta.usuario.IUsuarioRepositorio;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.UsuarioNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.rest.usuario.UsuarioRestConverter;
 
@@ -35,6 +36,11 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
         var usuarioEntidade = new UsuarioEntidade();
         BeanUtils.copyProperties(entidade.get(), usuarioEntidade);
         return usuarioEntidade;
+    }
+
+    @Override
+    public Optional<UsuarioEntidade > findByEmailOptional(String email) {
+        return repositorio.findByEmail(email);
     }
 
     @Override
