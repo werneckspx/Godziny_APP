@@ -23,8 +23,8 @@ public interface IUsuarioApi {
     @PostMapping("")
     ResponseEntity<Integer> createUsuario(@RequestBody @Valid UsuarioDto dto) throws Exception;
 
-    @PutMapping("")
-    ResponseEntity<Integer> updateUsuario(@RequestBody @Valid UsuarioDto dto) throws Exception;
+    @PutMapping("/{matricula}")
+    ResponseEntity<Integer> updateUsuario(@PathVariable(value = "matricula") Integer matricula, @RequestBody @Valid UsuarioDto dto) throws Exception;
 
     @DeleteMapping("/{matricula}")
     ResponseEntity<Void> removeUsuario(@PathVariable(value = "matricula") Integer matricula) throws Exception;

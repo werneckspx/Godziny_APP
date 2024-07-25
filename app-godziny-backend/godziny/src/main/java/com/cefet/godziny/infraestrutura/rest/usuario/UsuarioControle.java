@@ -60,7 +60,7 @@ public class UsuarioControle implements IUsuarioApi{
     }
 
     @Override
-    public ResponseEntity<Integer> updateUsuario(@Valid UsuarioDto dto) throws Exception {
+    public ResponseEntity<Integer> updateUsuario(Integer matricula, @Valid UsuarioDto dto) throws Exception {
         AtualizarUsuarioCasoUso casoUso = UsuarioRestConverter.DtoToUpdateCursoCasoUso(dto, usuarioRepositorioJpa, cursoRepositorioJpa);
         casoUso.validarAtualizacao();
         dto.setSenha(enconder.encode(dto.getSenha()));

@@ -1,6 +1,5 @@
 package com.cefet.godziny.configs;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.cefet.godziny.infraestrutura.auth.JwtAuthenticationFilter;
+import com.cefet.godziny.infraestrutura.authentication.JwtAuthenticationFilter;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration

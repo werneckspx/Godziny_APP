@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 import com.cefet.godziny.api.auth.AuthDto;
 import com.cefet.godziny.api.auth.AuthResponseDto;
 import com.cefet.godziny.domain.porta.auth.IAuthRepositorio;
-import com.cefet.godziny.infraestrutura.auth.JwtService;
+import com.cefet.godziny.infraestrutura.authentication.JwtService;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
+import com.cefet.godziny.infraestrutura.rest.auth.AuthRestConverter;
 
 @Component
 public class AuthRepositorioJpa implements IAuthRepositorio{
@@ -35,10 +36,7 @@ public class AuthRepositorioJpa implements IAuthRepositorio{
         new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getSenha())
        );
         UsuarioEntidade usuarioEntidade = usuarioRepositorioJpa.findByEmail(dto.getEmail());
-        var jwtToken = jwtService.generateToken(usuarioEntidade);
-        return AuthResponseDto.builder()
-        .token(jwtToken)
-        .build();
+        return AuthRestConverter.jwtTokenToAuthResponseDto(jwtService.generateToken(usuarioEntidade));
     }
     
 }

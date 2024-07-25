@@ -1,4 +1,4 @@
-package com.cefet.godziny.infraestrutura.auth;
+package com.cefet.godziny.infraestrutura.authentication;
 
 import java.io.IOException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

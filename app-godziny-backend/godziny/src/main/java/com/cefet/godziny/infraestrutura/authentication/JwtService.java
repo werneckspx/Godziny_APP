@@ -1,8 +1,6 @@
-package com.cefet.godziny.infraestrutura.auth;
+package com.cefet.godziny.infraestrutura.authentication;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
@@ -12,6 +10,8 @@ import java.util.Map;
 import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.cefet.godziny.infraestrutura.rest.auth.AuthRestConverter;
 
 @Service
 public class JwtService {
@@ -51,14 +51,7 @@ public class JwtService {
           UserDetails userDetails,
           long expiration
   ) {
-    return Jwts
-            .builder()
-            .setClaims(extraClaims)
-            .setSubject(userDetails.getUsername())
-            .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + expiration))
-            .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-            .compact();
+    return AuthRestConverter.getToken(extraClaims, userDetails, expiration, getSignInKey());
   }
 
   public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -75,12 +68,7 @@ public class JwtService {
   }
 
   private Claims extractAllClaims(String token) {
-    return Jwts
-        .parserBuilder()
-        .setSigningKey(getSignInKey())
-        .build()
-        .parseClaimsJws(token)
-        .getBody();
+    return AuthRestConverter.getAllClaims(token, getSignInKey());
   }
 
   private Key getSignInKey() {
