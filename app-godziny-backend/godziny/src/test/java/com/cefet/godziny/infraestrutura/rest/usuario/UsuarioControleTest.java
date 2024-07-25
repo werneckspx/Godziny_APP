@@ -139,7 +139,7 @@ public class UsuarioControleTest {
 
         when(usuarioRepositorioJpa.updateUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(MATRICULA);
         when(usuarioRepositorioJpa.findById(Mockito.anyInt())).thenReturn(entidade);
-        ResponseEntity<Integer> response = controler.updateUsuario(dto);
+        ResponseEntity<Integer> response = controler.updateUsuario(this.dto.getMatricula(), dto);
 
         assertThat(response.getBody()).isInstanceOf(Integer.class);
         assertThat(response).isNotNull();
