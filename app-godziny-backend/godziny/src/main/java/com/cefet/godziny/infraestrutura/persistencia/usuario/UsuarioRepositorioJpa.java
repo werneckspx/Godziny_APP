@@ -48,6 +48,11 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     }
 
     @Override
+    public Page<UsuarioEntidade> listUsuarios(CursoEntidade curso, String nome, Integer matricula, Pageable pageable) {
+        return repositorio.findByCursoAndNomeContainingAndMatricula(curso, nome, matricula, pageable);
+    }
+
+    @Override
     public Page<UsuarioEntidade> listUsuariosByCurso(Pageable pageable, CursoEntidade curso) {
         return repositorio.findByCurso(curso, pageable);
     }

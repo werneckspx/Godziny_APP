@@ -12,4 +12,6 @@ public interface UsuarioRepositorioJpaSpring extends JpaRepository<UsuarioEntida
     Page<UsuarioEntidade> findByCurso(CursoEntidade curso, Pageable pageable);
 
     Optional<UsuarioEntidade> findByEmail(String email);
+
+    Page<UsuarioEntidade> findByCursoAndNomeContainingAndMatricula(CursoEntidade curso, String nome, Integer matricula, Pageable pageable);
 }

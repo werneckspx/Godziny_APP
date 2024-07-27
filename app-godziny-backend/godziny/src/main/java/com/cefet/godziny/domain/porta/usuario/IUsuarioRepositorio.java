@@ -17,6 +17,8 @@ public interface IUsuarioRepositorio{
 
     Page<UsuarioEntidade> listUsuarios(Pageable pageable);
 
+    Page<UsuarioEntidade> listUsuarios(CursoEntidade curso, String nome, Integer matricula, Pageable pageable);
+
     Page<UsuarioEntidade>listUsuariosByCurso(Pageable pageable, CursoEntidade curso);
 
     Integer createUsuario(UsuarioEntidade newUsuario);

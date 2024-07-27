@@ -1,5 +1,6 @@
 package com.cefet.godziny.api.usuario;
 
+import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PageableDefault;
@@ -18,6 +19,13 @@ public interface IUsuarioApi {
     ResponseEntity<Page<UsuarioRecuperarDto>> listUsuarios(
         @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
         Pageable pageable
+    ) throws Exception;
+
+    @GetMapping("/pesquisar")
+    ResponseEntity<Page<UsuarioRecuperarDto>> pesquisarUsuarios(
+        @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
+        Pageable pageable,
+        @RequestBody @Valid UsuarioFiltroDto usuarioFiltroDto
     ) throws Exception;
 
     @PostMapping("")
