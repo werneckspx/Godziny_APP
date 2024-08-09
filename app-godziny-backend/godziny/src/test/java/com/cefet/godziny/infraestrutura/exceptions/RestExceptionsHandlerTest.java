@@ -13,6 +13,7 @@ import com.cefet.godziny.infraestrutura.exceptions.atividade.LimiteCargaHorariaE
 import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSimulandoOuAprovadaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
+import com.cefet.godziny.infraestrutura.exceptions.auth.AuthEmailOuSenhaIncorretoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.RemoverCategoriaComAtividadesException;
@@ -244,5 +245,16 @@ public class RestExceptionsHandlerTest {
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testAuthEmailOuSenhaIncorretoException() throws Exception {
+        AuthEmailOuSenhaIncorretoException exception = new AuthEmailOuSenhaIncorretoException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.authEmailOuSenhaIncorretoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 }

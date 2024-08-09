@@ -103,6 +103,21 @@ public class UsuarioRepositorioJpaTest {
     }
 
     @Test
+    @DisplayName("Search for  an Usuario by EMAIL and return an existing Optional successfully from DataBase")
+    void testFindByEmailOptionalSuccess() throws Exception {
+        this.optional = createOptionalUsuario();
+
+        when(usuarioRepositorioJpaSpring.findByEmail(Mockito.any())).thenReturn(this.optional);
+        Optional<UsuarioEntidade> result = usuarioRepositorio.findByEmailOptional(EMAIL);
+
+        assertThat(result).isNotNull();
+        assertThat(result).isPresent();
+        assertThat(result.get()).isInstanceOf(UsuarioEntidade.class);
+        assertThat(result.get()).isEqualTo(this.optional.get());
+        assertThat(result.get().getEmail()).isEqualTo(EMAIL);
+    }
+
+    @Test
     @DisplayName("Search for an Usuario by EMAIL and return null because the EMAIL doesn't exist")
     void testFindByEmailNotFound() {
         this.optional = Optional.empty();

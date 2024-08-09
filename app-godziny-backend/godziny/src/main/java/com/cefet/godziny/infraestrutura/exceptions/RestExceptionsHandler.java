@@ -12,6 +12,7 @@ import com.cefet.godziny.infraestrutura.exceptions.atividade.LimiteCargaHorariaE
 import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSimulandoOuAprovadaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
+import com.cefet.godziny.infraestrutura.exceptions.auth.AuthEmailOuSenhaIncorretoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.RemoverCategoriaComAtividadesException;
@@ -143,5 +144,11 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<RestDefaultErrorMessage> arquivoInvalidoException(ArquivoInvalidoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(AuthEmailOuSenhaIncorretoException.class)
+    public ResponseEntity<RestDefaultErrorMessage> authEmailOuSenhaIncorretoException(AuthEmailOuSenhaIncorretoException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.UNAUTHORIZED, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
 }
