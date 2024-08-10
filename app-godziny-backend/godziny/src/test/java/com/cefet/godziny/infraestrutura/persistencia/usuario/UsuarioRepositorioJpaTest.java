@@ -113,6 +113,7 @@ public class UsuarioRepositorioJpaTest {
         assertThat(result).isNull();
     }
 
+    /*Testes excluidos pq os metodos foram excluidos
     @Test
     @DisplayName("Should list all Usuarios successfully")
     void testListUsuariosSuccess() {
@@ -127,7 +128,7 @@ public class UsuarioRepositorioJpaTest {
         assertThat(result).isInstanceOf(Page.class);
         assertThat(result.getSize()).isNotNull();
         assertThat(result).hasSizeGreaterThan(0); 
-    }
+    }*/
 
     @Test
     @DisplayName("Should list all Usuarios by Curso successfully")

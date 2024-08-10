@@ -98,7 +98,7 @@ public class UsuarioControleTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
-
+    /*Testes excluidos pq os metodos foram excluidos
     @SuppressWarnings("null")
     @Test
     @DisplayName("Should list all Usuários successfully")
@@ -115,7 +115,7 @@ public class UsuarioControleTest {
         assertThat(response.getBody().getContent()).hasSizeGreaterThan(0); 
         assertThat(response.getBody().getSize()).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
+    }*/
 
     @Test
     @DisplayName("Should create a new Usuário successfully")

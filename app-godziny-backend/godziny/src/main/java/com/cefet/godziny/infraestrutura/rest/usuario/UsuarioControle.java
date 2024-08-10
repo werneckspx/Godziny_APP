@@ -48,12 +48,6 @@ public class UsuarioControle implements IUsuarioApi{
     }
 
     @Override
-    public ResponseEntity<Page<UsuarioRecuperarDto>> listUsuarios(Pageable pageable) {
-        ListarUsuarioCasoUso casoUso = new ListarUsuarioCasoUso(usuarioRepositorioJpa, -1);
-        return ResponseEntity.status(HttpStatus.OK).body(casoUso.listarUsuarios(pageable));
-    }
-
-    @Override
     public ResponseEntity<Page<UsuarioRecuperarDto>> pesquisarUsuarios(Pageable pageable, UsuarioFiltroDto usuarioFiltroDto) throws Exception {
         PesquisarUsuarioCasoUso casoUso = new PesquisarUsuarioCasoUso(usuarioRepositorioJpa, cursoRepositorioJpa, usuarioFiltroDto.getMatricula(), usuarioFiltroDto.getCursoSigla(), usuarioFiltroDto.getNome());
         return ResponseEntity.status(HttpStatus.OK).body(casoUso.pesquisarUsuarios(pageable,casoUso.validarPesquisa()));

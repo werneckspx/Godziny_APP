@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 
@@ -15,11 +17,9 @@ public interface IUsuarioRepositorio{
 
     Optional<UsuarioEntidade> findByEmailOptional(String email);
 
-    Page<UsuarioEntidade> listUsuarios(Pageable pageable);
-
-    Page<UsuarioEntidade> listUsuarios(CursoEntidade curso, String nome, Integer matricula, Pageable pageable);
-
     Page<UsuarioEntidade>listUsuariosByCurso(Pageable pageable, CursoEntidade curso);
+
+    Page<UsuarioEntidade>listUsuarios(Specification<UsuarioEntidade> specification, Pageable pageable);
 
     Integer createUsuario(UsuarioEntidade newUsuario);
 

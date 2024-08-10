@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import com.cefet.godziny.domain.porta.usuario.IUsuarioRepositorio;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
@@ -43,13 +44,8 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     }
 
     @Override
-    public Page<UsuarioEntidade> listUsuarios(Pageable pageable) {
-        return repositorio.findAll(pageable);
-    }
-
-    @Override
-    public Page<UsuarioEntidade> listUsuarios(CursoEntidade curso, String nome, Integer matricula, Pageable pageable) {
-        return repositorio.findByCursoAndNomeContainingAndMatricula(curso, nome, matricula, pageable);
+    public Page<UsuarioEntidade> listUsuarios(Specification<UsuarioEntidade> specification, Pageable pageable) {
+        return repositorio.findAll(specification, pageable);
     }
 
     @Override

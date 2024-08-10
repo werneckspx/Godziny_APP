@@ -1,5 +1,6 @@
 package com.cefet.godziny.api.usuario;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @Setter
 public class UsuarioFiltroDto{
     
-    @NotNull
+    @Nullable
     private Integer matricula;
     
     @NotNull
