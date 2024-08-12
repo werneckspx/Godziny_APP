@@ -13,6 +13,7 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 
@@ -31,6 +32,8 @@ public class UsuarioEntidadeTest {
     private static final String EMAIL = "teste@teste.com";
     private static final String SENHA = "teste";
     private static final EnumRecursos TIPO = EnumRecursos.NORMAL;
+    private static final LocalDateTime DATA = LocalDateTime.now();
+
 
     @InjectMocks
     private UsuarioEntidade usuarioEntidade;
@@ -38,7 +41,7 @@ public class UsuarioEntidadeTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        usuarioEntidade = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO);
+        usuarioEntidade = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO, DATA);
     }
 
     @Test

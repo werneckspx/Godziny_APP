@@ -1,6 +1,7 @@
 package com.cefet.godziny.infraestrutura.persistencia.usuario;
 
 import org.junit.jupiter.api.Test;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,6 +42,8 @@ public class UsuarioRepositorioJpaTest {
     private static final String EMAIL = "teste@teste.com";
     private static final String SENHA = "teste";
     private static final EnumRecursos TIPO =EnumRecursos.NORMAL;
+    private static final LocalDateTime DATA = LocalDateTime.now();
+
 
     private Optional<UsuarioEntidade> optional;
     private UsuarioEntidade entidade;
@@ -240,14 +243,14 @@ public class UsuarioRepositorioJpaTest {
     }
     
     private Optional<UsuarioEntidade> createOptionalUsuario(){
-        UsuarioEntidade usuario = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO);
+        UsuarioEntidade usuario = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO, DATA);
     
         Optional<UsuarioEntidade> usuárioOptional = Optional.ofNullable(usuario);
         return usuárioOptional;
     }
 
     private UsuarioEntidade createUsuarioEntidade(){
-        UsuarioEntidade usuario = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO);
+        UsuarioEntidade usuario = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO, DATA);
         return usuario;
     }
 }

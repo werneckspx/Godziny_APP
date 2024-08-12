@@ -14,6 +14,7 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import java.lang.reflect.Method;
 import java.security.Key;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +31,8 @@ public class JwtServiceTest {
         "Usuario teste",
         "usuarioteste@gmail.com",
         "123456",
-        EnumRecursos.NORMAL
+        EnumRecursos.NORMAL,
+        LocalDateTime.now()
     );
 
     private String token;

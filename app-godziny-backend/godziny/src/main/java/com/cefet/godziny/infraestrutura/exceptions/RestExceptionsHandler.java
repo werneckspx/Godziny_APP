@@ -22,6 +22,7 @@ import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategori
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioNormalSemCursoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.RemoverUsuarioComAtividadesException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.UsuarioNaoEncontradoException;
 
@@ -58,6 +59,12 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CriarUsuarioIncompletoException.class)
     public ResponseEntity<RestDefaultErrorMessage> criarUsuarioIncompletoException(CriarUsuarioIncompletoException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(CriarUsuarioNormalSemCursoException.class)
+    public ResponseEntity<RestDefaultErrorMessage> criarUsuarioNormalSemCursoException(CriarUsuarioNormalSemCursoException exception) {
         RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }

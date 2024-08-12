@@ -70,7 +70,7 @@ public class RemoverCategoriaCasoUsoTest {
         this.entidade = createCategoriaEntidade();
         List<AtividadeEntidade> atividadeList = List.of(new AtividadeEntidade(
             UUID.randomUUID(),
-            new UsuarioEntidade(99999, createCursoEntidade(), "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.NORMAL),
+            new UsuarioEntidade(99999, createCursoEntidade(), "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.NORMAL, LocalDateTime.now()),
             this.entidade,
             "nome atividade TESTE",
             LocalDateTime.now(),

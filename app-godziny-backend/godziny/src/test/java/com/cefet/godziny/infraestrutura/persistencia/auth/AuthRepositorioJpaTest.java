@@ -1,5 +1,6 @@
 package com.cefet.godziny.infraestrutura.persistencia.auth;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +42,8 @@ public class AuthRepositorioJpaTest {
         "Usuario teste",
         "usuarioteste@gmail.com",
         "123456",
-        EnumRecursos.NORMAL
+        EnumRecursos.NORMAL,
+        LocalDateTime.now()
     );
 
     private AuthDto authDto;

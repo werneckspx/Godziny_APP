@@ -31,11 +31,9 @@ import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaReposito
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -55,7 +53,8 @@ public class AtividadeControleTest{
         "Usuario teste",
         "usuarioteste@gmail.com",
         "123456",
-        EnumRecursos.NORMAL
+        EnumRecursos.NORMAL,
+        LocalDateTime.now()
     );
     private static final CategoriaEntidade CATEGORIA = new CategoriaEntidade(
         UUID.randomUUID(),

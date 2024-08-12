@@ -19,6 +19,7 @@ import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.cefet.godziny.infraestrutura.persistencia.auth.AuthRepositorioJpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @SpringBootTest
@@ -68,7 +69,7 @@ public class  AuthControleTest {
 
     private AuthResponseDto createAuthResponseDto(){
         CursoRecuperarDto cursoRecuperarDto = new CursoRecuperarDto(UUID.randomUUID(), "ENG_ELE_BH", "Engenhari Elétrica", 500);
-        UsuarioRecuperarDto usuarioRecuperarDto = new UsuarioRecuperarDto(99999, cursoRecuperarDto, "nome TESTE", EMAIL, SENHA, EnumRecursos.ADM);
+        UsuarioRecuperarDto usuarioRecuperarDto = new UsuarioRecuperarDto(99999, cursoRecuperarDto, "nome TESTE", EMAIL, SENHA, EnumRecursos.ADM, LocalDateTime.now());
         AuthResponseDto authResponseDto = new AuthResponseDto();
         authResponseDto.setToken(TOKEN);
         authResponseDto.setUsuario(usuarioRecuperarDto);

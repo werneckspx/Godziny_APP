@@ -98,7 +98,8 @@ public class RemoverAtividadeCasoUsoTest {
                 "nome TESTE",
                 "teste@test.com",
                 "senha TESTE",
-                EnumRecursos.NORMAL
+                EnumRecursos.NORMAL,
+                LocalDateTime.now()
             ),
             new CategoriaEntidade(
                 UUID.randomUUID(),

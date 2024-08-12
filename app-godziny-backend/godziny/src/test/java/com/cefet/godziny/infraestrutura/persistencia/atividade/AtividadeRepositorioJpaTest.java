@@ -53,7 +53,8 @@ public class AtividadeRepositorioJpaTest {
         "nome TESTE",
         "teste@test.com",
         "senha TESTE",
-        EnumRecursos.NORMAL
+        EnumRecursos.NORMAL,
+        LocalDateTime.now()
     );
     private static final CategoriaEntidade CATEGORIA = new CategoriaEntidade(
         UUID.randomUUID(),
