@@ -21,6 +21,7 @@ import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoExc
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioAdmComCursoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioNormalSemCursoException;
@@ -88,6 +89,17 @@ public class RestExceptionsHandlerTest {
         CriarUsuarioNormalSemCursoException exception = new CriarUsuarioNormalSemCursoException();
 
         ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarUsuarioNormalSemCursoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testCriarUsuarioAdmComCurso() throws Exception {
+        CriarUsuarioAdmComCursoException exception = new CriarUsuarioAdmComCursoException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarUsuarioAdmComCursoException(exception);
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();

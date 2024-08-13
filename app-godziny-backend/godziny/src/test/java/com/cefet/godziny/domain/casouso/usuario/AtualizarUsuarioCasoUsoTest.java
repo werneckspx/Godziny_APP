@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioAdmComCursoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioNormalSemCursoException;
@@ -49,11 +50,28 @@ public class AtualizarUsuarioCasoUsoTest {
     }
     
     @Test
-    @DisplayName("Should valided an AtualizarUsuarioCasoUso successfully")
+    @DisplayName("Should valided an AtualizarUsuarioCasoUso ADM successfully")
     void testeAtualizarUsuarioCasoUsoSuccess() throws Exception {
         this.usuarioDto = createUsuarioDto();
         this.cursoEntidade = createCursoEntidade();
         this.atualizarUsuarioCasoUso.setTipo(EnumRecursos.ADM);
+        this.atualizarUsuarioCasoUso.setCursoSigla("");
+
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(cursoEntidade);
+        when(usuarioRepositorioJpa.updateUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(99999);
+        when(usuarioRepositorioJpa.findByEmail(Mockito.anyString())).thenReturn(null);
+        atualizarUsuarioCasoUso.validarAtualizacao();
+        Integer response = atualizarUsuarioCasoUso.AtualizarUsuario(usuarioDto);
+
+        assertThat(response).isInstanceOf(Integer.class);
+        assertThat(response).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Should valided an AtualizarUsuarioCasoUso NORMAL successfully")
+    void testeAtualizarUsuarioCasoUsoSuccess2() throws Exception {
+        this.usuarioDto = createUsuarioDto();
+        this.cursoEntidade = createCursoEntidade();
 
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(cursoEntidade);
         when(usuarioRepositorioJpa.updateUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(99999);
@@ -202,6 +220,20 @@ public class AtualizarUsuarioCasoUsoTest {
         
         assertThat(thrown).isNotNull();
         assertThat(thrown.getMessage()).isEqualTo("Usuários do tipo 'NORMAL' devem ser associados a um curso");
+    }
+
+    
+    @Test
+    @DisplayName("Try to update an Usuario and return an excepiton because an 'ADM' user mustn't have a Curso")
+    void testAtualizarUsuarioCasoUsoExceptionCase9() throws Exception{
+        this.atualizarUsuarioCasoUso.setTipo(EnumRecursos.ADM);
+
+        Exception thrown = assertThrows(CriarUsuarioAdmComCursoException.class, () -> {
+            this.atualizarUsuarioCasoUso.validarAtualizacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Usuários do tipo 'ADM' não podem ser associados a um curso");
     }
 
     private UsuarioDto createUsuarioDto(){
