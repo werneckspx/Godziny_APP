@@ -10,20 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 @Repository
 public interface UsuarioRepositorioJpaSpring extends JpaRepository<UsuarioEntidade, Integer>, JpaSpecificationExecutor<UsuarioEntidade> {
-    Optional<UsuarioEntidade> findByEmail(String email);
-
     Page<UsuarioEntidade> findByCurso(CursoEntidade curso, Pageable pageable);
 
-    Page<UsuarioEntidade> findByNomeContaining(String nome, Pageable pageable);
-
-    Page<UsuarioEntidade> findByMatricula(Integer matricula, Pageable pageable);
-
-    Page<UsuarioEntidade> findByCursoAndNomeContaining(CursoEntidade curso, String nome, Pageable pageable);
-
-    Page<UsuarioEntidade> findByCursoAndMatricula(CursoEntidade curso, Integer matricula, Pageable pageable);
-
-    Page<UsuarioEntidade> findByNomeContainingAndMatricula(String nome, Integer matricula, Pageable pageable);
-    
-    Page<UsuarioEntidade> findByCursoAndNomeContainingAndMatricula(CursoEntidade curso, String nome, Integer matricula, Pageable pageable);
+    Optional<UsuarioEntidade> findByEmail(String email);
 }
-
