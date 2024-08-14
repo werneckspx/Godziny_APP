@@ -254,7 +254,8 @@ public class AtualizarUsuarioCasoUsoTest {
             UUID.randomUUID(),
             "CURSO_ID_TESTE",
             "TESTE",
-            100
+            100,
+            new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now())
         );
         return curso;
     }

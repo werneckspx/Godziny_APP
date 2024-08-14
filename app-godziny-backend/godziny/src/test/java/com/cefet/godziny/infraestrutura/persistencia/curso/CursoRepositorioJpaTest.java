@@ -1,5 +1,6 @@
 package com.cefet.godziny.infraestrutura.persistencia.curso;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,7 +18,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
+
+import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
+import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
@@ -32,6 +37,7 @@ public class CursoRepositorioJpaTest {
     private static final String SIGLA = "ODONT_DIV";
     private static final Integer CARGA_HORARIA_COMPLEMENTAR = 615;
     private static final String NOME = "Odontologia";
+    private static final UsuarioEntidade COORDENADOR = new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now());
 
     private Optional<CursoEntidade> optional;
     private CursoEntidade entidade;
@@ -233,14 +239,14 @@ public class CursoRepositorioJpaTest {
 
 
     private Optional<CursoEntidade> createOptionalCurso(){
-        CursoEntidade curso = new CursoEntidade(ID, SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
+        CursoEntidade curso = new CursoEntidade(ID, SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR, COORDENADOR);
     
         Optional<CursoEntidade> cursoOptional = Optional.ofNullable(curso);
         return cursoOptional;
     }
 
     private CursoEntidade createCursoEntidade(){
-        CursoEntidade curso = new CursoEntidade(ID, SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR);
+        CursoEntidade curso = new CursoEntidade(ID, SIGLA, NOME, CARGA_HORARIA_COMPLEMENTAR, COORDENADOR);
         return curso;
     }
 }

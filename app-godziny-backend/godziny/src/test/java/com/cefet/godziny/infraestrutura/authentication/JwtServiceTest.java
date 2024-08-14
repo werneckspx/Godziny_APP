@@ -26,7 +26,8 @@ public class JwtServiceTest {
             UUID.randomUUID(),
             "ENG_ELET_BH",
             "Engenharia Elétrica",
-            500
+            500,
+            new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now())
         ),
         "Usuario teste",
         "usuarioteste@gmail.com",

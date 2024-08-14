@@ -16,6 +16,7 @@ import com.cefet.godziny.infraestrutura.exceptions.auth.AuthEmailOuSenhaIncorret
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.RemoverCategoriaComAtividadesException;
+import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoComUsuarioNormalException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CriarCursoIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.CursoNaoEncontradoException;
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategoriasException;
@@ -44,6 +45,12 @@ public class RestExceptionsHandler extends ResponseEntityExceptionHandler {
         error.setStatus(HttpStatus.NOT_FOUND);
         error.setDetail(exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(CriarCursoComUsuarioNormalException.class)
+    public ResponseEntity<RestDefaultErrorMessage> criarCursoComUsuarioNormalException(CriarCursoComUsuarioNormalException exception) {
+        RestDefaultErrorMessage error = new RestDefaultErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     @ExceptionHandler(RemoverCursoComUsuariosException.class)

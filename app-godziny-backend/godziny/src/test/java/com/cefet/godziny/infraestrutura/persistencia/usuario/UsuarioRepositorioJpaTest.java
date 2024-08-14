@@ -37,7 +37,8 @@ public class UsuarioRepositorioJpaTest {
         UUID.randomUUID(),
         "ODONT_DIV",
         "Odontologia",
-        615
+        615,
+        new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now())
     );
     private static final String EMAIL = "teste@teste.com";
     private static final String SENHA = "teste";

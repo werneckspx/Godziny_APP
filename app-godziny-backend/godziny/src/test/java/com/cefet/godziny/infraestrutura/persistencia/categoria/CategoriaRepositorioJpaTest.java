@@ -1,5 +1,6 @@
 package com.cefet.godziny.infraestrutura.persistencia.categoria;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +19,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
+
+import com.cefet.godziny.constantes.usuario.EnumRecursos;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
+import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
@@ -35,7 +40,8 @@ public class CategoriaRepositorioJpaTest {
         UUID.randomUUID(),
         "ODONT_DIV",
         "Odontologia",
-        1
+        1,
+        new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now())
     );
     private static final String NOME = "Categoria Teste";
     private static final float PORCENTAGEM_HORAS_MAXIMAS = (float) 0.5;
