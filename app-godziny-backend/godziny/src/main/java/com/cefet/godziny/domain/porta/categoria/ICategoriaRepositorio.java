@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 
@@ -14,7 +16,7 @@ public interface ICategoriaRepositorio {
 
     List<CategoriaEntidade> findByCurso(CursoEntidade curso);
 
-    Page<CategoriaEntidade> listCategorias(Pageable pageable);
+    Page<CategoriaEntidade> listCategorias(Specification<CategoriaEntidade> specification, Pageable pageable);
     
     UUID createCategoria(CategoriaEntidade categoria);
 

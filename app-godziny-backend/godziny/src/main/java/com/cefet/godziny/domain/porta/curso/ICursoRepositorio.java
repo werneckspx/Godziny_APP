@@ -4,17 +4,13 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
-//import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 
 public interface ICursoRepositorio {
 
     CursoEntidade findBySigla(String sigla) throws Exception;
 
     Optional<CursoEntidade>findBySiglaOptional(String sigla);
-
-    //Page<CursoEntidade> listCursos(Pageable pageable);
 
     Page<CursoEntidade> listCursos(Specification<CursoEntidade> specification, Pageable pageable);
     

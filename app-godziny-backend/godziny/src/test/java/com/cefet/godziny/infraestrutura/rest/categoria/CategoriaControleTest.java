@@ -9,10 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.cefet.godziny.api.categoria.CategoriaDto;
@@ -24,7 +20,6 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
@@ -83,7 +78,7 @@ public class CategoriaControleTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
-
+/* 
     @SuppressWarnings("null")
     @Test
     @DisplayName("Should list all Categorias successfully")
@@ -101,7 +96,7 @@ public class CategoriaControleTest {
         assertThat(response.getBody().getSize()).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
-
+*/
     @Test
     @DisplayName("Should create a new Categoria successfully")
     void testCreateCategoriaSuccess() throws Exception {

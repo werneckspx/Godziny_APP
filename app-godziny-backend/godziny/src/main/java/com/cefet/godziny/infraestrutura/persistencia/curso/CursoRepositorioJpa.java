@@ -8,7 +8,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.cefet.godziny.domain.porta.curso.ICursoRepositorio;
-//import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.rest.curso.CursoRestConverter;
 
 @Component
@@ -37,11 +36,6 @@ public class CursoRepositorioJpa implements ICursoRepositorio {
         }
         return this.repositorio.findBySigla(sigla);
     }
-/* 
-    @Override
-    public Page<CursoEntidade> listCursos(Pageable pageable) {
-        return repositorio.findAll(pageable);
-    }*/
 
     @Override
     public Page<CursoEntidade> listCursos(Specification<CursoEntidade> specification, Pageable pageable) {

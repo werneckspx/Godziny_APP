@@ -21,12 +21,7 @@ public class ListarCursoCasoUso {
         createCursoDto(entidade);
         return createCursoRecuperarDto(entidade);
     }
-/* 
-    public Page<CursoRecuperarDto> listarCursos(Pageable pageable) {
-        Page<CursoRecuperarDto> pageCursoDto = cursoRepositorioJpa.listCursos(pageable).map(CursoRestConverter::EntidadeToCursoRecuperarDto);
-        return pageCursoDto;
-    }*/
-
+    
     private CursoDto createCursoDto(CursoEntidade cursoEntidade){
         CursoDto dto = new  CursoDto();
         dto.setId(cursoEntidade.getId());

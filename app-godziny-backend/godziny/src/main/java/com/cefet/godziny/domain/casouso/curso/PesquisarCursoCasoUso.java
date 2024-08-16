@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-
 import com.cefet.godziny.api.curso.CursoRecuperarDto;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
@@ -22,11 +21,6 @@ public class PesquisarCursoCasoUso {
 
     @NotNull(message = "O nome do curso é obrigatório")
     private String nome;
-
-    /* 
-    public CursoEntidade validarPesquisa() throws Exception {
-        return cursoRepositorioJpa.findBySigla(sigla);
-    }*/
     
     public Page<CursoRecuperarDto> pesquisarCursos(Pageable pageable) {
         Specification<CursoEntidade> specification = Specification.where(null);

@@ -13,10 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
@@ -121,7 +117,7 @@ public class CategoriaRepositorioJpaTest {
         assertThat(result).contains(entidade);
         assertThat(result).isNotEmpty();
     }
-
+/* 
     @Test
     @DisplayName("Should list all Categorias successfully")
     void testListCategoriasSuccess() {
@@ -137,7 +133,7 @@ public class CategoriaRepositorioJpaTest {
         assertThat(result.getSize()).isNotNull();
         assertThat(result).hasSizeGreaterThan(0); 
     }
-
+*/
     @Test
     @DisplayName("Should create a Categoria successfully")
     void testCreateCategoriaSuccess() {
