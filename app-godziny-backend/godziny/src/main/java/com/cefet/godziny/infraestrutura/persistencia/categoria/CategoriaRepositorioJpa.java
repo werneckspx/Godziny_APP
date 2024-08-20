@@ -3,6 +3,8 @@ package com.cefet.godziny.infraestrutura.persistencia.categoria;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +43,22 @@ public class CategoriaRepositorioJpa implements ICategoriaRepositorio{
     @Override
     public Page<CategoriaEntidade> listCategorias(Specification<CategoriaEntidade> specification, Pageable pageable) {
         return repositorio.findAll(specification, pageable);
+    }
+
+    @Override
+    public CategoriaEntidade findByNome(String nome) {
+        Optional<CategoriaEntidade> entidade = repositorio.findByNome(nome);
+        if(!entidade.isPresent()){
+            return null;
+        }
+        var categoriaEntidade = new CategoriaEntidade();
+        BeanUtils.copyProperties(entidade.get(), categoriaEntidade);
+        return categoriaEntidade;
+    }
+
+    @Override
+    public Optional<CategoriaEntidade > findByNomeOptional(String nome) {
+        return repositorio.findByNome(nome);
     }
 
     @Override

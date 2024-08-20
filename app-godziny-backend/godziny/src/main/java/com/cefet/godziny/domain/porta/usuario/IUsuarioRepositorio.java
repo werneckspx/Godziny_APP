@@ -1,11 +1,9 @@
 package com.cefet.godziny.domain.porta.usuario;
 
 import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 
@@ -15,7 +13,11 @@ public interface IUsuarioRepositorio{
 
     UsuarioEntidade findByEmail(String email);
 
+    UsuarioEntidade findByNome(String nome);
+
     Optional<UsuarioEntidade> findByEmailOptional(String email);
+
+    Optional<UsuarioEntidade> findByNomeOptional(String nome);
 
     Page<UsuarioEntidade>listUsuariosByCurso(Pageable pageable, CursoEntidade curso);
 

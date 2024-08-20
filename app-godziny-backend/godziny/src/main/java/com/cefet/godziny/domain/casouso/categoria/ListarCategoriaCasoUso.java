@@ -23,15 +23,7 @@ public class ListarCategoriaCasoUso {
         createCategoriaRecuperarDto(entidade);
         return CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(entidade);
     }
-/* 
-    public Page<CategoriaRecuperarDto> listarCategorias(Pageable pageable) {
-        Page<CategoriaRecuperarDto> pageCategoriaDto = categoriaRepositorioJpa.listCategorias(pageable).map(
-            categoriaEntidade -> CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(
-                categoriaEntidade
-        ));
-        return pageCategoriaDto;
-    }
-*/
+    
     private CategoriaRecuperarDto createCategoriaRecuperarDto(CategoriaEntidade categoriaEntidade){
         CategoriaRecuperarDto dto = new  CategoriaRecuperarDto();
         dto.setId(categoriaEntidade.getId());

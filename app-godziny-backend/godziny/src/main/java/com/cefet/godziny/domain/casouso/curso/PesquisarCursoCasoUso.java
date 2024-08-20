@@ -31,7 +31,7 @@ public class PesquisarCursoCasoUso {
         }
         if (sigla != null) {
             specification = specification.and((root, query, criteriaBuilder) -> 
-                criteriaBuilder.equal(root.get("sigla"), sigla));
+                criteriaBuilder.like(root.get("sigla"), "%" + sigla + "%"));
         }
 
         Page<CursoRecuperarDto> pageCursoRecuperarDto = cursoRepositorioJpa.listCursos(specification, pageable)

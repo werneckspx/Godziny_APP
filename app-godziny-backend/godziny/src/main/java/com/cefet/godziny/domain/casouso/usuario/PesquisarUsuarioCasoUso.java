@@ -34,7 +34,7 @@ public class PesquisarUsuarioCasoUso {
         return cursoRepositorioJpa.findBySigla(cursoSigla);
     }
     
-    public Page<UsuarioRecuperarDto> pesquisarUsuarios(Pageable pageable, CursoEntidade cursoEntidade) {
+    public Page<UsuarioRecuperarDto> pesquisarUsuarios(Pageable pageable) {
         Specification<UsuarioEntidade> specification = Specification.where(null);
     
         if (nome != null && !nome.isEmpty()) {
@@ -43,11 +43,11 @@ public class PesquisarUsuarioCasoUso {
         }
         if (matricula != null) {
             specification = specification.and((root, query, criteriaBuilder) -> 
-                criteriaBuilder.equal(root.get("matricula"), matricula));
+                criteriaBuilder.like(root.get("matricula"), "%" + matricula + "%"));
         }
-        if (cursoEntidade != null) {
-            specification = specification.and((root, query, criteriaBuilder) -> 
-                criteriaBuilder.equal(root.get("curso"), cursoEntidade));
+        if (cursoSigla != null) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                criteriaBuilder.like(criteriaBuilder.lower(root.get("curso").get("sigla")), "%" + cursoSigla.toLowerCase() + "%"));
         }
     
         Page<UsuarioRecuperarDto> pageUsuarioRecuperarDto = usuarioRepositorioJpa.listUsuarios(specification, pageable)

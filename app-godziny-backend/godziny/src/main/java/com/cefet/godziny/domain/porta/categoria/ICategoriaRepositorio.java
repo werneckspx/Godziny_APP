@@ -1,11 +1,11 @@
 package com.cefet.godziny.domain.porta.categoria;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-
 import com.cefet.godziny.infraestrutura.persistencia.categoria.CategoriaEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.curso.CursoEntidade;
 
@@ -15,6 +15,10 @@ public interface ICategoriaRepositorio {
     List<CategoriaEntidade> findByCursoAndNome(CursoEntidade curso, String nome);
 
     List<CategoriaEntidade> findByCurso(CursoEntidade curso);
+
+    CategoriaEntidade findByNome(String nome);
+
+    Optional<CategoriaEntidade> findByNomeOptional(String nome);
 
     Page<CategoriaEntidade> listCategorias(Specification<CategoriaEntidade> specification, Pageable pageable);
     

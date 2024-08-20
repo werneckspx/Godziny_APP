@@ -39,6 +39,22 @@ public class UsuarioRepositorioJpa implements IUsuarioRepositorio {
     }
 
     @Override
+    public UsuarioEntidade findByNome(String nome) {
+        Optional<UsuarioEntidade> entidade = repositorio.findByNome(nome);
+        if(!entidade.isPresent()){
+            return null;
+        }
+        var usuarioEntidade = new UsuarioEntidade();
+        BeanUtils.copyProperties(entidade.get(), usuarioEntidade);
+        return usuarioEntidade;
+    }
+
+    @Override
+    public Optional<UsuarioEntidade > findByNomeOptional(String nome) {
+        return repositorio.findByNome(nome);
+    }
+
+    @Override
     public Optional<UsuarioEntidade > findByEmailOptional(String email) {
         return repositorio.findByEmail(email);
     }
