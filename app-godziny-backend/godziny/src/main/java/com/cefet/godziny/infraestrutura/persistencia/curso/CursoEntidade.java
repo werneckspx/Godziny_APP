@@ -9,7 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +40,7 @@ public class CursoEntidade implements Serializable {
     @Column(nullable = false)
     private int carga_horaria_complementar;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "coordenador_id", referencedColumnName = "matricula")
     private UsuarioEntidade coordenador;
 }
