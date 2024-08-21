@@ -7,10 +7,8 @@ import org.springframework.data.jpa.domain.Specification;
 import com.cefet.godziny.api.atividade.AtividadeRecuperarDto;
 import com.cefet.godziny.constantes.atividade.EnumStatus;
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeRepositorioJpa;
-
 import com.cefet.godziny.infraestrutura.persistencia.atividade.AtividadeEntidade;
 import com.cefet.godziny.infraestrutura.rest.atividade.AtividadeRestConverter;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
