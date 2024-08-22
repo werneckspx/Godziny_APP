@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioAdmComCursoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioNormalSemCursoException;
@@ -63,6 +64,9 @@ public class CriarUsuarioCasoUso {
         }
         if(this.tipo == EnumRecursos.NORMAL && this.cursoSigla == ""){
             throw new CriarUsuarioNormalSemCursoException();
+        }
+        if(this.tipo == EnumRecursos.ADM && this.cursoSigla != ""){
+            throw new CriarUsuarioAdmComCursoException();
         }
     }
 

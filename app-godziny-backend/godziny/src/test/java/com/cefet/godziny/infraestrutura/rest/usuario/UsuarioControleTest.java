@@ -29,7 +29,13 @@ import java.util.UUID;
 public class UsuarioControleTest {
     private static final Integer MATRICULA = 99999;
     private static final String CURSO_ID = "CURSO_TESTE";
-    private static final CursoEntidade CURSO_ENTIDADE = new CursoEntidade(UUID.randomUUID(),"ENG_ELET_BH", "Engenharia Elétrica", 500);
+    private static final CursoEntidade CURSO_ENTIDADE = new CursoEntidade(
+        UUID.randomUUID(),
+        "ENG_ELET_BH",
+        "Engenharia Elétrica",
+        500,
+        new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now())
+    );
     private static final String NOME = "Usuário para Testes";
     private static final String EMAIL = "usuarioteste@usuariotese.com";
     private static final String SENHA = "teste123";

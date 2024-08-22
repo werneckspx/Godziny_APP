@@ -28,10 +28,12 @@ public class ListarCursoCasoUso {
         dto.setSigla(cursoEntidade.getSigla());
         dto.setNome(cursoEntidade.getNome());
         dto.setCarga_horaria_complementar(cursoEntidade.getCarga_horaria_complementar());
+        dto.setCoordenador_matricula(cursoEntidade.getCoordenador().getMatricula());
         dto.getId();
         dto.getSigla();
         dto.getNome();
         dto.getCarga_horaria_complementar();
+        dto.getCoordenador_matricula();
         return dto;
     }
 
@@ -41,10 +43,12 @@ public class ListarCursoCasoUso {
         dto.setSigla(cursoEntidade.getSigla());
         dto.setNome(cursoEntidade.getNome());
         dto.setCarga_horaria_complementar(cursoEntidade.getCarga_horaria_complementar());
+        dto.setCoordenador(UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(cursoEntidade.getCoordenador()));
         dto.getId();
         dto.getSigla();
         dto.getNome();
         dto.getCarga_horaria_complementar();
+        dto.getCoordenador();
         return dto;
     }
 }

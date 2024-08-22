@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cefet.godziny.api.usuario.UsuarioDto;
 import com.cefet.godziny.constantes.usuario.EnumRecursos;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioAdmComCursoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioNormalSemCursoException;
@@ -51,11 +52,27 @@ public class CriarUsuarioCasoUsoTest {
     }
     
     @Test
-    @DisplayName("Should valided an CriarUsuarioCasoUso successfully")
+    @DisplayName("Should valided an CriarUsuarioCasoUso ADM successfully")
     void testeCriarUsuarioCasoUsoSuccess() throws Exception {
         this.usuarioDto = createUsuarioDto();
         this.cursoEntidade = createCursoEntidade();
         this.criarUsuarioCasoUso.setTipo(EnumRecursos.ADM);
+        this.criarUsuarioCasoUso.setCursoSigla("");
+        
+        when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(cursoEntidade);
+        when(usuarioRepositorioJpa.createUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(99999);
+        this.criarUsuarioCasoUso.validarCriacao();
+        Integer response = criarUsuarioCasoUso.createUsuario(usuarioDto);
+
+        assertThat(response).isInstanceOf(Integer.class);
+        assertThat(response).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Should valided an CriarUsuarioCasoUso NORMAL successfully")
+    void testeCriarUsuarioCasoUsoSuccess2() throws Exception {
+        this.usuarioDto = createUsuarioDto();
+        this.cursoEntidade = createCursoEntidade();
         
         when(cursoRepositorioJpa.findBySigla(Mockito.anyString())).thenReturn(cursoEntidade);
         when(usuarioRepositorioJpa.createUsuario(Mockito.any(UsuarioEntidade.class))).thenReturn(99999);
@@ -180,6 +197,21 @@ public class CriarUsuarioCasoUsoTest {
         assertThat(thrown.getMessage()).isEqualTo("Usuários do tipo 'NORMAL' devem ser associados a um curso");
     }
 
+    @Test
+    @DisplayName("Try to create an Usuario and return an excepiton because an 'ADM' user mustn't have a Curso")
+    void testCriarUsuarioCasoUsoExceptionCase9() throws Exception{
+        this.criarUsuarioCasoUso.setTipo(EnumRecursos.ADM);
+
+        Exception thrown = assertThrows(CriarUsuarioAdmComCursoException.class, () -> {
+            this.criarUsuarioCasoUso.validarCriacao();
+        });
+        
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Usuários do tipo 'ADM' não podem ser associados a um curso");
+    }
+
+     
+
     private UsuarioDto createUsuarioDto(){
         UsuarioDto dto = new UsuarioDto(
             999999, 
@@ -198,7 +230,8 @@ public class CriarUsuarioCasoUsoTest {
             UUID.randomUUID(),
             "CURSO_ID_TESTE",
             "TESTE",
-            100
+            100,
+            new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now())
         );
         return curso;
     }

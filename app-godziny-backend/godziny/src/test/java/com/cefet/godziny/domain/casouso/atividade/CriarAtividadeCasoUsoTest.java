@@ -137,7 +137,13 @@ public class CriarAtividadeCasoUsoTest {
 
 
     private AtividadeEntidade createAtividadeEntidade(){
-        CursoEntidade CURSO = new CursoEntidade(UUID.randomUUID(), "ODONT_DIV", "Odontologia", 300);
+        CursoEntidade CURSO = new CursoEntidade(
+            UUID.randomUUID(),
+            "ODONT_DIV",
+            "Odontologia",
+            300,
+            new UsuarioEntidade(99999, null, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.ADM, LocalDateTime.now())
+        );
         return new AtividadeEntidade(
             UUID.randomUUID(),
             new UsuarioEntidade(99999, CURSO, "nome TESTE", "teste@test.com", "senha TESTE", EnumRecursos.NORMAL, LocalDateTime.now()),
