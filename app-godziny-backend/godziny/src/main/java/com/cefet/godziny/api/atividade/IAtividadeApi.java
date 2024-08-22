@@ -18,7 +18,7 @@ public interface IAtividadeApi {
 
     @GetMapping("/pesquisar")
         ResponseEntity<Page<AtividadeRecuperarDto>> pesquisarAtividade(
-            @PageableDefault(page = 0, size = 10, sort = "nome", direction = Sort.Direction.ASC)
+            @PageableDefault(page = 0, size = 10, sort = "titulo", direction = Sort.Direction.ASC)
             Pageable pageable,
             @RequestBody @Valid AtividadeFiltroDto atividadeFiltroDto
         ) throws Exception;

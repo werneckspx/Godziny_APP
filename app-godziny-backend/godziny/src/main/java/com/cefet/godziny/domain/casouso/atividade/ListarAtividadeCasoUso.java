@@ -40,7 +40,7 @@ public class ListarAtividadeCasoUso {
         dto.setId(atividadeEntidade.getId());
         dto.setUsuario(UsuarioRestConverter.EntidadeToUsuarioRecuperarDto(atividadeEntidade.getUsuario()));
         dto.setCategoria(CategoriaRestConverter.EntidadeToCategoriaRecuperarDto(atividadeEntidade.getCategoria()));
-        dto.setTitulo(atividadeEntidade.getNome());
+        dto.setTitulo(atividadeEntidade.getTitulo());
         dto.setCreatedAt(atividadeEntidade.getCreatedAt());
         dto.setStatus(atividadeEntidade.getStatus());
         dto.setArquivoId(atividadeEntidade.getArquivo().getId());
