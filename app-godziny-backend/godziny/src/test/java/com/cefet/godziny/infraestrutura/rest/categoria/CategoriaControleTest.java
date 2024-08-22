@@ -78,25 +78,7 @@ public class CategoriaControleTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
-/* 
-    @SuppressWarnings("null")
-    @Test
-    @DisplayName("Should list all Categorias successfully")
-    void testListCategoriasSuccess() {
-        this.entidade = createCategoriaEntidade();
-        Page<CategoriaEntidade> page = new PageImpl<>(List.of(entidade));
-        Pageable pageable = PageRequest.of(0, 10);
-
-        when(categoriaRepositorioJpa.listCategorias(Mockito.any(Pageable.class))).thenReturn(page);
-        ResponseEntity<Page<CategoriaRecuperarDto>> response = controler.listCategorias(pageable);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getContent()).hasSizeGreaterThan(0); 
-        assertThat(response.getBody().getSize()).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-*/
+    
     @Test
     @DisplayName("Should create a new Categoria successfully")
     void testCreateCategoriaSuccess() throws Exception {
