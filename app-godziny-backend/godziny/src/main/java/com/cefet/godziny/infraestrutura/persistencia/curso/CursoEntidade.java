@@ -44,4 +44,3 @@ public class CursoEntidade implements Serializable {
     @JoinColumn(name = "coordenador_id", referencedColumnName = "matricula")
     private UsuarioEntidade coordenador;
 }
-

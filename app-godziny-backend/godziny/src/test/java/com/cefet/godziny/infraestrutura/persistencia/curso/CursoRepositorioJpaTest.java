@@ -1,5 +1,6 @@
 package com.cefet.godziny.infraestrutura.persistencia.curso;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;

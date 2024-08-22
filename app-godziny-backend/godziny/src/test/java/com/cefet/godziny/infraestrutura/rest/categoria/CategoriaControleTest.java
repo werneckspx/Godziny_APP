@@ -22,6 +22,8 @@ import com.cefet.godziny.infraestrutura.persistencia.curso.CursoRepositorioJpa;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @SpringBootTest
