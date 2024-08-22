@@ -22,6 +22,7 @@ import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioEntidade;
 import com.cefet.godziny.infraestrutura.persistencia.usuario.UsuarioRepositorioJpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @SpringBootTest
@@ -33,6 +34,7 @@ public class UsuarioControleTest {
     private static final String EMAIL = "usuarioteste@usuariotese.com";
     private static final String SENHA = "teste123";
     private static final EnumRecursos TIPO = EnumRecursos.NORMAL;
+    private static final LocalDateTime DATA = LocalDateTime.now();
 
     private UsuarioEntidade entidade;
     private UsuarioDto dto;
@@ -136,7 +138,7 @@ public class UsuarioControleTest {
     }
 
     private UsuarioEntidade createUsuarioEntidade(){
-        UsuarioEntidade usuario = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO);
+        UsuarioEntidade usuario = new UsuarioEntidade(MATRICULA, CURSO_ENTIDADE, NOME, EMAIL, SENHA, TIPO, DATA);
         return usuario;
     }
 
@@ -148,6 +150,7 @@ public class UsuarioControleTest {
         usuario.setEmail(EMAIL);
         usuario.setSenha(SENHA);
         usuario.setTipo(TIPO);
+        usuario.setCreatedAt(DATA);
         return usuario;
     }
 }

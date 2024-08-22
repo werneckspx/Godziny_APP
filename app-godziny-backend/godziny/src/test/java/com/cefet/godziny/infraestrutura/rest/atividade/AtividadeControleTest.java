@@ -46,7 +46,8 @@ public class AtividadeControleTest{
         "Usuario teste",
         "usuarioteste@gmail.com",
         "123456",
-        EnumRecursos.NORMAL
+        EnumRecursos.NORMAL,
+        LocalDateTime.now()
     );
     private static final CategoriaEntidade CATEGORIA = new CategoriaEntidade(
         UUID.randomUUID(),

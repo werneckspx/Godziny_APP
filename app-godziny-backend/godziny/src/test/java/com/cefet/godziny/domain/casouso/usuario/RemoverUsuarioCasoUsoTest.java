@@ -97,7 +97,8 @@ public class RemoverUsuarioCasoUsoTest {
             "TESTE",
             "teste@teste.com.br",
             "teste123",
-            EnumRecursos.NORMAL
+            EnumRecursos.NORMAL,
+            LocalDateTime.now()
         );
         return entidade;
     }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -83,7 +84,8 @@ public class RemoverCursoCasoUsoTest {
             "Teste", 
             "teste@teste.com",
             "teste",
-            EnumRecursos.NORMAL
+            EnumRecursos.NORMAL,
+            LocalDateTime.now()
         ));
         Page<UsuarioEntidade> pageUsers = new PageImpl<>(userList);
         List<CategoriaEntidade> listCategoria = List.of();

@@ -13,6 +13,7 @@ import com.cefet.godziny.infraestrutura.exceptions.atividade.LimiteCargaHorariaE
 import com.cefet.godziny.infraestrutura.exceptions.atividade.RemoverAtividadeSimulandoOuAprovadaException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoInvalidoException;
 import com.cefet.godziny.infraestrutura.exceptions.atividade.arquivo.ArquivoNaoEncontradoException;
+import com.cefet.godziny.infraestrutura.exceptions.auth.AuthEmailOuSenhaIncorretoException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CategoriaNaoEncontradaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.CriarCategoriaIncompletaException;
 import com.cefet.godziny.infraestrutura.exceptions.categoria.RemoverCategoriaComAtividadesException;
@@ -22,6 +23,7 @@ import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComCategori
 import com.cefet.godziny.infraestrutura.exceptions.curso.RemoverCursoComUsuariosException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioEmailRepetidoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioIncompletoException;
+import com.cefet.godziny.infraestrutura.exceptions.usuario.CriarUsuarioNormalSemCursoException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.RemoverUsuarioComAtividadesException;
 import com.cefet.godziny.infraestrutura.exceptions.usuario.UsuarioNaoEncontradoException;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -75,6 +77,17 @@ public class RestExceptionsHandlerTest {
         CriarUsuarioIncompletoException exception = new CriarUsuarioIncompletoException("Usuário incompleto");
 
         ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarUsuarioIncompletoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testCriarUsuarioNormalSemCurso() throws Exception {
+        CriarUsuarioNormalSemCursoException exception = new CriarUsuarioNormalSemCursoException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.criarUsuarioNormalSemCursoException(exception);
 
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
@@ -244,5 +257,16 @@ public class RestExceptionsHandlerTest {
         assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testAuthEmailOuSenhaIncorretoException() throws Exception {
+        AuthEmailOuSenhaIncorretoException exception = new AuthEmailOuSenhaIncorretoException();
+
+        ResponseEntity<RestDefaultErrorMessage> response = restExceptionsHandler.authEmailOuSenhaIncorretoException(exception);
+
+        assertThat(response.getBody()).isInstanceOf(RestDefaultErrorMessage.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 }
